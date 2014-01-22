@@ -22,6 +22,7 @@
 		6A6D0E80188F3FDF00CAD90B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6D0E64188F3FDF00CAD90B /* CoreData.framework */; };
 		6A6D0E88188F3FDF00CAD90B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A6D0E86188F3FDF00CAD90B /* InfoPlist.strings */; };
 		6A6D0E8A188F3FDF00CAD90B /* connectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6D0E89188F3FDF00CAD90B /* connectTests.m */; };
+		E06CA0F0188F4632003BE618 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E06CA0EF188F4632003BE618 /* Storyboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		6A6D0E85188F3FDF00CAD90B /* connectTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "connectTests-Info.plist"; sourceTree = "<group>"; };
 		6A6D0E87188F3FDF00CAD90B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6A6D0E89188F3FDF00CAD90B /* connectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = connectTests.m; sourceTree = "<group>"; };
+		E06CA0EF188F4632003BE618 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 		6A6D0E52188F3FDF00CAD90B = {
 			isa = PBXGroup;
 			children = (
+				E06CA0EF188F4632003BE618 /* Storyboard.storyboard */,
 				6A6D0E66188F3FDF00CAD90B /* connect */,
 				6A6D0E83188F3FDF00CAD90B /* connectTests */,
 				6A6D0E5D188F3FDF00CAD90B /* Frameworks */,
@@ -230,6 +233,7 @@
 			files = (
 				6A6D0E6B188F3FDF00CAD90B /* InfoPlist.strings in Resources */,
 				6A6D0E76188F3FDF00CAD90B /* Images.xcassets in Resources */,
+				E06CA0F0188F4632003BE618 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +455,7 @@
 				6A6D0E8F188F3FDF00CAD90B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6A6D0E90188F3FDF00CAD90B /* Build configuration list for PBXNativeTarget "connectTests" */ = {
 			isa = XCConfigurationList;
@@ -459,6 +464,7 @@
 				6A6D0E92188F3FDF00CAD90B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

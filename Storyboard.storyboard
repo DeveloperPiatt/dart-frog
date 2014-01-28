@@ -168,7 +168,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="XRp-9D-ghI" kind="push" id="lRJ-HE-WKL"/>
+                                    <segue destination="XRp-9D-ghI" kind="push" identifier="seeDetals" id="lRJ-HE-WKL"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SymposiumCell" rowHeight="120" id="KxF-6O-Yfk">
@@ -211,7 +211,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="XRp-9D-ghI" kind="push" id="odN-ug-3CD"/>
+                                    <segue destination="XRp-9D-ghI" kind="push" identifier="seeDetals" id="odN-ug-3CD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -282,7 +282,7 @@
                                         <rect key="frame" x="284" y="62" width="26" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qnl-ka-Rvm">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qnl-ka-Rvm">
                                         <rect key="frame" x="10" y="118" width="300" height="327"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -355,7 +355,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="4Zb-3y-mdZ" kind="push" id="QyC-y3-c7F"/>
+                        <segue destination="4Zb-3y-mdZ" kind="push" identifier="" id="QyC-y3-c7F"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zb8-fH-PrF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -797,7 +797,7 @@
                                             <color key="textColor" red="0.76470595600000002" green="0.26666668059999998" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nua-Ol-VAP">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nua-Ol-VAP">
                                             <rect key="frame" x="10" y="44" width="297" height="60"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

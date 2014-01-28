@@ -336,7 +336,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="541-737-2272" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWI-6d-9r1">
-                                            <rect key="frame" x="10" y="30" width="108" height="17"/>
+                                            <rect key="frame" x="10" y="30" width="130" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.76470595600000002" green="0.26666668059999998" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
@@ -362,7 +362,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="4Zb-3y-mdZ" kind="push" identifier="" id="QyC-y3-c7F"/>
+                        <segue destination="4Zb-3y-mdZ" kind="relationship" relationship="rootViewController" id="V4k-m5-mX7"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zb8-fH-PrF" userLabel="First Responder" sceneMemberID="firstResponder"/>

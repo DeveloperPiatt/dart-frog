@@ -775,7 +775,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Social" id="u3C-EP-gxb"/>
                     <connections>
-                        <segue destination="CPI-ee-ubE" kind="push" id="YIM-aT-Wkp"/>
+                        <segue destination="CPI-ee-ubE" kind="push" identifier="twitterToFacebook" id="YIM-aT-Wkp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LMI-Hv-8LJ" userLabel="First Responder" sceneMemberID="firstResponder"/>

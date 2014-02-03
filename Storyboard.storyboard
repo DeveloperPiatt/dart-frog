@@ -13,11 +13,11 @@
                         <viewControllerLayoutGuide type="bottom" id="cv1-8T-GiI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="byU-Dr-I67">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="45" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="hkV-c3-1Cu">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -57,7 +57,7 @@
             <objects>
                 <tableViewController id="KSi-yB-ne5" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="fvQ-SH-ATg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -235,7 +235,7 @@
                         <viewControllerLayoutGuide type="bottom" id="0cE-QU-Jd3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="IBC-He-aYr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UKe-f3-lmh" userLabel="Extra Info View">
@@ -346,11 +346,11 @@
             </objects>
             <point key="canvasLocation" x="572" y="836"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller - Feedback-->
         <scene sceneID="sB8-gx-vyy">
             <objects>
-                <navigationController definesPresentationContext="YES" id="Rau-zy-d8t" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="AS0-dp-eaa"/>
+                <navigationController title="Feedback" definesPresentationContext="YES" id="Rau-zy-d8t" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Feedback" id="AS0-dp-eaa"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4TV-H5-2wC">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -423,11 +423,11 @@
             </objects>
             <point key="canvasLocation" x="572" y="2328"/>
         </scene>
-        <!--Navigation Controller - Item 7-->
+        <!--Navigation Controller - Phone Numbers-->
         <scene sceneID="e1E-ku-9EY">
             <objects>
-                <navigationController title="Item 7" definesPresentationContext="YES" id="4bJ-0u-g42" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="tzs-ML-QSd"/>
+                <navigationController title="Phone Numbers" definesPresentationContext="YES" id="4bJ-0u-g42" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Phone Numbers" id="tzs-ML-QSd"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="j22-Np-QcK">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -464,11 +464,11 @@
             </objects>
             <point key="canvasLocation" x="-1543" y="-437"/>
         </scene>
-        <!--Navigation Controller - Item 1-->
+        <!--Navigation Controller - Food-->
         <scene sceneID="w73-sn-iO6">
             <objects>
-                <navigationController title="Item 1" definesPresentationContext="YES" id="FAf-wv-ogt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="dmc-LT-vQV"/>
+                <navigationController title="Food" definesPresentationContext="YES" id="FAf-wv-ogt" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Food" id="dmc-LT-vQV"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zSf-2a-IPQ">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -618,7 +618,7 @@
         <scene sceneID="ald-hs-4ao">
             <objects>
                 <navigationController title="Map" definesPresentationContext="YES" id="jk9-Re-bYu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="oD6-kK-hSg"/>
+                    <tabBarItem key="tabBarItem" title="Map" id="oD6-kK-hSg"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tAr-H1-aOn">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -659,7 +659,7 @@
         <scene sceneID="np1-wO-O6P">
             <objects>
                 <navigationController title="Social" definesPresentationContext="YES" id="bts-Pe-4By" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="0S9-rG-1xi"/>
+                    <tabBarItem key="tabBarItem" title="Social" id="0S9-rG-1xi"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qmn-C7-diT">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -949,7 +949,7 @@
         <scene sceneID="uzF-Qg-MGb">
             <objects>
                 <navigationController title="News" definesPresentationContext="YES" id="JtJ-no-knK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="sGK-AU-BCe"/>
+                    <tabBarItem key="tabBarItem" title="News" id="sGK-AU-BCe"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tev-vc-GUn">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -961,11 +961,11 @@
             </objects>
             <point key="canvasLocation" x="31" y="-1466"/>
         </scene>
-        <!--Navigation Controller - Item 3-->
+        <!--Navigation Controller - FAQ-->
         <scene sceneID="7gc-oP-ZuU">
             <objects>
-                <navigationController title="Item 3" definesPresentationContext="YES" id="hmh-3I-HJi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="GXf-hI-nt6"/>
+                <navigationController title="FAQ" definesPresentationContext="YES" id="hmh-3I-HJi" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="FAQ" id="GXf-hI-nt6"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SOe-oB-ssu">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -980,8 +980,8 @@
         <!--Navigation Controller - Events-->
         <scene sceneID="EWn-lu-NcE">
             <objects>
-                <navigationController title="Events" automaticallyAdjustsScrollViewInsets="NO" id="o4N-89-y4e" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 1" id="Iqv-T3-l1D"/>
+                <navigationController title="Events" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="o4N-89-y4e" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Events" id="Iqv-T3-l1D"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QkX-yM-V5v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

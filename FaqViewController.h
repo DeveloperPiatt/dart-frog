@@ -13,6 +13,5 @@
 
 
 @property (nonatomic, strong)FAQ *selectedFAQ;
-@property (strong, nonatomic) IBOutlet UITableView *mainTable;
 
 @end

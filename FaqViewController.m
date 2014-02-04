@@ -11,18 +11,16 @@
 
 @interface FaqViewController ()
 {
-    NSDictionary *qaDictionary;
+    NSManagedObjectContext *managedObjectContext;
 }
 
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-
 
 @end
 
 @implementation FaqViewController
 
-@synthesize mainTable, selectedFAQ;
+@synthesize selectedFAQ;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -34,20 +32,14 @@
     return self;
 }
 
-- (NSManagedObjectContext*)managedObjectContext {
-    return [(AppDelegate*)[[UIApplication sharedApplication]delegate]managedObjectContext];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    NSError *error = nil;
+    AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
+    managedObjectContext = [appdelegate managedObjectContext];
     
-    if (![[self fetchedResultsController]performFetch:&error]) {
-        NSLog(@"Error! %@", error);
-        abort();
-    }
+    [self generateTestData];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -67,14 +59,25 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    id<NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections]objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+//    id<NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections]objectAtIndex:section];
+//    return [sectionInfo numberOfObjects];
+    
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    [fetchRequest setEntity:entityDesc];
+    
+    NSError *error;
+    NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    
+    return [matchingData count];
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -84,8 +87,24 @@
     
     // Configure the cell...
     
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    [fetchRequest setEntity:entityDesc];
     
-    FAQ *faq = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSError *error;
+    NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    if (indexPath.row < matchingData.count ) {
+        FAQ *faqObj = [matchingData objectAtIndex:indexPath.row];
+        
+        cell.textLabel.text = faqObj.faqQuestion;
+        cell.detailTextLabel.text = faqObj.faqAnswer;
+    }
+    else {
+        cell.textLabel.text = @"No Data";
+        cell.detailTextLabel.text = @"test";
+    }
+    
     
     return cell;
 }
@@ -141,14 +160,6 @@
 
  */
 
-#pragma mark - QA Dictionary
-
--(void) setupQADictionary {
-    qaDictionary = [[NSDictionary alloc]initWithObjectsAndKeys:@"Value1", @"Question1", @"Value2", @"Question2", nil];
-
-    [mainTable reloadData];
-}
-
 #pragma mark - Fetched Results Controller Section
 
 -(NSFetchedResultsController*) fetchedResultsController {
@@ -157,22 +168,18 @@
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    NSManagedObjectContext *context = [self managedObjectContext];
+    NSManagedObjectContext *context = managedObjectContext;
     
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:context];
     
     [fetchRequest setEntity:entity];
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"faqIndex" ascending:YES];
+     NSSortDescriptor *sortDescriptorName = [[NSSortDescriptor alloc]initWithKey:@"faqIndex" ascending:YES];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"patient = %@", selectedFAQ];
-    
-    [fetchRequest setPredicate:predicate];
-    
-    NSArray *sortDescriptors = [[NSArray alloc]initWithObjects:sortDescriptor, nil];
+    NSArray *sortDescriptors = [[NSArray alloc]initWithObjects:sortDescriptorName, nil];
     
     fetchRequest.sortDescriptors = sortDescriptors;
-    
+
     _fetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
     
     _fetchedResultsController.delegate = self;
@@ -180,51 +187,56 @@
     return _fetchedResultsController;
 }
 
-#pragma mark - Fetched Results Controller Delegates
 
-- (void) controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView beginUpdates];
-}
+#pragma mark - QA Setup
 
-- (void) controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView endUpdates];
-}
-
-- (void) controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+-(void) addTestDataWithQuestion:(NSString*)faqQuestion andAnswer:(NSString*)faqAnswer {
+//    NSManagedObjectContext *context = [self managedObjectContext];
+//    NSManagedObject *newData = [NSEntityDescription insertNewObjectForEntityForName:@"FAQ" inManagedObjectContext:context];
+//
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
+    NSManagedObject *newFAQ = [[NSManagedObject alloc]initWithEntity:entityDesc insertIntoManagedObjectContext:managedObjectContext];
     
-    UITableView *tableView = self.tableView; // temp placeholder
+    [newFAQ setValue:faqQuestion forKey:@"faqQuestion"];
+    [newFAQ setValue:faqAnswer forKey:@"faqAnswer"];
+    [newFAQ setValue:[NSNumber numberWithInt:0] forKey:@"faqIndex"];
     
-    switch (type) {
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeUpdate: {
-            Prescription *changePrescription = [self.fetchedResultsController objectAtIndexPath:indexPath];
-            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            cell.textLabel.text = changePrescription.name;
-        }
-            break;
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
+    NSError *error;
+    if(![managedObjectContext save:&error]) {
+        NSLog(@"Save Failed: %@", [error localizedDescription]);
+    } else {
+        NSLog(@"Save Succeeded");
     }
+
+
+
 }
 
-- (void) controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+-(void) generateTestData {
     
-    UITableView *tableView = self.tableView; // temp placeholder
     
-    switch (type) {
-        case NSFetchedResultsChangeInsert:
-            [tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    [fetchRequest setEntity:entityDesc];
+    
+    NSError *error;
+    NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    // If we haven't loaded data yet, do it now. Otherwise don't keep loading data on every load of the app.
+    if ([matchingData count] == 0) {
+        [self addTestDataWithQuestion:@"Question1" andAnswer:@"Answer1"];
+        [self addTestDataWithQuestion:@"Question2" andAnswer:@"Answer2"];
+        [self addTestDataWithQuestion:@"Question3" andAnswer:@"Answer3"];
+        [self addTestDataWithQuestion:@"Question4" andAnswer:@"Answer4"];
+        [self addTestDataWithQuestion:@"Question5" andAnswer:@"Answer5"];
+        [self addTestDataWithQuestion:@"Question6" andAnswer:@"Answer6"];
+        
+        [self.tableView reloadData];
     }
+    
+    
+    
+    
 }
 
 @end

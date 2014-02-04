@@ -11,19 +11,17 @@
 
 @interface FaqViewController ()
 {
-    NSManagedObjectContext *managedObjectContext;
+    NSManagedObjectContext *managedObjectContext; // how data from data object model is handled
 }
-
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
 @implementation FaqViewController
 
-@synthesize selectedFAQ;
+@synthesize selectedFAQ; // creates getter and setter for selectedFAQ
 
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithStyle:(UITableViewStyle)style // automatically generated
 {
     self = [super initWithStyle:style];
     if (self) {
@@ -34,10 +32,10 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+    [super viewDidLoad]; // runs when view loads
     
-    AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
-    managedObjectContext = [appdelegate managedObjectContext];
+    AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate]; // creates instance of AppDelegate class
+    managedObjectContext = [appdelegate managedObjectContext]; // returns managed object
     
     [self generateTestData];
 
@@ -48,7 +46,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning
+- (void)didReceiveMemoryWarning // automatically written
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -82,7 +80,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"TestCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
@@ -160,34 +158,6 @@
 
  */
 
-#pragma mark - Fetched Results Controller Section
-
--(NSFetchedResultsController*) fetchedResultsController {
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
-    }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    NSManagedObjectContext *context = managedObjectContext;
-    
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:context];
-    
-    [fetchRequest setEntity:entity];
-    
-     NSSortDescriptor *sortDescriptorName = [[NSSortDescriptor alloc]initWithKey:@"faqIndex" ascending:YES];
-    
-    NSArray *sortDescriptors = [[NSArray alloc]initWithObjects:sortDescriptorName, nil];
-    
-    fetchRequest.sortDescriptors = sortDescriptors;
-
-    _fetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
-    
-    _fetchedResultsController.delegate = self;
-    
-    return _fetchedResultsController;
-}
-
-
 #pragma mark - QA Setup
 
 -(void) addTestDataWithQuestion:(NSString*)faqQuestion andAnswer:(NSString*)faqAnswer {
@@ -195,7 +165,7 @@
 //    NSManagedObject *newData = [NSEntityDescription insertNewObjectForEntityForName:@"FAQ" inManagedObjectContext:context];
 //
     NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
-    NSManagedObject *newFAQ = [[NSManagedObject alloc]initWithEntity:entityDesc insertIntoManagedObjectContext:managedObjectContext];
+    NSManagedObject *newFAQ = [[NSManagedObject alloc]initWithEntity:entityDesc insertIntoManagedObjectContext:managedObjectContext]; //
     
     [newFAQ setValue:faqQuestion forKey:@"faqQuestion"];
     [newFAQ setValue:faqAnswer forKey:@"faqAnswer"];
@@ -214,10 +184,11 @@
 
 -(void) generateTestData {
     
-    
+    // create object that describes entity, name must match core data entity name, pass managedObjectContext
     NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    [fetchRequest setEntity:entityDesc];
+    [fetchRequest setEntity:entityDesc]; // do a fetch request on entity that fits the description
+                                         // predicates used to select certain entities based on certain criteria
     
     NSError *error;
     NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
@@ -230,6 +201,7 @@
         [self addTestDataWithQuestion:@"Question4" andAnswer:@"Answer4"];
         [self addTestDataWithQuestion:@"Question5" andAnswer:@"Answer5"];
         [self addTestDataWithQuestion:@"Question6" andAnswer:@"Answer6"];
+        [self addTestDataWithQuestion:@"Question7" andAnswer:@"Answer7"];
         
         [self.tableView reloadData];
     }

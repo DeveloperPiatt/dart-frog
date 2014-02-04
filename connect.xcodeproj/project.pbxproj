@@ -40,6 +40,7 @@
 		E00FB50C18986D36003A8327 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = E00FB50B18986D36003A8327 /* facebook.png */; };
 		E00FB50E18986E8F003A8327 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E00FB50D18986E8F003A8327 /* MapKit.framework */; };
 		E06CA0F0188F4632003BE618 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E06CA0EF188F4632003BE618 /* Storyboard.storyboard */; };
+		E0C821DD18A0675A00598450 /* FaqViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C821DC18A0675A00598450 /* FaqViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,8 @@
 		E00FB50B18986D36003A8327 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 		E00FB50D18986E8F003A8327 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E06CA0EF188F4632003BE618 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		E0C821DB18A0675A00598450 /* FaqViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FaqViewController.h; path = ../FaqViewController.h; sourceTree = "<group>"; };
+		E0C821DC18A0675A00598450 /* FaqViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FaqViewController.m; path = ../FaqViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +182,8 @@
 				6A0CAC4D18919F6700E7E718 /* Calendar */,
 				6A6D0E6F188F3FDF00CAD90B /* AppDelegate.h */,
 				6A6D0E70188F3FDF00CAD90B /* AppDelegate.m */,
+				E0C821DB18A0675A00598450 /* FaqViewController.h */,
+				E0C821DC18A0675A00598450 /* FaqViewController.m */,
 				6A6D0E75188F3FDF00CAD90B /* Images.xcassets */,
 				6A6D0E72188F3FDF00CAD90B /* connect.xcdatamodeld */,
 				6A6D0E67188F3FDF00CAD90B /* Supporting Files */,
@@ -337,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A6D0E71188F3FDF00CAD90B /* AppDelegate.m in Sources */,
+				E0C821DD18A0675A00598450 /* FaqViewController.m in Sources */,
 				6A6D0E74188F3FDF00CAD90B /* connect.xcdatamodeld in Sources */,
 				6A6D0E6D188F3FDF00CAD90B /* main.m in Sources */,
 			);

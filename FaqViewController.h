@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FAQ.h"
 
-@interface FaqViewController : UITableViewController
+@interface FaqViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+
+
+@property (nonatomic, strong)FAQ *selectedFAQ;
+@property (strong, nonatomic) IBOutlet UITableView *mainTable;
 
 @end

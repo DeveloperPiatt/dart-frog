@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A05306218A0732D00B3CD04 /* FAQ.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A05306118A0732D00B3CD04 /* FAQ.m */; };
 		6A0CAC5A18919F9100E7E718 /* back_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0CAC4E18919F9100E7E718 /* back_arrow.png */; };
 		6A0CAC5B18919F9100E7E718 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0CAC4F18919F9100E7E718 /* calendar.png */; };
 		6A0CAC5C18919F9100E7E718 /* calendarSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0CAC5018919F9100E7E718 /* calendarSmall.png */; };
@@ -54,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6A05306018A0732D00B3CD04 /* FAQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAQ.h; sourceTree = "<group>"; };
+		6A05306118A0732D00B3CD04 /* FAQ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAQ.m; sourceTree = "<group>"; };
 		6A0CAC4E18919F9100E7E718 /* back_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_arrow.png; sourceTree = "<group>"; };
 		6A0CAC4F18919F9100E7E718 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
 		6A0CAC5018919F9100E7E718 /* calendarSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendarSmall.png; sourceTree = "<group>"; };
@@ -185,6 +188,8 @@
 				E0C821DB18A0675A00598450 /* FaqViewController.h */,
 				E0C821DC18A0675A00598450 /* FaqViewController.m */,
 				6A6D0E75188F3FDF00CAD90B /* Images.xcassets */,
+				6A05306018A0732D00B3CD04 /* FAQ.h */,
+				6A05306118A0732D00B3CD04 /* FAQ.m */,
 				6A6D0E72188F3FDF00CAD90B /* connect.xcdatamodeld */,
 				6A6D0E67188F3FDF00CAD90B /* Supporting Files */,
 			);
@@ -341,6 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A05306218A0732D00B3CD04 /* FAQ.m in Sources */,
 				6A6D0E71188F3FDF00CAD90B /* AppDelegate.m in Sources */,
 				E0C821DD18A0675A00598450 /* FaqViewController.m in Sources */,
 				6A6D0E74188F3FDF00CAD90B /* connect.xcdatamodeld in Sources */,

@@ -89,10 +89,6 @@
     NSLog(@"Fail with error");
 }
 
-
-
-
-
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"ConnectionFinishedLoading");

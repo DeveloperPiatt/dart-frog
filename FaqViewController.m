@@ -78,24 +78,67 @@
     [webData setLength:0];
 }
 
--(void)connection:(NSURLConnection *)connection didRecieveData:(NSData *)data
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [webData appendData:data];
+    NSLog(@"set data");
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLOg(@"Fail with error");
+    NSLog(@"Fail with error");
 }
+
+
+
+
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    NSLog(@"ConnectionFinishedLoading");
+    
     NSDictionary *allDataDictionary = [NSJSONSerialization JSONObjectWithData:webData options:0 error:nil];
     NSArray *allNodes = [allDataDictionary objectForKey:@"nodes"];
     
+    
+//    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+//    [fetchRequest setEntity:entityDesc];
+//    
+//    NSError *error;
+//    NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    NSArray *matchingData = [self getArrayOfManagedObjectsForEntity:@"FAQ"];
+    
+    for (NSManagedObject *toDelete in matchingData) {
+        [managedObjectContext deleteObject:toDelete];
+    }
+    
+    
+    int indexCount = 0;
     for (NSDictionary *nodeIndex in allNodes) {
         //make FAQ objects here???
+        NSLog(@"%@", [[nodeIndex objectForKey:@"node"] objectForKey:@"answer"]);
+        
+        NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
+       
+        NSManagedObject *newFAQ = [[NSManagedObject alloc]initWithEntity:entityDesc insertIntoManagedObjectContext:managedObjectContext]; //
+        
+        [newFAQ setValue:[[nodeIndex objectForKey:@"node"] objectForKey:@"question"] forKey:@"faqQuestion"];
+        [newFAQ setValue:[[nodeIndex objectForKey:@"node"] objectForKey:@"answer"] forKey:@"faqAnswer"];
+        [newFAQ setValue:[NSNumber numberWithInt:indexCount] forKey:@"faqIndex"];
+        
+        indexCount++;
     }
+    
+    NSError *error;
+    if(![managedObjectContext save:&error]) {
+        NSLog(@"Save Failed: %@", [error localizedDescription]);
+    } else {
+        NSLog(@"Save Succeeded");
+    }
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -135,6 +178,11 @@
     NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
     [fetchRequest setEntity:entityDesc];
+    
+    NSSortDescriptor *sortDescriptorIndex = [[NSSortDescriptor alloc]initWithKey:@"faqIndex" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc]initWithObjects: sortDescriptorIndex, nil];
+    
+    fetchRequest.sortDescriptors = sortDescriptors;
     
     NSError *error;
     NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
@@ -251,10 +299,21 @@
         
         [self.tableView reloadData];
     }
+}
+
+#pragma mark - Helper Functions
+
+-(NSArray*)getArrayOfManagedObjectsForEntity:(NSString*)entity {
     
     
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:entity inManagedObjectContext:managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    [fetchRequest setEntity:entityDesc];
     
+    NSError *error;
+    NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
     
+    return  matchingData;
 }
 
 @end

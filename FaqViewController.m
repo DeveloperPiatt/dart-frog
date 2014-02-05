@@ -43,6 +43,15 @@
     [[self FaqTableView]setDataSource:self];
     array = [[NSMutableArray alloc]init];
     
+    NSURL *url = [NSURL URLWithString:@"http://connect.oregonstate.edu/faq/json"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    connection = [NSURLConnection connectionWithRequest:request delegate:self];
+    
+    if(connection)
+    {
+        webData = [[NSMutableData alloc]init];
+    }
     
     AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate]; // creates instance of AppDelegate class
     managedObjectContext = [appdelegate managedObjectContext]; // returns managed object
@@ -84,6 +93,9 @@
     NSDictionary *allDataDictionary = [NSJSONSerialization JSONObjectWithData:webData options:0 error:nil];
     NSArray *allNodes = [allDataDictionary objectForKey:@"nodes"];
     
+    for (NSDictionary *nodeIndex in allNodes) {
+        //make FAQ objects here???
+    }
 }
 
 #pragma mark - Table view data source

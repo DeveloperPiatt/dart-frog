@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "FAQ.h"
 
-@interface FaqViewController : UITableViewController <NSFetchedResultsControllerDelegate>
-
+@interface FaqViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, NSURLConnectionDataDelegate, NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong)FAQ *selectedFAQ;
+@property (weak, nonatomic) IBOutlet UITableView *FaqTableView;
 
 @end

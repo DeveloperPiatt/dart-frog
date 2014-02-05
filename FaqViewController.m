@@ -12,6 +12,9 @@
 @interface FaqViewController ()
 {
     NSManagedObjectContext *managedObjectContext; // how data from data object model is handled
+    NSMutableData *webData;
+    NSURLConnection *connection;
+    NSMutableArray *array;
 }
 
 @end
@@ -34,6 +37,13 @@
 {
     [super viewDidLoad]; // runs when view loads
     
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    [[self FaqTableView]setDelegate:self];
+    [[self FaqTableView]setDataSource:self];
+    array = [[NSMutableArray alloc]init];
+    
+    
     AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate]; // creates instance of AppDelegate class
     managedObjectContext = [appdelegate managedObjectContext]; // returns managed object
     
@@ -50,6 +60,30 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Connections
+
+-(void)connection:(NSURLConnection *)connection didReceiveResponse: (NSURLResponse *)response
+{
+    [webData setLength:0];
+}
+
+-(void)connection:(NSURLConnection *)connection didRecieveData:(NSData *)data
+{
+    [webData appendData:data];
+}
+
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    NSLOg(@"Fail with error");
+}
+
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    NSDictionary *allDataDictionary = [NSJSONSerialization JSONObjectWithData:webData options:0 error:nil];
+    NSArray *allNodes = [allDataDictionary objectForKey:@"nodes"];
+    
 }
 
 #pragma mark - Table view data source
@@ -82,6 +116,7 @@
 {
     static NSString *CellIdentifier = @"TestCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
     
     // Configure the cell...
     
@@ -177,9 +212,6 @@
     } else {
         NSLog(@"Save Succeeded");
     }
-
-
-
 }
 
 -(void) generateTestData {
@@ -195,6 +227,8 @@
     
     // If we haven't loaded data yet, do it now. Otherwise don't keep loading data on every load of the app.
     if ([matchingData count] == 0) {
+        
+        
         [self addTestDataWithQuestion:@"Question1" andAnswer:@"Answer1"];
         [self addTestDataWithQuestion:@"Question2" andAnswer:@"Answer2"];
         [self addTestDataWithQuestion:@"Question3" andAnswer:@"Answer3"];

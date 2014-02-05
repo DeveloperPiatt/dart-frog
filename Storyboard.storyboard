@@ -637,6 +637,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="FAQ" id="bMl-bK-cfq"/>
+                    <connections>
+                        <outlet property="FaqTableView" destination="vEM-YG-63O" id="KJR-S0-Xm9"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="69t-0g-tl4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -1,10 +1,10 @@
-//
+/*
 //  FaqViewController.m
 //  connect
 //
 //  Created by Taylor Cuilty on 2/3/14.
 //  Copyright (c) 2014 Oregon State University. All rights reserved.
-//
+*/
 
 #import "FaqViewController.h"
 #import "AppDelegate.h"
@@ -21,8 +21,10 @@
 
 @implementation FaqViewController
 
-@synthesize selectedFAQ; //creates getter and setter for selectedFAQ
+@synthesize selectedFAQ; //Creates getter and setter for selectedFAQ
 
+
+#pragma mark - Initilize
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -33,20 +35,21 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    //idicates activity while table view loads data
+    //Idicates activity while table view loads data
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     array = [[NSMutableArray alloc]init];
     
-    //initilizes NSURL object and and creates request
+    //Initilizes NSURL object and and creates request
     NSURL *url = [NSURL URLWithString:@"http://connect.oregonstate.edu/faq/json"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
-    //loads url request and sends messages to delegate as the load progresses
+    //Loads url request and sends messages to delegate as the load progresses
     connection = [NSURLConnection connectionWithRequest:request delegate:self];
     
     if(connection)
@@ -54,15 +57,12 @@
         webData = [[NSMutableData alloc]init];
     }
     
-    //creates and returns managed object of AppDelegate class
+    //Creates and returns managed object of AppDelegate class
     AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
     managedObjectContext = [appdelegate managedObjectContext];
     
-    // create object that describes entity, name must match core data entity name, pass managedObjectContext
+   //Use helper function here?
     NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
-    
-    //perform fetch request on entity that fits the description
-    //predicates used to select entities based on certain criteria
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
     [fetchRequest setEntity:entityDesc];
     
@@ -73,47 +73,50 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+
 - (void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    [super didReceiveMemoryWarning];
 }
 
-#pragma mark - Connections
 
+#pragma mark - Connection
+
+//Sent when the connection has received sufficient data to construct the URL response
 -(void)connection:(NSURLConnection *)connection didReceiveResponse: (NSURLResponse *)response
 {
     [webData setLength:0];
 }
 
+
+//Stores data in array as connection loads data
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [webData appendData:data];
     NSLog(@"set data");
 }
 
+
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     NSLog(@"Fail with error");
 }
 
+
+#pragma mark - JSON transformation
+
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"ConnectionFinishedLoading");
     
+    //Create foundation object for JSON data and stores values in array
     NSDictionary *allDataDictionary = [NSJSONSerialization JSONObjectWithData:webData options:0 error:nil];
     NSArray *allNodes = [allDataDictionary objectForKey:@"nodes"];
     
-    
-//    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-//    [fetchRequest setEntity:entityDesc];
-//    
-//    NSError *error;
-//    NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    
     NSArray *matchingData = [self getArrayOfManagedObjectsForEntity:@"FAQ"];
     
+    //
     for (NSManagedObject *toDelete in matchingData) {
         [managedObjectContext deleteObject:toDelete];
     }
@@ -121,12 +124,11 @@
     
     int indexCount = 0;
     for (NSDictionary *nodeIndex in allNodes) {
-        //make FAQ objects here???
-        NSLog(@"%@", [[nodeIndex objectForKey:@"node"] objectForKey:@"answer"]);
+        
+        //Create and assign values to entities
         
         NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
-       
-        NSManagedObject *newFAQ = [[NSManagedObject alloc]initWithEntity:entityDesc insertIntoManagedObjectContext:managedObjectContext]; //
+        NSManagedObject *newFAQ = [[NSManagedObject alloc]initWithEntity:entityDesc insertIntoManagedObjectContext:managedObjectContext];
         
         [newFAQ setValue:[[nodeIndex objectForKey:@"node"] objectForKey:@"question"] forKey:@"faqQuestion"];
         [newFAQ setValue:[[nodeIndex objectForKey:@"node"] objectForKey:@"answer"] forKey:@"faqAnswer"];
@@ -145,31 +147,25 @@
     [self.tableView reloadData];
 }
 
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
+    //Return the number of sections.
     return 1;
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-//    id<NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections]objectAtIndex:section];
-//    return [sectionInfo numberOfObjects];
+    NSArray *matchingData = [self getArrayOfManagedObjectsForEntity:@"FAQ"];
     
-    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    [fetchRequest setEntity:entityDesc];
-    
-    NSError *error;
-    NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    
-    
+    //Return the number of rows
     return [matchingData count];
     
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -179,17 +175,7 @@
     
     // Configure the cell...
     
-    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    [fetchRequest setEntity:entityDesc];
-    
-    NSSortDescriptor *sortDescriptorIndex = [[NSSortDescriptor alloc]initWithKey:@"faqIndex" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc]initWithObjects: sortDescriptorIndex, nil];
-    
-    fetchRequest.sortDescriptors = sortDescriptors;
-    
-    NSError *error;
-    NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *matchingData = [self getArrayOfManagedObjectsForEntity:@"FAQ"];
     
     if (indexPath.row < matchingData.count ) {
         FAQ *faqObj = [matchingData objectAtIndex:indexPath.row];
@@ -199,15 +185,16 @@
     }
     else {
         cell.textLabel.text = @"No Data";
-        cell.detailTextLabel.text = @"test";
+        cell.detailTextLabel.text = @"No Data";
     }
     
     
     return cell;
 }
 
+
 /*
-// Override to support conditional editing of the table view.
+//Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
@@ -215,8 +202,9 @@
 }
 */
 
+
 /*
-// Override to support editing the table view.
+//Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -229,12 +217,14 @@
 }
 */
 
+
 /*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
 }
 */
+
 
 /*
 // Override to support conditional rearranging of the table view.
@@ -245,6 +235,7 @@
 }
 */
 
+
 /*
 #pragma mark - Navigation
 
@@ -254,43 +245,29 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
+*/
 
- */
-
-#pragma mark - QA Setup
-
--(void) addTestDataWithQuestion:(NSString*)faqQuestion andAnswer:(NSString*)faqAnswer {
-//    NSManagedObjectContext *context = [self managedObjectContext];
-//    NSManagedObject *newData = [NSEntityDescription insertNewObjectForEntityForName:@"FAQ" inManagedObjectContext:context];
-//
-    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
-    NSManagedObject *newFAQ = [[NSManagedObject alloc]initWithEntity:entityDesc insertIntoManagedObjectContext:managedObjectContext]; //
-    
-    [newFAQ setValue:faqQuestion forKey:@"faqQuestion"];
-    [newFAQ setValue:faqAnswer forKey:@"faqAnswer"];
-    [newFAQ setValue:[NSNumber numberWithInt:0] forKey:@"faqIndex"];
-    
-    NSError *error;
-    if(![managedObjectContext save:&error]) {
-        NSLog(@"Save Failed: %@", [error localizedDescription]);
-    } else {
-        NSLog(@"Save Succeeded");
-    }
-}
 
 #pragma mark - Helper Functions
 
 -(NSArray*)getArrayOfManagedObjectsForEntity:(NSString*)entity {
     
-    
-    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:entity inManagedObjectContext:managedObjectContext];
+    //Create object that describes entity, name must match core data entity name, pass managedObjectContext
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
     [fetchRequest setEntity:entityDesc];
+    
+    //Perform fetch request on entity that fits the description
+    //Predicates used to select entities based on certain criteria
+    NSSortDescriptor *sortDescriptorIndex = [[NSSortDescriptor alloc]initWithKey:@"faqIndex" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc]initWithObjects: sortDescriptorIndex, nil];
+    
+    fetchRequest.sortDescriptors = sortDescriptors;
     
     NSError *error;
     NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
     
-    return  matchingData;
+    return matchingData;
 }
 
 @end

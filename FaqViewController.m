@@ -11,7 +11,7 @@
 
 @interface FaqViewController ()
 {
-    NSManagedObjectContext *managedObjectContext; // how data from data object model is handled
+    NSManagedObjectContext *managedObjectContext;
     NSMutableData *webData;
     NSURLConnection *connection;
     NSMutableArray *array;
@@ -21,10 +21,10 @@
 
 @implementation FaqViewController
 
-@synthesize selectedFAQ; // creates getter and setter for selectedFAQ
+@synthesize selectedFAQ; //creates getter and setter for selectedFAQ
 
 
-- (id)initWithStyle:(UITableViewStyle)style // automatically generated
+- (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
@@ -35,17 +35,18 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad]; // runs when view loads
+    [super viewDidLoad];
     
+    //idicates activity while table view loads data
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
-    [[self FaqTableView]setDelegate:self];
-    [[self FaqTableView]setDataSource:self];
     array = [[NSMutableArray alloc]init];
     
+    //initilizes NSURL object and and creates request
     NSURL *url = [NSURL URLWithString:@"http://connect.oregonstate.edu/faq/json"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
+    //loads url request and sends messages to delegate as the load progresses
     connection = [NSURLConnection connectionWithRequest:request delegate:self];
     
     if(connection)
@@ -53,11 +54,18 @@
         webData = [[NSMutableData alloc]init];
     }
     
-    AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate]; // creates instance of AppDelegate class
-    managedObjectContext = [appdelegate managedObjectContext]; // returns managed object
+    //creates and returns managed object of AppDelegate class
+    AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
+    managedObjectContext = [appdelegate managedObjectContext];
     
-    [self generateTestData];
-
+    // create object that describes entity, name must match core data entity name, pass managedObjectContext
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
+    
+    //perform fetch request on entity that fits the description
+    //predicates used to select entities based on certain criteria
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    [fetchRequest setEntity:entityDesc];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -267,33 +275,6 @@
         NSLog(@"Save Failed: %@", [error localizedDescription]);
     } else {
         NSLog(@"Save Succeeded");
-    }
-}
-
--(void) generateTestData {
-    
-    // create object that describes entity, name must match core data entity name, pass managedObjectContext
-    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    [fetchRequest setEntity:entityDesc]; // do a fetch request on entity that fits the description
-                                         // predicates used to select certain entities based on certain criteria
-    
-    NSError *error;
-    NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    
-    // If we haven't loaded data yet, do it now. Otherwise don't keep loading data on every load of the app.
-    if ([matchingData count] == 0) {
-        
-        
-        [self addTestDataWithQuestion:@"Question1" andAnswer:@"Answer1"];
-        [self addTestDataWithQuestion:@"Question2" andAnswer:@"Answer2"];
-        [self addTestDataWithQuestion:@"Question3" andAnswer:@"Answer3"];
-        [self addTestDataWithQuestion:@"Question4" andAnswer:@"Answer4"];
-        [self addTestDataWithQuestion:@"Question5" andAnswer:@"Answer5"];
-        [self addTestDataWithQuestion:@"Question6" andAnswer:@"Answer6"];
-        [self addTestDataWithQuestion:@"Question7" andAnswer:@"Answer7"];
-        
-        [self.tableView reloadData];
     }
 }
 

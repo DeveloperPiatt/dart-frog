@@ -8,6 +8,7 @@
 
 #import "FaqViewController.h"
 #import "AppDelegate.h"
+#import "FAQCell.h"
 
 @interface FaqViewController ()
 {
@@ -140,13 +141,13 @@
     NSError *error;
     if(![managedObjectContext save:&error]) {
         NSLog(@"Save Failed: %@", [error localizedDescription]);
-    } else {
+    }
+    else {
         NSLog(@"Save Succeeded");
     }
     
     [self.tableView reloadData];
 }
-
 
 #pragma mark - Table view data source
 
@@ -167,10 +168,10 @@
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (FAQCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"TestCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"FAQCell";
+    FAQCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     
     // Configure the cell...
@@ -180,8 +181,8 @@
     if (indexPath.row < matchingData.count ) {
         FAQ *faqObj = [matchingData objectAtIndex:indexPath.row];
         
-        cell.textLabel.text = faqObj.faqQuestion;
-        cell.detailTextLabel.text = faqObj.faqAnswer;
+        cell.questionLabel.text = faqObj.faqQuestion;
+        cell.answerLabel.text = faqObj.faqAnswer;
     }
     else {
         cell.textLabel.text = @"No Data";

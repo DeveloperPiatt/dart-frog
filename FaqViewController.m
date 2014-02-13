@@ -58,17 +58,6 @@
     //Creates and returns managed object of AppDelegate class
     AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
     managedObjectContext = [appdelegate managedObjectContext];
-    
-   //Use helper function here?
-    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    [fetchRequest setEntity:entityDesc];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 
@@ -82,6 +71,10 @@
 #pragma mark - Connection
 
 //Sent when the connection has received sufficient data to construct the URL response
+
+/*
+ Resets webData on a valid response
+ */
 -(void)connection:(NSURLConnection *)connection didReceiveResponse: (NSURLResponse *)response
 {
     [webData setLength:0];
@@ -89,6 +82,9 @@
 
 
 //Stores data in array as connection loads data
+/*
+ Sets the recieved data to webData for use later. We are currently expecting it to receive JSON
+ */
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [webData appendData:data];
@@ -107,42 +103,9 @@
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"ConnectionFinishedLoading");
-    
-    //Create foundation object for JSON data and stores values in array
-    NSDictionary *allDataDictionary = [NSJSONSerialization JSONObjectWithData:webData options:0 error:nil];
-    NSArray *allNodes = [allDataDictionary objectForKey:@"nodes"];
-    
-    NSArray *matchingData = [self getArrayOfManagedObjectsForEntity:@"FAQ"];
-    
-    //
-    for (NSManagedObject *toDelete in matchingData) {
-        [managedObjectContext deleteObject:toDelete];
-    }
-    
-    
-    int indexCount = 0;
-    for (NSDictionary *nodeIndex in allNodes) {
-        
-        //Create and assign values to entities
-        
-        NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
-        NSManagedObject *newFAQ = [[NSManagedObject alloc]initWithEntity:entityDesc insertIntoManagedObjectContext:managedObjectContext];
-        
-        [newFAQ setValue:[[nodeIndex objectForKey:@"node"] objectForKey:@"question"] forKey:@"faqQuestion"];
-        [newFAQ setValue:[[nodeIndex objectForKey:@"node"] objectForKey:@"answer"] forKey:@"faqAnswer"];
-        [newFAQ setValue:[NSNumber numberWithInt:indexCount] forKey:@"faqIndex"];
-        
-        indexCount++;
-    }
-    
-    NSError *error;
-    if(![managedObjectContext save:&error]) {
-        NSLog(@"Save Failed: %@", [error localizedDescription]);
-    }
-    else {
-        NSLog(@"Save Succeeded");
-    }
-    
+    [self removeManagedObjectsForFaqEntity];
+    [self createManagedObjectsForFaqEntity];
+    [self saveManagedObjectContext];
     [self.tableView reloadData];
 }
 
@@ -190,62 +153,6 @@
     return cell;
 }
 
-
-/*
-//Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-
-/*
-//Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-
 #pragma mark - Helper Functions
 
 -(NSArray*)getArrayOfManagedObjectsForEntity:(NSString*)entity {
@@ -266,6 +173,49 @@
     NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
     
     return matchingData;
+}
+
+
+/*
+ Removes all managed objects for FAQ Entity. This is used when we are pulling new data from the web.
+ */
+-(void)removeManagedObjectsForFaqEntity {
+    NSArray *allManagedObjects = [self getArrayOfManagedObjectsForEntity:@"FAQ"];
+    
+    for (NSManagedObject *toDelete in allManagedObjects) {
+        [managedObjectContext deleteObject:toDelete];
+    }
+}
+
+-(void)saveManagedObjectContext {
+    NSError *error;
+    if(![managedObjectContext save:&error]) {
+        NSLog(@"Save Failed: %@", [error localizedDescription]);
+    }
+    else {
+        NSLog(@"Save Succeeded");
+    }
+}
+
+-(void)createManagedObjectsForFaqEntity {
+    //Create foundation object for JSON data and stores values in array
+    NSDictionary *allDataDictionary = [NSJSONSerialization JSONObjectWithData:webData options:0 error:nil];
+    NSArray *allNodes = [allDataDictionary objectForKey:@"nodes"];
+    
+    int indexCount = 0;
+    for (NSDictionary *nodeIndex in allNodes) {
+        
+        //Create and assign values to entities
+        
+        NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FAQ" inManagedObjectContext:managedObjectContext];
+        NSManagedObject *newFAQ = [[NSManagedObject alloc]initWithEntity:entityDesc insertIntoManagedObjectContext:managedObjectContext];
+        
+        [newFAQ setValue:[[nodeIndex objectForKey:@"node"] objectForKey:@"question"] forKey:@"faqQuestion"];
+        [newFAQ setValue:[[nodeIndex objectForKey:@"node"] objectForKey:@"answer"] forKey:@"faqAnswer"];
+        [newFAQ setValue:[NSNumber numberWithInt:indexCount] forKey:@"faqIndex"];
+        
+        indexCount++;
+    }
 }
 
 @end

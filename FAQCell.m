@@ -7,6 +7,7 @@
 //
 
 #import "FAQCell.h"
+#import "AppDelegate.h"
 
 @implementation FAQCell
 

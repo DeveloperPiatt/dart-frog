@@ -15,7 +15,6 @@
     NSManagedObjectContext *managedObjectContext;
     NSMutableData *webData;
     NSURLConnection *connection;
-    NSMutableArray *array;
 }
 
 @end
@@ -43,8 +42,6 @@
     
     //Idicates activity while table view loads data
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    
-    array = [[NSMutableArray alloc]init];
     
     //Initilizes NSURL object and and creates request
     NSURL *url = [NSURL URLWithString:@"http://connect.oregonstate.edu/faq/json"];
@@ -170,11 +167,11 @@
 
 - (FAQCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"FAQCell";
-    FAQCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *cellIdentifier = @"FAQCell";
+    FAQCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     
-    // Configure the cell...
+    // Configure the cell
     
     NSArray *matchingData = [self getArrayOfManagedObjectsForEntity:@"FAQ"];
     
@@ -185,8 +182,8 @@
         cell.answerLabel.text = faqObj.faqAnswer;
     }
     else {
-        cell.textLabel.text = @"No Data";
-        cell.detailTextLabel.text = @"No Data";
+        cell.questionLabel.text = @"No Data";
+        cell.answerLabel.text = @"No Data";
     }
     
     

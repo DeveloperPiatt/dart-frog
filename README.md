@@ -20,7 +20,7 @@ Feedback - Allows users to ieve feedback about the app<br/>
 System Requirements and Installation Instructions
 -------------------------------------------------
 
-This app was developed for iOS 7.0 or later using Xcode 5.0.2. It is compatible with iPhone, iPad, and iPod touch, optimized for the iPhone 5. Many features of the app require an internet connection and/or request access to the mobile device's location or address book.
+This app was developed for iOS 7.0 or later using Xcode 5.0.2. It is compatible with iPhone, iPad, and iPod touch. It is optimized for the iPhone 5. Many features of the app require an internet connection and/or request access to the mobile device's location or address book.
 
 Based on previous releases, the size of the app will be approximately 30 MB.
 

@@ -6,15 +6,15 @@ General Usage
 
 The OSU Connect Mobile app is designed to facilitate new student involvement in the CONNECT experiece at Oregon State University. Each feature of the app provides information about the Corvallis campus and helps link students to the OSU community.
 
-Events - Gives the dates and locations of upcoming programs and symposiums
-Food - A list of restaurants and dining halls and their hours of operation
-FAQ - Answers to frequently asked questions regarding the CONNECT experience
-Map - Allows users to view the campus using Google Maps and search for buildings
-Social - Links to the New Student Twitter feed and Facebook page
-News - A collection of articles related to the CONNECT experience
-Contact - The OSU campus directory
-Photos - OSU Flickr photos and wallpapers
-Feedback - Allows users to ieve feedback about the app
+Events - Gives the dates and locations of upcoming programs and symposiums<br/>
+Food - A list of restaurants and dining halls and their hours of operation<br/>
+FAQ - Answers to frequently asked questions regarding the CONNECT experience<br/>
+Map - Allows users to view the campus using Google Maps and search for buildings<br/>
+Social - Links to the New Student Twitter feed and Facebook page<br/>
+News - A collection of articles related to the CONNECT experience<br/>
+Contact - The OSU campus directory<br/>
+Photos - OSU Flickr photos and wallpapers<br/>
+Feedback - Allows users to ieve feedback about the app<br/>
 
 
 System Requirements and Installation Instructions
@@ -32,7 +32,8 @@ Additional Information
 
 Developers can be reached by contacting the Middleware Integration Solution Team (MIST) or Central Web Services (CWS) at Oregon State University:
 
-541-737-1189 or http://oregonstate.edu/is/academic-technologies/cws/contact-cws
+541-737-1189<br/>
+http://oregonstate.edu/is/academic-technologies/cws/contact-cws<br/>
 
 
 Copyright (c) 2014 Oregon State University. All rights reserved.

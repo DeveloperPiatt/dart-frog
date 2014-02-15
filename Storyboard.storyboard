@@ -1019,6 +1019,7 @@
         <image name="mapPin.png" width="26" height="33"/>
         <image name="twitter.png" width="30" height="30"/>
     </resources>
+    <color key="tintColor" red="0.7607843876" green="0.26274511220000002" blue="0.10588236149999999" alpha="1" colorSpace="deviceRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

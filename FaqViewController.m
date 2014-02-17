@@ -97,7 +97,7 @@
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"ConnectionFinishedLoading");
-    [self removeManagedObjectsForFaqEntity:@"FAQ"];
+    [self removeManagedObjectsForEntity:@"FAQ"];
     [self createManagedObjectsForFaqEntity];
     [self saveManagedObjectContext];
     [self.tableView reloadData];
@@ -173,7 +173,7 @@
 
 
 //Removes all managed objects for FAQ entity. This is used when we are pulling new data from the web.
--(void)removeManagedObjectsForFaqEntity: (NSString*)entityName
+-(void)removeManagedObjectsForEntity: (NSString*)entityName
 {
     NSArray *allManagedObjects = [self getArrayOfManagedObjectsForEntity:entityName withSortDescriptor:@""];
     

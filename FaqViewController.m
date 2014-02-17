@@ -200,7 +200,6 @@
     //Create foundation object for JSON data and stores values in array
     NSDictionary *allDataDictionary = [NSJSONSerialization JSONObjectWithData:webData options:0 error:nil];
     NSArray *allNodes = [allDataDictionary objectForKey:@"nodes"];
-    
     int indexCount = 0;
     for (NSDictionary *nodeIndex in allNodes)
     {

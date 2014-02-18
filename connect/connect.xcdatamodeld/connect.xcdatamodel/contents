@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="12F45" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Contact" syncable="YES">
+    <entity name="Contact" representedClassName="Contact" syncable="YES">
         <attribute name="contactNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="contactTitle" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Event" syncable="YES">
+    <entity name="Event" representedClassName="Event" syncable="YES">
         <attribute name="eventDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="eventDetails" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventName" optional="YES" attributeType="String" syncable="YES"/>
@@ -17,7 +17,7 @@
         <attribute name="faqIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="faqQuestion" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Location" syncable="YES">
+    <entity name="Location" representedClassName="Location" syncable="YES">
         <attribute name="locationAbrv" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="locationLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="locationLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -25,19 +25,19 @@
         <relationship name="events" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="location" inverseEntity="Event" syncable="YES"/>
         <relationship name="restaurants" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Restaurant" inverseName="location" inverseEntity="Restaurant" syncable="YES"/>
     </entity>
-    <entity name="News" syncable="YES">
+    <entity name="News" representedClassName="News" syncable="YES">
         <attribute name="newsDate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="newsIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="newsSummary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="newsTitle" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Restaurant" syncable="YES">
+    <entity name="Restaurant" representedClassName="Restaurant" syncable="YES">
         <attribute name="restaurantClose" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="restaurantName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="restaurantOpen" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="restaurants" inverseEntity="Location" syncable="YES"/>
     </entity>
-    <entity name="Tweet" syncable="YES">
+    <entity name="Tweet" representedClassName="Tweet" syncable="YES">
         <attribute name="tweetAvatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tweetLink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tweetText" optional="YES" attributeType="String" syncable="YES"/>
@@ -45,12 +45,12 @@
         <attribute name="tweetUser" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="-1809" positionY="-936" width="128" height="133"/>
-        <element name="FAQ" positionX="-1782" positionY="-1053" width="128" height="88"/>
-        <element name="Location" positionX="-2016" positionY="-936" width="128" height="133"/>
-        <element name="Restaurant" positionX="-2009" positionY="-720" width="128" height="103"/>
-        <element name="Tweet" positionX="-1809" positionY="-747" width="128" height="118"/>
-        <element name="Contact" positionX="-2034" positionY="-1053" width="128" height="73"/>
-        <element name="News" positionX="-1620" positionY="-855" width="128" height="103"/>
+        <element name="Contact" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Event" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="FAQ" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Location" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="News" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Restaurant" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Tweet" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

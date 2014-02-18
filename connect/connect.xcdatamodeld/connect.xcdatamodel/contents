@@ -46,7 +46,7 @@
     </entity>
     <elements>
         <element name="Event" positionX="-1809" positionY="-936" width="128" height="133"/>
-        <element name="FAQ" positionX="-1766" positionY="-1107" width="128" height="88"/>
+        <element name="FAQ" positionX="-1782" positionY="-1053" width="128" height="88"/>
         <element name="Location" positionX="-2016" positionY="-936" width="128" height="133"/>
         <element name="Restaurant" positionX="-2009" positionY="-720" width="128" height="103"/>
         <element name="Tweet" positionX="-1809" positionY="-747" width="128" height="118"/>

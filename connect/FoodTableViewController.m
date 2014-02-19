@@ -6,13 +6,23 @@
 //  Copyright (c) 2014 Oregon State University. All rights reserved.
 //
 
-#import "FoodViewController.h"
+#import "FoodTableViewController.h"
+#import "CoreDataHelper.h"
 
-@interface FoodViewController ()
+#import "Restaurant.h"
+#import "Location.h"
+
+@interface FoodTableViewController () {
+    NSManagedObjectContext *managedObjectContext;
+    NSMutableData *webData;
+    NSURLConnection *connection;
+    
+    CoreDataHelper *cData;
+}
 
 @end
 
-@implementation FoodViewController
+@implementation FoodTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -26,6 +36,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    cData = [[CoreDataHelper alloc]init];
+    NSLog(@"%d", [[cData getArrayOfManagedObjectsForEntity:@"FAQ" withSortDescriptor:@""] count]);
+    
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

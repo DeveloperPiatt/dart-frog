@@ -23,6 +23,8 @@
 		6A0CAC681891DAE300E7E718 /* favorite_not_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0CAC661891DAE300E7E718 /* favorite_not_selected.png */; };
 		6A0CAC691891DAE300E7E718 /* favorite_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0CAC671891DAE300E7E718 /* favorite_selected.png */; };
 		6A693E9018B53D1400D9289C /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A693E8F18B53D1400D9289C /* CoreDataHelper.m */; };
+		6A693EA618B68FA800D9289C /* Hour.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A693EA518B68FA800D9289C /* Hour.m */; };
+		6A693EA918B6AF7600D9289C /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A693EA818B6AF7600D9289C /* Restaurant.m */; };
 		6A6D0E5F188F3FDF00CAD90B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6D0E5E188F3FDF00CAD90B /* Foundation.framework */; };
 		6A6D0E61188F3FDF00CAD90B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6D0E60188F3FDF00CAD90B /* CoreGraphics.framework */; };
 		6A6D0E63188F3FDF00CAD90B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6D0E62188F3FDF00CAD90B /* UIKit.framework */; };
@@ -46,7 +48,6 @@
 		E03C4EE018B2E7DF00B93C1C /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EDF18B2E7DF00B93C1C /* News.m */; };
 		E03C4EE318B2E7DF00B93C1C /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EE218B2E7DF00B93C1C /* Event.m */; };
 		E03C4EE618B2E7DF00B93C1C /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EE518B2E7DF00B93C1C /* Location.m */; };
-		E03C4EE918B2E7DF00B93C1C /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EE818B2E7DF00B93C1C /* Restaurant.m */; };
 		E03C4EEC18B2E85100B93C1C /* FoodTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EEB18B2E85100B93C1C /* FoodTableViewController.m */; };
 		E06CA0F0188F4632003BE618 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E06CA0EF188F4632003BE618 /* Storyboard.storyboard */; };
 		E0C821DD18A0675A00598450 /* FaqViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C821DC18A0675A00598450 /* FaqViewController.m */; };
@@ -82,6 +83,10 @@
 		6A0CAC671891DAE300E7E718 /* favorite_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite_selected.png; sourceTree = "<group>"; };
 		6A693E8E18B53D1400D9289C /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		6A693E8F18B53D1400D9289C /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
+		6A693EA418B68FA800D9289C /* Hour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hour.h; sourceTree = "<group>"; };
+		6A693EA518B68FA800D9289C /* Hour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hour.m; sourceTree = "<group>"; };
+		6A693EA718B6AF7600D9289C /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
+		6A693EA818B6AF7600D9289C /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
 		6A6D0E5B188F3FDF00CAD90B /* connect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = connect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A6D0E5E188F3FDF00CAD90B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6A6D0E60188F3FDF00CAD90B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -113,8 +118,6 @@
 		E03C4EE218B2E7DF00B93C1C /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Event.m; path = connect/Event.m; sourceTree = "<group>"; };
 		E03C4EE418B2E7DF00B93C1C /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Location.h; path = connect/Location.h; sourceTree = "<group>"; };
 		E03C4EE518B2E7DF00B93C1C /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Location.m; path = connect/Location.m; sourceTree = "<group>"; };
-		E03C4EE718B2E7DF00B93C1C /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Restaurant.h; path = connect/Restaurant.h; sourceTree = "<group>"; };
-		E03C4EE818B2E7DF00B93C1C /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Restaurant.m; path = connect/Restaurant.m; sourceTree = "<group>"; };
 		E03C4EEA18B2E85100B93C1C /* FoodTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodTableViewController.h; sourceTree = "<group>"; };
 		E03C4EEB18B2E85100B93C1C /* FoodTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodTableViewController.m; sourceTree = "<group>"; };
 		E06CA0EF188F4632003BE618 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
@@ -175,8 +178,6 @@
 		6A693E8D18B5392300D9289C /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				E03C4EE718B2E7DF00B93C1C /* Restaurant.h */,
-				E03C4EE818B2E7DF00B93C1C /* Restaurant.m */,
 				E03C4EE418B2E7DF00B93C1C /* Location.h */,
 				E03C4EE518B2E7DF00B93C1C /* Location.m */,
 				E03C4EE118B2E7DF00B93C1C /* Event.h */,
@@ -190,14 +191,27 @@
 				6A05306018A0732D00B3CD04 /* FAQ.h */,
 				6A05306118A0732D00B3CD04 /* FAQ.m */,
 				6A6D0E72188F3FDF00CAD90B /* connect.xcdatamodeld */,
+				6A693EA718B6AF7600D9289C /* Restaurant.h */,
+				6A693EA818B6AF7600D9289C /* Restaurant.m */,
 			);
 			name = "Core Data";
 			path = ..;
 			sourceTree = "<group>";
 		};
+		6A693E9118B5590C00D9289C /* Helper Classes */ = {
+			isa = PBXGroup;
+			children = (
+				6A693E8E18B53D1400D9289C /* CoreDataHelper.h */,
+				6A693E8F18B53D1400D9289C /* CoreDataHelper.m */,
+			);
+			name = "Helper Classes";
+			sourceTree = "<group>";
+		};
 		6A6D0E52188F3FDF00CAD90B = {
 			isa = PBXGroup;
 			children = (
+				6A693EA418B68FA800D9289C /* Hour.h */,
+				6A693EA518B68FA800D9289C /* Hour.m */,
 				E06CA0EF188F4632003BE618 /* Storyboard.storyboard */,
 				6A6D0E66188F3FDF00CAD90B /* connect */,
 				6A6D0E83188F3FDF00CAD90B /* connectTests */,
@@ -231,6 +245,7 @@
 		6A6D0E66188F3FDF00CAD90B /* connect */ = {
 			isa = PBXGroup;
 			children = (
+				6A693E9118B5590C00D9289C /* Helper Classes */,
 				6A693E8D18B5392300D9289C /* Core Data */,
 				6A6D0E6F188F3FDF00CAD90B /* AppDelegate.h */,
 				6A6D0E70188F3FDF00CAD90B /* AppDelegate.m */,
@@ -289,8 +304,6 @@
 				E0C821DF18A9A39100598450 /* FAQCell.m */,
 				E0C821DB18A0675A00598450 /* FaqViewController.h */,
 				E0C821DC18A0675A00598450 /* FaqViewController.m */,
-				6A693E8E18B53D1400D9289C /* CoreDataHelper.h */,
-				6A693E8F18B53D1400D9289C /* CoreDataHelper.m */,
 			);
 			name = FAQ;
 			sourceTree = "<group>";
@@ -417,11 +430,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E03C4EDD18B2E7DF00B93C1C /* Contact.m in Sources */,
+				6A693EA918B6AF7600D9289C /* Restaurant.m in Sources */,
 				E03C4EEC18B2E85100B93C1C /* FoodTableViewController.m in Sources */,
 				6A05306218A0732D00B3CD04 /* FAQ.m in Sources */,
 				E03C4EE318B2E7DF00B93C1C /* Event.m in Sources */,
 				E03C4EE018B2E7DF00B93C1C /* News.m in Sources */,
-				E03C4EE918B2E7DF00B93C1C /* Restaurant.m in Sources */,
 				6A693E9018B53D1400D9289C /* CoreDataHelper.m in Sources */,
 				E03C4EE618B2E7DF00B93C1C /* Location.m in Sources */,
 				6A6D0E71188F3FDF00CAD90B /* AppDelegate.m in Sources */,
@@ -430,6 +443,7 @@
 				E0C821DD18A0675A00598450 /* FaqViewController.m in Sources */,
 				6A6D0E74188F3FDF00CAD90B /* connect.xcdatamodeld in Sources */,
 				6A6D0E6D188F3FDF00CAD90B /* main.m in Sources */,
+				6A693EA618B68FA800D9289C /* Hour.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

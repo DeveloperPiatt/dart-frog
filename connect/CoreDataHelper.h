@@ -11,7 +11,6 @@
 @interface CoreDataHelper : NSObject
 
 -(NSArray*)getArrayOfManagedObjectsForEntity:(NSString*)entityName withSortDescriptor:(NSString*)sortDescript;
-
 -(void)saveManagedObjectContext;
 -(void)removeManagedObjectsForEntity: (NSString*)entityName;
 

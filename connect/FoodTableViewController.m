@@ -8,8 +8,10 @@
 
 #import "FoodTableViewController.h"
 #import "CoreDataHelper.h"
+#import "AppDelegate.h"
 
 #import "Restaurant.h"
+#import "Hour.h"
 #import "Location.h"
 
 @interface FoodTableViewController () {
@@ -38,6 +40,9 @@
     [super viewDidLoad];
     
     cData = [[CoreDataHelper alloc]init];
+    //Creates and returns managed object of AppDelegate class
+    AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
+    managedObjectContext = [appdelegate managedObjectContext];
     
     //Idicates activity while table view loads data
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -109,13 +114,13 @@
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"ConnectionFinishedLoading");
-    [self createManagedObjectsForFoodEntity];
+    [self createManagedObjectsForFoodEntityUsingWebData:webData];
     
 }
 
--(void)createManagedObjectsForFoodEntity {
+-(void)createManagedObjectsForFoodEntityUsingWebData:(NSData*)wData {
     //Create foundation object for JSON data and stores values in array
-    NSArray *allDataArray = [NSJSONSerialization JSONObjectWithData:webData options:0 error:nil];
+    NSArray *allDataArray = [NSJSONSerialization JSONObjectWithData:wData options:0 error:nil];
     
     /*
      There is a slight issue we need to deal with concerning the data coming in
@@ -147,8 +152,41 @@
     
     // Iterating through all the restaurants in allDataArray.
     for (NSDictionary *aRestaurant in allDataArray) {
+        
         // Checking each restaurant entry to see if it's unique or not.
         if ([uniqueRestaurantDict objectForKey:[aRestaurant objectForKey:@"concept_title"]] == NULL) {
+            
+            // Setting up the managed objects we will be working with
+            NSEntityDescription *restaurantEntityDesc = [NSEntityDescription entityForName:@"Restaurant" inManagedObjectContext:managedObjectContext];
+            Restaurant *newRestaurant = [[Restaurant alloc]initWithEntity:restaurantEntityDesc insertIntoManagedObjectContext:managedObjectContext];
+            
+            NSEntityDescription *hourEntityDesc = [NSEntityDescription entityForName:@"Hour" inManagedObjectContext:managedObjectContext];
+            Hour *newHour = [[Hour alloc]initWithEntity:hourEntityDesc insertIntoManagedObjectContext:managedObjectContext];
+            
+            NSEntityDescription *locationEntityDesc = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
+            Location *newLocation = [[Location alloc]initWithEntity:locationEntityDesc insertIntoManagedObjectContext:managedObjectContext];
+            
+            newLocation.locationName = [aRestaurant objectForKey:@"zone"];
+            
+            newRestaurant.restaurantName = [aRestaurant objectForKey:@"concept_title"];
+            
+            if (![[aRestaurant objectForKey:@"start"] isEqual:[NSNull null]]) {
+                newHour.hourStart = [aRestaurant objectForKey:@"start"];
+            } else {
+                newHour.hourStart = @"Not Listed";
+            }
+            if (![[aRestaurant objectForKey:@"end"] isEqual:[NSNull null]]) {
+                newHour.hourEnd = [aRestaurant objectForKey:@"end"];
+            } else {
+                newHour.hourEnd = @"Not Listed";
+            }
+            
+            newHour.restaurant = newRestaurant;
+            
+            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+            // End of core data
+            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+            
             NSLog(@"add me -- %@", [aRestaurant objectForKey:@"concept_title"]);
             
             /*
@@ -188,8 +226,55 @@
              the restaurant name
              */
              [uniqueRestaurantDict setObject:restaurantData forKey:[aRestaurant objectForKey:@"concept_title"]];
+            
+           
+            
+            
         } else {
-            NSLog(@"dont add me -- %@", [aRestaurant objectForKey:@"concept_title"]);
+            
+            // Setting up the managed objects we will be working with
+            NSEntityDescription *restaurantEntityDesc = [NSEntityDescription entityForName:@"Restaurant" inManagedObjectContext:managedObjectContext];
+            
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+            [fetchRequest setEntity:restaurantEntityDesc];
+            
+            
+            //Perform fetch request on entity that fits the description
+            //Predicates used to select entities based on certain criteria
+            NSSortDescriptor *sortDescriptorIndex = [[NSSortDescriptor alloc]initWithKey:@"restaurantName" ascending:YES];
+            NSArray *sortDescriptors = [[NSArray alloc]initWithObjects: sortDescriptorIndex, nil];
+                
+            fetchRequest.sortDescriptors = sortDescriptors;
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"restaurantName = %@", [aRestaurant objectForKey:@"concept_title"]];
+            
+            [fetchRequest setPredicate:predicate];
+            
+            NSError *error;
+            NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+            
+            Restaurant *repeatedRestaurant = [matchingData objectAtIndex:0];
+
+            NSEntityDescription *hourEntityDesc = [NSEntityDescription entityForName:@"Hour" inManagedObjectContext:managedObjectContext];
+            Hour *newHour = [[Hour alloc]initWithEntity:hourEntityDesc insertIntoManagedObjectContext:managedObjectContext];
+            
+            if (![[aRestaurant objectForKey:@"start"] isEqual:[NSNull null]]) {
+                newHour.hourStart = [aRestaurant objectForKey:@"start"];
+            } else {
+                newHour.hourStart = @"Not Listed";
+            }
+            if (![[aRestaurant objectForKey:@"end"] isEqual:[NSNull null]]) {
+                newHour.hourEnd = [aRestaurant objectForKey:@"end"];
+            } else {
+                newHour.hourEnd = @"Not Listed";
+            }
+            
+            newHour.restaurant = repeatedRestaurant;
+            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+            // End of core data
+            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+            
+            NSLog(@"duplicate -- %@", [aRestaurant objectForKey:@"concept_title"]);
             
             /*
              Already have an entry for this location. Instead we need to snag the restaurant data (rdata),
@@ -209,11 +294,15 @@
             
             // and adding it to the hours array
             [hoursArray addObject:hoursDict];
+            
+            
+            
         }
     }
     
     // Just checking to see how the data looks ... and it looks good!
     NSLog(@"%@", uniqueRestaurantDict);
+    
 }
 
 @end

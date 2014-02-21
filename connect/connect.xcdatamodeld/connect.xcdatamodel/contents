@@ -18,8 +18,8 @@
         <attribute name="faqQuestion" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Hour" representedClassName="Hour" syncable="YES">
-        <attribute name="hourEnd" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="hourStart" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="hourEnd" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hourStart" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="restaurant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Restaurant" inverseName="hours" inverseEntity="Restaurant" syncable="YES"/>
     </entity>
     <entity name="Location" representedClassName="Location" syncable="YES">
@@ -52,10 +52,10 @@
         <element name="Contact" positionX="376" positionY="-135" width="128" height="75"/>
         <element name="Event" positionX="448" positionY="207" width="128" height="135"/>
         <element name="FAQ" positionX="367" positionY="-18" width="128" height="90"/>
+        <element name="Hour" positionX="252" positionY="396" width="128" height="88"/>
         <element name="Location" positionX="-155" positionY="153" width="128" height="135"/>
         <element name="News" positionX="0" positionY="-162" width="128" height="105"/>
         <element name="Restaurant" positionX="52" positionY="390" width="128" height="88"/>
         <element name="Tweet" positionX="223" positionY="-189" width="128" height="120"/>
-        <element name="Hour" positionX="252" positionY="396" width="128" height="88"/>
     </elements>
 </model>

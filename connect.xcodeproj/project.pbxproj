@@ -453,6 +453,7 @@
 				6A6D0E74188F3FDF00CAD90B /* connect.xcdatamodeld in Sources */,
 				E03C4EF118B7CCA800B93C1C /* FoodCell.m in Sources */,
 				6A6D0E6D188F3FDF00CAD90B /* main.m in Sources */,
+				E03C4EFA18B7E1FF00B93C1C /* Hour.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

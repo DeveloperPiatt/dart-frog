@@ -12,6 +12,8 @@
 #import "Restaurant.h"
 #import "Location.h"
 
+#import "FoodCell.h"
+
 @interface FoodTableViewController () {
     NSManagedObjectContext *managedObjectContext;
     NSMutableData *webData;
@@ -214,6 +216,30 @@
     
     // Just checking to see how the data looks ... and it looks good!
     NSLog(@"%@", uniqueRestaurantDict);
+}
+
+- (FoodCell *)foodTableView:(UITableView *)tableView givenDictionary:(*NSDictionary)restaurantDictionary
+{
+    static NSString *cellIdentifier = @"FoodCell";
+    FoodCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    // Configure the cell
+    
+    NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Restaurant" withSortDescriptor:@""];
+    
+    if (indexPath.row < matchingData.count) {
+        Restaurant *foodObj = [matchingData objectAtIndex:indexPath.row];
+        
+        cell.nameLabel.text = foodObj.restaurantName;
+        cell.locationLabel.text = foodObj.location.locationName;
+        cell.hoursLabel.text = restaurantDictionary.rData.hoursDict.start;
+    } else {
+        cell.nameLabel.text = @"NoData";
+        cell.locationLabel.text = @"NoData";
+        cell.hoursLabel.text = @"NoData";
+    }
+    
+    return cell;
 }
 
 @end

@@ -1,19 +1,13 @@
 //
-//  Hour.m
+//  Hours.h
 //  connect
 //
 //  Created by Taylor Cuilty on 2/21/14.
 //  Copyright (c) 2014 Oregon State University. All rights reserved.
 //
 
-#import "Hour.h"
-#import "Restaurant.h"
+#import <CoreData/CoreData.h>
 
-
-@implementation Hour
-
-@dynamic hourEnd;
-@dynamic hourStart;
-@dynamic restaurant;
+@interface Hours : NSManagedObject
 
 @end

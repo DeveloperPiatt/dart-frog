@@ -53,13 +53,6 @@
     {
         webData = [[NSMutableData alloc]init];
     }
-    
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -152,8 +145,9 @@
     
     NSMutableDictionary *uniqueRestaurantDict = [[NSMutableDictionary alloc]init];
     
+    // Iterating through all the restaurants in allDataArray.
     for (NSDictionary *aRestaurant in allDataArray) {
-        
+        // Checking each restaurant entry to see if it's unique or not.
         if ([uniqueRestaurantDict objectForKey:[aRestaurant objectForKey:@"concept_title"]] == NULL) {
             NSLog(@"add me -- %@", [aRestaurant objectForKey:@"concept_title"]);
             
@@ -164,18 +158,36 @@
             
             NSMutableArray *hoursArray = [[NSMutableArray alloc]init];
             
+            // Setting up an object to hold a start and end time for this current entry
             NSMutableDictionary *hoursDict = [[NSMutableDictionary alloc]init];
             [hoursDict setObject:[aRestaurant objectForKey:@"start"] forKey:@"start"];
             [hoursDict setObject:[aRestaurant objectForKey:@"end"] forKey:@"end"];
             
+            /* 
+             Adding the hours object to the array that will store all of said entries
+             As we iterate through allDataArray a restaurant may come up more than once
+             if it closes and re-opens later in the day. By the end of our iteration
+             through allDataArray this array could have 1-x sets of start/end times
+             */
             [hoursArray addObject:hoursDict];
             
+            // Setting up a dictionary for holding restaurantData
             NSMutableDictionary *restaurantData = [[NSMutableDictionary alloc]init];
+            
+            // Setting the hours array so that we can access it later
             [restaurantData setObject:hoursArray forKey:@"hours"];
-            [restaurantData setObject:[aRestaurant objectForKey:@"zone"] forKey:@"location"];
             
+            /*
+             Setting the 'zone', or the location, of the restaurant. We only need to
+             do this once when we first set up this restaurant data object.
+             */
+             [restaurantData setObject:[aRestaurant objectForKey:@"zone"] forKey:@"location"];
             
-            [uniqueRestaurantDict setObject:restaurantData forKey:[aRestaurant objectForKey:@"concept_title"]];
+            /* 
+             And finally we add the restaurant data to a dictionary and key it with
+             the restaurant name
+             */
+             [uniqueRestaurantDict setObject:restaurantData forKey:[aRestaurant objectForKey:@"concept_title"]];
         } else {
             NSLog(@"dont add me -- %@", [aRestaurant objectForKey:@"concept_title"]);
             
@@ -184,7 +196,10 @@
              pull the hours array and add a new set of hours data.
              */
             
+            // Setting a pointer to the restaurant data that we know should already exist
             NSMutableDictionary *rData = [uniqueRestaurantDict objectForKey:[aRestaurant objectForKey:@"concept_title"]];
+            
+            // And another pointer to the hours array that we know should exist in the restaurant data
             NSMutableArray *hoursArray = [rData objectForKey:@"hours"];
             
             // creating new set of hours data
@@ -192,12 +207,12 @@
             [hoursDict setObject:[aRestaurant objectForKey:@"start"] forKey:@"start"];
             [hoursDict setObject:[aRestaurant objectForKey:@"end"] forKey:@"end"];
             
-            // adding hours data to the array
+            // and adding it to the hours array
             [hoursArray addObject:hoursDict];
-            
         }
     }
     
+    // Just checking to see how the data looks ... and it looks good!
     NSLog(@"%@", uniqueRestaurantDict);
 }
 

@@ -81,13 +81,31 @@
     // Return the number of rows in the section.
     return 0;
 }
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
+- (FoodCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+        static NSString *cellIdentifier = @"FoodCell";
+        FoodCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        // Configure the cell
+        
+        NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Restaurant" withSortDescriptor:@""];
+        
+    if(indexPath.row < matchingData.count) {
+        Restaurant *foodObj = [matchingData objectAtIndex:indexPath.row];
+        
+        cell.nameLabel.text = foodObj.restaurantName;
+        cell.locationLabel.text = foodObj.location.locationName;
+        //cell.hoursLabel.text = foodObj.hours.
+        
+        NSSet *hourSet = foodObj.hours;
+        NSArray *hourArray = hourSet allObjects;
+        
+    } else {
+        cell.nameLabel.text = @"NoData";
+        cell.locationLabel.text = @"NoData";
+        cell.hoursLabel.text = @"NoData";
+    }
     
     return cell;
 }
@@ -117,6 +135,7 @@
 {
     NSLog(@"ConnectionFinishedLoading");
     [self createManagedObjectsForFoodEntityUsingWebData:webData];
+    [cData saveManagedObjectContext];
     
 }
 
@@ -307,28 +326,5 @@
     
 }
 
-- (FoodCell *)foodTableView:(UITableView *)tableView givenDictionary:(*NSDictionary)restaurantDictionary
-{
-    static NSString *cellIdentifier = @"FoodCell";
-    FoodCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    // Configure the cell
-    
-    NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Restaurant" withSortDescriptor:@""];
-    
-    if (indexPath.row < matchingData.count) {
-        Restaurant *foodObj = [matchingData objectAtIndex:indexPath.row];
-        
-        cell.nameLabel.text = foodObj.restaurantName;
-        cell.locationLabel.text = foodObj.location.locationName;
-        cell.hoursLabel.text = restaurantDictionary.rData.hoursDict.start;
-    } else {
-        cell.nameLabel.text = @"NoData";
-        cell.locationLabel.text = @"NoData";
-        cell.hoursLabel.text = @"NoData";
-    }
-    
-    return cell;
-}
 
 @end

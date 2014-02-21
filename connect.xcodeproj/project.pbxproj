@@ -124,7 +124,6 @@
 		E03C4EEB18B2E85100B93C1C /* FoodTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodTableViewController.m; sourceTree = "<group>"; };
 		E03C4EEF18B7CCA800B93C1C /* FoodCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodCell.h; sourceTree = "<group>"; };
 		E03C4EF018B7CCA800B93C1C /* FoodCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodCell.m; sourceTree = "<group>"; };
-		E03C4EF818B7E1FF00B93C1C /* Hour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hour.h; sourceTree = "<group>"; };
 		E03C4EF918B7E1FF00B93C1C /* Hour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hour.m; sourceTree = "<group>"; };
 		E06CA0EF188F4632003BE618 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		E0C821DB18A0675A00598450 /* FaqViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FaqViewController.h; path = ../FaqViewController.h; sourceTree = "<group>"; };

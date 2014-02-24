@@ -127,6 +127,7 @@
 }
 
 # pragma mark - Core Data
+
 -(void)createManagedObjectsForContactEntity
 {
     
@@ -134,7 +135,6 @@
     NSDictionary *allDataDictionary = [NSJSONSerialization JSONObjectWithData:webData options:0 error:nil];
     NSArray *allNodes = [allDataDictionary objectForKey:@"nodes"];
     
-    int indexCount = 0;
     for (NSDictionary *nodeIndex in allNodes)
     {
         //Create and assign values to entities
@@ -142,13 +142,16 @@
         NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Contact" inManagedObjectContext:managedObjectContext];
         Contact *newContact = [[Contact alloc]initWithEntity:entityDesc insertIntoManagedObjectContext:managedObjectContext];
     
-        newContact. = [[nodeIndex objectForKey:@"node"] objectForKey:@"question"];
-        newFAQ.faqAnswer = [[nodeIndex objectForKey:@"node"] objectForKey:@"answer"];
-        newFAQ.faqIndex = [NSNumber numberWithInt:indexCount];
-    
-        indexCount++;
+        newContact.contactTitle = [[nodeIndex objectForKey:@"node"] objectForKey:@"title"];
+        
+        if ([[[nodeIndex objectForKey:@"node"] objectForKey:@"phone_numbers"] isKindOfClass:[NSDictionary class]] == YES) {
+            newContact.contactNumber = [[[nodeIndex objectForKey:@"node"] objectForKey:@"phone_numbers"] objectForKey:@"1"];
+        }
+        else {
+            newContact.contactNumber = [[nodeIndex objectForKey:@"node"] objectForKey:@"phone_numbers"];
+        }
+    }
 }
-
 
 
 @end

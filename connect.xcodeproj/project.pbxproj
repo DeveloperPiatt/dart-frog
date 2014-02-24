@@ -50,6 +50,7 @@
 		E03C4EE618B2E7DF00B93C1C /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EE518B2E7DF00B93C1C /* Location.m */; };
 		E03C4EEC18B2E85100B93C1C /* FoodTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EEB18B2E85100B93C1C /* FoodTableViewController.m */; };
 		E03C4EF118B7CCA800B93C1C /* FoodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EF018B7CCA800B93C1C /* FoodCell.m */; };
+		E03C4EFD18BC008C00B93C1C /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EFC18BC008C00B93C1C /* ContactsViewController.m */; };
 		E06CA0F0188F4632003BE618 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E06CA0EF188F4632003BE618 /* Storyboard.storyboard */; };
 		E0C821DD18A0675A00598450 /* FaqViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C821DC18A0675A00598450 /* FaqViewController.m */; };
 		E0C821E018A9A39100598450 /* FAQCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C821DF18A9A39100598450 /* FAQCell.m */; };
@@ -123,6 +124,8 @@
 		E03C4EEB18B2E85100B93C1C /* FoodTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodTableViewController.m; sourceTree = "<group>"; };
 		E03C4EEF18B7CCA800B93C1C /* FoodCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodCell.h; sourceTree = "<group>"; };
 		E03C4EF018B7CCA800B93C1C /* FoodCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodCell.m; sourceTree = "<group>"; };
+		E03C4EFB18BC008C00B93C1C /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactsViewController.h; path = ../ContactsViewController.h; sourceTree = "<group>"; };
+		E03C4EFC18BC008C00B93C1C /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsViewController.m; path = ../ContactsViewController.m; sourceTree = "<group>"; };
 		E06CA0EF188F4632003BE618 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		E0C821DB18A0675A00598450 /* FaqViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FaqViewController.h; path = ../FaqViewController.h; sourceTree = "<group>"; };
 		E0C821DC18A0675A00598450 /* FaqViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FaqViewController.m; path = ../FaqViewController.m; sourceTree = "<group>"; };
@@ -248,6 +251,7 @@
 		6A6D0E66188F3FDF00CAD90B /* connect */ = {
 			isa = PBXGroup;
 			children = (
+				E03C4EFE18BC009D00B93C1C /* PhoneNumbers */,
 				6A693E9118B5590C00D9289C /* Helper Classes */,
 				6A693E8D18B5392300D9289C /* Core Data */,
 				6A6D0E6F188F3FDF00CAD90B /* AppDelegate.h */,
@@ -320,6 +324,15 @@
 				E03C4EF018B7CCA800B93C1C /* FoodCell.m */,
 			);
 			name = Food;
+			sourceTree = "<group>";
+		};
+		E03C4EFE18BC009D00B93C1C /* PhoneNumbers */ = {
+			isa = PBXGroup;
+			children = (
+				E03C4EFB18BC008C00B93C1C /* ContactsViewController.h */,
+				E03C4EFC18BC008C00B93C1C /* ContactsViewController.m */,
+			);
+			name = PhoneNumbers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -447,6 +460,7 @@
 				E03C4EDA18B2E7DE00B93C1C /* Tweet.m in Sources */,
 				E0C821DD18A0675A00598450 /* FaqViewController.m in Sources */,
 				6A6D0E74188F3FDF00CAD90B /* connect.xcdatamodeld in Sources */,
+				E03C4EFD18BC008C00B93C1C /* ContactsViewController.m in Sources */,
 				E03C4EF118B7CCA800B93C1C /* FoodCell.m in Sources */,
 				6A6D0E6D188F3FDF00CAD90B /* main.m in Sources */,
 				6A160D4B18BBA2F100CA6205 /* Hour.m in Sources */,

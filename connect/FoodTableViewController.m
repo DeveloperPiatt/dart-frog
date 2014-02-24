@@ -193,15 +193,21 @@
             // Setting up the managed objects we will be working with
             NSEntityDescription *restaurantEntityDesc = [NSEntityDescription entityForName:@"Restaurant" inManagedObjectContext:managedObjectContext];
             Restaurant *newRestaurant = [[Restaurant alloc]initWithEntity:restaurantEntityDesc insertIntoManagedObjectContext:managedObjectContext];
+            Location *possibleLocation = [self getLocation:[aRestaurant objectForKey:@"zone"]];
             
-            NSEntityDescription *locationEntityDesc = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
-            Location *newLocation = [[Location alloc]initWithEntity:locationEntityDesc insertIntoManagedObjectContext:managedObjectContext];
-            
-            newLocation.locationName = [aRestaurant objectForKey:@"zone"];
+            if (possibleLocation == nil) {
+                NSEntityDescription *locationEntityDesc = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
+                Location *newLocation = [[Location alloc]initWithEntity:locationEntityDesc insertIntoManagedObjectContext:managedObjectContext];
+                
+                newLocation.locationName = [aRestaurant objectForKey:@"zone"];
+                newRestaurant.location = newLocation;
+            } else {
+                NSLog(@"Location already exists");
+                newRestaurant.location = possibleLocation;
+            }
+
             newRestaurant.restaurantName = [aRestaurant objectForKey:@"concept_title"];
-            
             Hour *newHour = [self getHourForRestaurant:aRestaurant];
-            
             newHour.restaurant = newRestaurant;
             
             // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -340,6 +346,35 @@
         newHour.hourEnd = nil;
     }
     return newHour;
+}
+
+-(Location*)getLocation:(NSString*)locationName {
+    // Setting up the managed objects we will be working with
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    [fetchRequest setEntity:entityDescription];
+    
+    //Perform fetch request on entity that fits the description
+    //Predicates used to select entities based on certain criteria
+    NSSortDescriptor *sortDescriptorIndex = [[NSSortDescriptor alloc]initWithKey:@"locationName" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc]initWithObjects: sortDescriptorIndex, nil];
+    
+    fetchRequest.sortDescriptors = sortDescriptors;
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"locationName = %@", locationName];
+    
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error;
+    NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    if ([matchingData count] > 0) {
+        return [matchingData objectAtIndex:0];
+    } else {
+        return nil;
+    }
+    
 }
 
 

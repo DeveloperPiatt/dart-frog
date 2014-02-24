@@ -144,8 +144,9 @@
      The question is, how do we know to remove a restaurant from core data if it has been closed
      down or renamed? All we really know is if a place is open today or not.
      */
+    [cData removeManagedObjectsForEntity:@"Restaurant"];
     [cData removeManagedObjectsForEntity:@"Hour"];
-    NSLog(@"Removed all hours from restaurants");
+    NSLog(@"Removed all hours and restaurants");
     [self createManagedObjectsForFoodEntityUsingWebData:webData];
     [cData saveManagedObjectContext];
     
@@ -183,38 +184,8 @@
     
     NSMutableDictionary *uniqueRestaurantDict = [[NSMutableDictionary alloc]init];
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     // Iterating through all the restaurants in allDataArray.
     for (NSDictionary *aRestaurant in allDataArray) {
-        
-        // Setting up the managed objects we will be working with
-        NSEntityDescription *rEntityDesc = [NSEntityDescription entityForName:@"Restaurant" inManagedObjectContext:managedObjectContext];
-        
-        NSFetchRequest *fRequest = [[NSFetchRequest alloc]init];
-        [fRequest setEntity:rEntityDesc];
-        
-        //Perform fetch request on entity that fits the description
-        //Predicates used to select entities based on certain criteria
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"restaurantName" ascending:YES];
-        NSArray *sortDescriptors = [[NSArray alloc]initWithObjects: sortDescriptor, nil];
-        
-        fRequest.sortDescriptors = sortDescriptors;
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"restaurantName = %@", [aRestaurant objectForKey:@"concept_title"]];
-        
-        [fRequest setPredicate:predicate];
-        
-        NSError *error;
-        NSArray *matchingData = [managedObjectContext executeFetchRequest:fRequest error:&error];
         
         // Checking each restaurant entry to see if it's unique or not.
         if ([uniqueRestaurantDict objectForKey:[aRestaurant objectForKey:@"concept_title"]] == NULL) {

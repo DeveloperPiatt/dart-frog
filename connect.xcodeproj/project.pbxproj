@@ -22,6 +22,7 @@
 		6A0CAC6518919F9100E7E718 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0CAC5918919F9100E7E718 /* star.png */; };
 		6A0CAC681891DAE300E7E718 /* favorite_not_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0CAC661891DAE300E7E718 /* favorite_not_selected.png */; };
 		6A0CAC691891DAE300E7E718 /* favorite_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0CAC671891DAE300E7E718 /* favorite_selected.png */; };
+		6A160D4B18BBA2F100CA6205 /* Hour.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A160D4A18BBA2F100CA6205 /* Hour.m */; };
 		6A693E9018B53D1400D9289C /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A693E8F18B53D1400D9289C /* CoreDataHelper.m */; };
 		6A693EA918B6AF7600D9289C /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A693EA818B6AF7600D9289C /* Restaurant.m */; };
 		6A6D0E5F188F3FDF00CAD90B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6D0E5E188F3FDF00CAD90B /* Foundation.framework */; };
@@ -39,7 +40,6 @@
 		6A6D0E80188F3FDF00CAD90B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6D0E64188F3FDF00CAD90B /* CoreData.framework */; };
 		6A6D0E88188F3FDF00CAD90B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A6D0E86188F3FDF00CAD90B /* InfoPlist.strings */; };
 		6A6D0E8A188F3FDF00CAD90B /* connectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6D0E89188F3FDF00CAD90B /* connectTests.m */; };
-		6A92EDBB18B8108A00C565B7 /* Hour.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A92EDBA18B8108A00C565B7 /* Hour.m */; };
 		E00FB50A18986D04003A8327 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = E00FB50918986D04003A8327 /* twitter.png */; };
 		E00FB50C18986D36003A8327 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = E00FB50B18986D36003A8327 /* facebook.png */; };
 		E00FB50E18986E8F003A8327 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E00FB50D18986E8F003A8327 /* MapKit.framework */; };
@@ -50,7 +50,6 @@
 		E03C4EE618B2E7DF00B93C1C /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EE518B2E7DF00B93C1C /* Location.m */; };
 		E03C4EEC18B2E85100B93C1C /* FoodTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EEB18B2E85100B93C1C /* FoodTableViewController.m */; };
 		E03C4EF118B7CCA800B93C1C /* FoodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EF018B7CCA800B93C1C /* FoodCell.m */; };
-		E03C4EFA18B7E1FF00B93C1C /* Hour.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EF918B7E1FF00B93C1C /* Hour.m */; };
 		E06CA0F0188F4632003BE618 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E06CA0EF188F4632003BE618 /* Storyboard.storyboard */; };
 		E0C821DD18A0675A00598450 /* FaqViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C821DC18A0675A00598450 /* FaqViewController.m */; };
 		E0C821E018A9A39100598450 /* FAQCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C821DF18A9A39100598450 /* FAQCell.m */; };
@@ -83,6 +82,8 @@
 		6A0CAC5918919F9100E7E718 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		6A0CAC661891DAE300E7E718 /* favorite_not_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite_not_selected.png; sourceTree = "<group>"; };
 		6A0CAC671891DAE300E7E718 /* favorite_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite_selected.png; sourceTree = "<group>"; };
+		6A160D4918BBA2F100CA6205 /* Hour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hour.h; sourceTree = "<group>"; };
+		6A160D4A18BBA2F100CA6205 /* Hour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hour.m; sourceTree = "<group>"; };
 		6A693E8E18B53D1400D9289C /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		6A693E8F18B53D1400D9289C /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
 		6A693EA718B6AF7600D9289C /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
@@ -105,8 +106,6 @@
 		6A6D0E85188F3FDF00CAD90B /* connectTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "connectTests-Info.plist"; sourceTree = "<group>"; };
 		6A6D0E87188F3FDF00CAD90B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6A6D0E89188F3FDF00CAD90B /* connectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = connectTests.m; sourceTree = "<group>"; };
-		6A92EDB918B8108A00C565B7 /* Hour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hour.h; sourceTree = "<group>"; };
-		6A92EDBA18B8108A00C565B7 /* Hour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hour.m; sourceTree = "<group>"; };
 		E00FB50918986D04003A8327 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		E00FB50B18986D36003A8327 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 		E00FB50D18986E8F003A8327 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -124,7 +123,6 @@
 		E03C4EEB18B2E85100B93C1C /* FoodTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodTableViewController.m; sourceTree = "<group>"; };
 		E03C4EEF18B7CCA800B93C1C /* FoodCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodCell.h; sourceTree = "<group>"; };
 		E03C4EF018B7CCA800B93C1C /* FoodCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodCell.m; sourceTree = "<group>"; };
-		E03C4EF918B7E1FF00B93C1C /* Hour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hour.m; sourceTree = "<group>"; };
 		E06CA0EF188F4632003BE618 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		E0C821DB18A0675A00598450 /* FaqViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FaqViewController.h; path = ../FaqViewController.h; sourceTree = "<group>"; };
 		E0C821DC18A0675A00598450 /* FaqViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FaqViewController.m; path = ../FaqViewController.m; sourceTree = "<group>"; };
@@ -196,8 +194,8 @@
 				6A05306018A0732D00B3CD04 /* FAQ.h */,
 				6A05306118A0732D00B3CD04 /* FAQ.m */,
 				6A6D0E72188F3FDF00CAD90B /* connect.xcdatamodeld */,
-				6A92EDB918B8108A00C565B7 /* Hour.h */,
-				6A92EDBA18B8108A00C565B7 /* Hour.m */,
+				6A160D4918BBA2F100CA6205 /* Hour.h */,
+				6A160D4A18BBA2F100CA6205 /* Hour.m */,
 				6A693EA718B6AF7600D9289C /* Restaurant.h */,
 				6A693EA818B6AF7600D9289C /* Restaurant.m */,
 			);
@@ -436,7 +434,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A92EDBB18B8108A00C565B7 /* Hour.m in Sources */,
 				E03C4EDD18B2E7DF00B93C1C /* Contact.m in Sources */,
 				6A693EA918B6AF7600D9289C /* Restaurant.m in Sources */,
 				E03C4EEC18B2E85100B93C1C /* FoodTableViewController.m in Sources */,
@@ -452,7 +449,7 @@
 				6A6D0E74188F3FDF00CAD90B /* connect.xcdatamodeld in Sources */,
 				E03C4EF118B7CCA800B93C1C /* FoodCell.m in Sources */,
 				6A6D0E6D188F3FDF00CAD90B /* main.m in Sources */,
-				E03C4EFA18B7E1FF00B93C1C /* Hour.m in Sources */,
+				6A160D4B18BBA2F100CA6205 /* Hour.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

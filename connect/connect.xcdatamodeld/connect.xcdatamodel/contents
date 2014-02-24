@@ -18,8 +18,8 @@
         <attribute name="faqQuestion" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Hour" representedClassName="Hour" syncable="YES">
-        <attribute name="hourEnd" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="hourStart" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hourEnd" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="hourStart" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="restaurant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Restaurant" inverseName="hours" inverseEntity="Restaurant" syncable="YES"/>
     </entity>
     <entity name="Location" representedClassName="Location" syncable="YES">

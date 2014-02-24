@@ -96,10 +96,11 @@
         
         cell.nameLabel.text = foodObj.restaurantName;
         cell.locationLabel.text = foodObj.location.locationName;
+        
         //cell.hoursLabel.text = foodObj.hours.
         
-        NSSet *hourSet = foodObj.hours;
-        NSArray *hourArray = hourSet allObjects;
+//        NSSet *hourSet = foodObj.hours;
+//        NSArray *hourArray = hourSet allObjects;
         
     } else {
         cell.nameLabel.text = @"NoData";
@@ -134,6 +135,17 @@
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"ConnectionFinishedLoading");
+    /*
+     The hours need to get cleared because the restaurant may or may not be open that day
+     or the hours could have changed. In such a case, since these hours are simply reflecting
+     todays hours, we should clear them each time and only display restaurants from our list
+     with open/close times.
+     
+     The question is, how do we know to remove a restaurant from core data if it has been closed
+     down or renamed? All we really know is if a place is open today or not.
+     */
+    [cData removeManagedObjectsForEntity:@"Hour"];
+    NSLog(@"Removed all hours from restaurants");
     [self createManagedObjectsForFoodEntityUsingWebData:webData];
     [cData saveManagedObjectContext];
     
@@ -171,8 +183,38 @@
     
     NSMutableDictionary *uniqueRestaurantDict = [[NSMutableDictionary alloc]init];
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // Iterating through all the restaurants in allDataArray.
     for (NSDictionary *aRestaurant in allDataArray) {
+        
+        // Setting up the managed objects we will be working with
+        NSEntityDescription *rEntityDesc = [NSEntityDescription entityForName:@"Restaurant" inManagedObjectContext:managedObjectContext];
+        
+        NSFetchRequest *fRequest = [[NSFetchRequest alloc]init];
+        [fRequest setEntity:rEntityDesc];
+        
+        //Perform fetch request on entity that fits the description
+        //Predicates used to select entities based on certain criteria
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"restaurantName" ascending:YES];
+        NSArray *sortDescriptors = [[NSArray alloc]initWithObjects: sortDescriptor, nil];
+        
+        fRequest.sortDescriptors = sortDescriptors;
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"restaurantName = %@", [aRestaurant objectForKey:@"concept_title"]];
+        
+        [fRequest setPredicate:predicate];
+        
+        NSError *error;
+        NSArray *matchingData = [managedObjectContext executeFetchRequest:fRequest error:&error];
         
         // Checking each restaurant entry to see if it's unique or not.
         if ([uniqueRestaurantDict objectForKey:[aRestaurant objectForKey:@"concept_title"]] == NULL) {
@@ -181,26 +223,13 @@
             NSEntityDescription *restaurantEntityDesc = [NSEntityDescription entityForName:@"Restaurant" inManagedObjectContext:managedObjectContext];
             Restaurant *newRestaurant = [[Restaurant alloc]initWithEntity:restaurantEntityDesc insertIntoManagedObjectContext:managedObjectContext];
             
-            NSEntityDescription *hourEntityDesc = [NSEntityDescription entityForName:@"Hour" inManagedObjectContext:managedObjectContext];
-            Hour *newHour = [[Hour alloc]initWithEntity:hourEntityDesc insertIntoManagedObjectContext:managedObjectContext];
-            
             NSEntityDescription *locationEntityDesc = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
             Location *newLocation = [[Location alloc]initWithEntity:locationEntityDesc insertIntoManagedObjectContext:managedObjectContext];
             
             newLocation.locationName = [aRestaurant objectForKey:@"zone"];
-            
             newRestaurant.restaurantName = [aRestaurant objectForKey:@"concept_title"];
             
-            if (![[aRestaurant objectForKey:@"start"] isEqual:[NSNull null]]) {
-                newHour.hourStart = [aRestaurant objectForKey:@"start"];
-            } else {
-                newHour.hourStart = @"Not Listed";
-            }
-            if (![[aRestaurant objectForKey:@"end"] isEqual:[NSNull null]]) {
-                newHour.hourEnd = [aRestaurant objectForKey:@"end"];
-            } else {
-                newHour.hourEnd = @"Not Listed";
-            }
+            Hour *newHour = [self getHourForRestaurant:aRestaurant];
             
             newHour.restaurant = newRestaurant;
             
@@ -247,10 +276,6 @@
              the restaurant name
              */
              [uniqueRestaurantDict setObject:restaurantData forKey:[aRestaurant objectForKey:@"concept_title"]];
-            
-           
-            
-            
         } else {
             
             // Setting up the managed objects we will be working with
@@ -258,7 +283,6 @@
             
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
             [fetchRequest setEntity:restaurantEntityDesc];
-            
             
             //Perform fetch request on entity that fits the description
             //Predicates used to select entities based on certain criteria
@@ -276,21 +300,10 @@
             
             Restaurant *repeatedRestaurant = [matchingData objectAtIndex:0];
 
-            NSEntityDescription *hourEntityDesc = [NSEntityDescription entityForName:@"Hour" inManagedObjectContext:managedObjectContext];
-            Hour *newHour = [[Hour alloc]initWithEntity:hourEntityDesc insertIntoManagedObjectContext:managedObjectContext];
-            
-            if (![[aRestaurant objectForKey:@"start"] isEqual:[NSNull null]]) {
-                newHour.hourStart = [aRestaurant objectForKey:@"start"];
-            } else {
-                newHour.hourStart = @"Not Listed";
-            }
-            if (![[aRestaurant objectForKey:@"end"] isEqual:[NSNull null]]) {
-                newHour.hourEnd = [aRestaurant objectForKey:@"end"];
-            } else {
-                newHour.hourEnd = @"Not Listed";
-            }
+            Hour *newHour = [self getHourForRestaurant:aRestaurant];
             
             newHour.restaurant = repeatedRestaurant;
+            
             // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
             // End of core data
             // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -315,15 +328,47 @@
             
             // and adding it to the hours array
             [hoursArray addObject:hoursDict];
-            
-            
-            
         }
     }
+}
+
+-(Hour*)getHourForRestaurant:(NSDictionary*)restaurantData {
+    /*
+     This function merely puts together our Hour managed object using the restaurant
+     data pulled from the web. It returns an Hour object with a start/end time set.
+     */
+    NSEntityDescription *hourEntityDesc = [NSEntityDescription entityForName:@"Hour" inManagedObjectContext:managedObjectContext];
+    Hour *newHour = [[Hour alloc]initWithEntity:hourEntityDesc insertIntoManagedObjectContext:managedObjectContext];
     
-    // Just checking to see how the data looks ... and it looks good!
-    NSLog(@"%@", uniqueRestaurantDict);
+    NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
+    [inputFormatter setDateFormat:@"hh:mm a"];
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    [outputFormatter setDateFormat:@"'Hours:' hh:mm a"];
     
+    /*
+     As long as the start/end times are not coming back as null, convert them to a
+     date and store them. If they are coming back as null, store them as nil in
+     core data
+     */
+    
+    if (![[restaurantData objectForKey:@"start"] isEqual:[NSNull null]]) {
+        NSDate *formatterDate = [inputFormatter dateFromString:[restaurantData objectForKey:@"start"]];
+        NSString *newDateString = [outputFormatter stringFromDate:formatterDate];
+        NSLog(@"Start Time -- %@", newDateString);
+        newHour.hourStart = formatterDate;
+    } else {
+        newHour.hourStart = nil;
+    }
+    
+    if (![[restaurantData objectForKey:@"end"] isEqual:[NSNull null]]) {
+        NSDate *formatterDate = [inputFormatter dateFromString:[restaurantData objectForKey:@"end"]];
+        NSString *newDateString = [outputFormatter stringFromDate:formatterDate];
+        NSLog(@"End Time -- %@", newDateString);
+        newHour.hourEnd = formatterDate;
+    } else {
+        newHour.hourEnd = nil;
+    }
+    return newHour;
 }
 
 

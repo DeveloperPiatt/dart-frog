@@ -177,22 +177,22 @@
 
 # pragma mark - Call contact
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+/*-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ContactCell *cell = (ContactCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:cell.number.text]];
     
     NSLog(@"Calling %@", cell.number.text);
-}
+}*/
 
-/*-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
     ContactCell *cell = (ContactCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     
-    CFErrorRef error = NULL;
+    CFErrorRef *error = NULL;
     
-    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error);
     
     ABAuthorizationStatus access = ABAddressBookGetAuthorizationStatus();
     
@@ -207,17 +207,11 @@
  
         ABRecordRef newContact = ABPersonCreate();
         
-        ABRecordSetValue(newContact, kABPersonFirstNameProperty, (__bridge CFStringRef)cell.title.text, /&error);
-        ABRecordSetValue(newContact, kABPersonPhoneProperty, (__bridge CFStringRef)cell.number.text, &error);
+        ABRecordSetValue(newContact, kABPersonFirstNameProperty, (__bridge CFStringRef)cell.title.text, error);
+        ABRecordSetValue(newContact, kABPersonPhoneProperty, (__bridge CFStringRef)cell.number.text, error);
     
-        ABAddressBookAddRecord(addressBook, newContact, &error);
-        ABAddressBookSave(addressBook, &error);
-    }
-    else
-    {
-       NSLog(@"%ld", access);
+        ABAddressBookAddRecord(addressBook, newContact, error);
     }
 }
-*/
 
 @end

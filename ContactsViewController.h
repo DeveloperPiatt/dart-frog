@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 
 @interface ContactsViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, NSURLConnectionDataDelegate, NSFetchedResultsControllerDelegate>

@@ -177,15 +177,15 @@
 
 # pragma mark - Call contact
 
-/*-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ContactCell *cell = (ContactCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:cell.number.text]];
     
     NSLog(@"Calling %@", cell.number.text);
-}*/
+}
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+/*-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
     ContactCell *cell = (ContactCell *)[self.tableView cellForRowAtIndexPath:indexPath];
@@ -212,6 +212,6 @@
     
         ABAddressBookAddRecord(addressBook, newContact, error);
     }
-}
+}*/
 
 @end

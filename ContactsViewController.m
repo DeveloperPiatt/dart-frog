@@ -129,7 +129,7 @@
     
     // Configure the cell
     
-    NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Contact" withSortDescriptor:@""];
+    NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Contact" withSortDescriptor:@"contactTitle"];
     
     if (indexPath.row < matchingData.count) {
         Contact *contactObj = [matchingData objectAtIndex:indexPath.row];

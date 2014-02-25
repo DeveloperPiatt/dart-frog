@@ -39,6 +39,7 @@
 {
     [super viewDidLoad];
     
+    cData = [[CoreDataHelper alloc]init];
     
     //Idicates activity while table view loads data
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -113,7 +114,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Contact" withSortDescriptor:@"contact"];
+    NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Contact" withSortDescriptor:@""];
     
     //Return the number of rows
     return [matchingData count];
@@ -122,7 +123,6 @@
 
 - (ContactCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Here");
     
     static NSString *cellIdentifier = @"ContactCell";
     ContactCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -151,6 +151,7 @@
 
 -(void)createManagedObjectsForContactEntity
 {
+    NSLog(@"Here");
     
     //Create foundation object for JSON data and stores values in array
     NSDictionary *allDataDictionary = [NSJSONSerialization JSONObjectWithData:webData options:0 error:nil];

@@ -130,7 +130,7 @@
     // Configure the cell
     
     NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Contact" withSortDescriptor:@"contactTitle"];
-    
+        
     if (indexPath.row < matchingData.count) {
         Contact *contactObj = [matchingData objectAtIndex:indexPath.row];
         
@@ -165,6 +165,7 @@
         Contact *newContact = [[Contact alloc]initWithEntity:entityDesc insertIntoManagedObjectContext:managedObjectContext];
     
         newContact.contactTitle = [[nodeIndex objectForKey:@"node"] objectForKey:@"title"];
+        newContact.contactTitle = [newContact.contactTitle stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
         
         if ([[[nodeIndex objectForKey:@"node"] objectForKey:@"phone_number"] isKindOfClass:[NSDictionary class]] == YES) {
             newContact.contactNumber = [[[nodeIndex objectForKey:@"node"] objectForKey:@"phone_number"] objectForKey:@"1"];
@@ -177,6 +178,5 @@
         NSLog(@"%@", newContact);
     }
 }
-
 
 @end

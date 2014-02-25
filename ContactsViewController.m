@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "CoreDataHelper.h"
 #import "Contact.h"
+#import "ContactCell.h"
 
 @interface ContactsViewController () {
     
@@ -37,6 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     
     //Idicates activity while table view loads data
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -67,6 +69,7 @@
 #pragma mark - Connection
 
 //Sent when the connection has received sufficient data to construct the URL response
+
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     //Resets webData on valid response
@@ -103,28 +106,46 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
+    //Return the number of sections.
     return 1;
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Contact" withSortDescriptor:@"contact"];
     
-    NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Contact" withSortDescriptor:@""];
-
-    // Return the number of rows in the section.
+    //Return the number of rows
     return [matchingData count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (ContactCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    NSLog(@"Here");
     
-    // Configure the cell...
+    static NSString *cellIdentifier = @"ContactCell";
+    ContactCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    // Configure the cell
+    
+    NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Contact" withSortDescriptor:@""];
+    
+    if (indexPath.row < matchingData.count) {
+        Contact *contactObj = [matchingData objectAtIndex:indexPath.row];
+        
+        cell.title.text = contactObj.contactTitle;
+        cell.number.text = contactObj.contactNumber;
+    }
+    else {
+        
+        cell.title.text = @"NoData";
+        cell.number.text = @"NoData";
+    }
     
     return cell;
 }
+
 
 # pragma mark - Core Data
 
@@ -144,12 +165,15 @@
     
         newContact.contactTitle = [[nodeIndex objectForKey:@"node"] objectForKey:@"title"];
         
-        if ([[[nodeIndex objectForKey:@"node"] objectForKey:@"phone_numbers"] isKindOfClass:[NSDictionary class]] == YES) {
-            newContact.contactNumber = [[[nodeIndex objectForKey:@"node"] objectForKey:@"phone_numbers"] objectForKey:@"1"];
+        if ([[[nodeIndex objectForKey:@"node"] objectForKey:@"phone_number"] isKindOfClass:[NSDictionary class]] == YES) {
+            newContact.contactNumber = [[[nodeIndex objectForKey:@"node"] objectForKey:@"phone_number"] objectForKey:@"1"];
         }
         else {
-            newContact.contactNumber = [[nodeIndex objectForKey:@"node"] objectForKey:@"phone_numbers"];
+            
+        newContact.contactNumber = [[nodeIndex objectForKey:@"node"] objectForKey:@"phone_number"];
         }
+        
+        NSLog(@"%@", newContact);
     }
 }
 

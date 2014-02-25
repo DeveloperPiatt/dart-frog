@@ -151,8 +151,6 @@
 
 -(void)createManagedObjectsForContactEntity
 {
-    NSLog(@"Here");
-    
     //Create foundation object for JSON data and stores values in array
     NSDictionary *allDataDictionary = [NSJSONSerialization JSONObjectWithData:webData options:0 error:nil];
     NSArray *allNodes = [allDataDictionary objectForKey:@"nodes"];
@@ -174,9 +172,52 @@
             
         newContact.contactNumber = [[nodeIndex objectForKey:@"node"] objectForKey:@"phone_number"];
         }
-        
-        NSLog(@"%@", newContact);
     }
 }
+
+# pragma mark - Call contact
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ContactCell *cell = (ContactCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:cell.number.text]];
+    
+    NSLog(@"Here");
+}
+
+/*-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    ContactCell *cell = (ContactCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    
+    CFErrorRef error = NULL;
+    
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
+    
+    ABAuthorizationStatus access = ABAddressBookGetAuthorizationStatus();
+    
+    if (access == 0) {
+        
+    ABAddressBookRequestAccessCompletionHandler completion;
+    ABAddressBookRequestAccessWithCompletion(addressBook, completion);
+ 
+    }
+ 
+    if (access != 0) {
+ 
+        ABRecordRef newContact = ABPersonCreate();
+        
+        ABRecordSetValue(newContact, kABPersonFirstNameProperty, (__bridge CFStringRef)cell.title.text, /&error);
+        ABRecordSetValue(newContact, kABPersonPhoneProperty, (__bridge CFStringRef)cell.number.text, &error);
+    
+        ABAddressBookAddRecord(addressBook, newContact, &error);
+        ABAddressBookSave(addressBook, &error);
+    }
+    else
+    {
+       NSLog(@"%ld", access);
+    }
+}
+*/
 
 @end

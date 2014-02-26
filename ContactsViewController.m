@@ -123,15 +123,14 @@
 
 - (ContactCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Here");
     
     static NSString *cellIdentifier = @"ContactCell";
     ContactCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     // Configure the cell
     
-    NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Contact" withSortDescriptor:@""];
-    
+    NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Contact" withSortDescriptor:@"contactTitle"];
+        
     if (indexPath.row < matchingData.count) {
         Contact *contactObj = [matchingData objectAtIndex:indexPath.row];
         
@@ -152,7 +151,6 @@
 
 -(void)createManagedObjectsForContactEntity
 {
-    
     //Create foundation object for JSON data and stores values in array
     NSDictionary *allDataDictionary = [NSJSONSerialization JSONObjectWithData:webData options:0 error:nil];
     NSArray *allNodes = [allDataDictionary objectForKey:@"nodes"];
@@ -165,6 +163,7 @@
         Contact *newContact = [[Contact alloc]initWithEntity:entityDesc insertIntoManagedObjectContext:managedObjectContext];
     
         newContact.contactTitle = [[nodeIndex objectForKey:@"node"] objectForKey:@"title"];
+        newContact.contactTitle = [newContact.contactTitle stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
         
         if ([[[nodeIndex objectForKey:@"node"] objectForKey:@"phone_number"] isKindOfClass:[NSDictionary class]] == YES) {
             newContact.contactNumber = [[[nodeIndex objectForKey:@"node"] objectForKey:@"phone_number"] objectForKey:@"1"];
@@ -176,5 +175,43 @@
     }
 }
 
+# pragma mark - Call contact
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ContactCell *cell = (ContactCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:cell.number.text]];
+    
+    NSLog(@"Calling %@", cell.number.text);
+}
+
+/*-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    ContactCell *cell = (ContactCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    
+    CFErrorRef *error = NULL;
+    
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error);
+    
+    ABAuthorizationStatus access = ABAddressBookGetAuthorizationStatus();
+    
+    if (access == 0) {
+        
+    ABAddressBookRequestAccessCompletionHandler completion;
+    ABAddressBookRequestAccessWithCompletion(addressBook, completion);
+ 
+    }
+ 
+    if (access != 0) {
+ 
+        ABRecordRef newContact = ABPersonCreate();
+        
+        ABRecordSetValue(newContact, kABPersonFirstNameProperty, (__bridge CFStringRef)cell.title.text, error);
+        ABRecordSetValue(newContact, kABPersonPhoneProperty, (__bridge CFStringRef)cell.number.text, error);
+    
+        ABAddressBookAddRecord(addressBook, newContact, error);
+    }
+}*/
 
 @end

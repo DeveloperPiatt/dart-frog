@@ -10,5 +10,6 @@
 
 @interface ContactsViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, NSURLConnectionDataDelegate, NSFetchedResultsControllerDelegate>
 
+@property (strong, nonatomic) IBOutlet UITableView *testTableView;
 
 @end

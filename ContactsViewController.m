@@ -7,8 +7,9 @@
 //
 
 #import "ContactsViewController.h"
-#import "AppDelegate.h"
 #import "CoreDataHelper.h"
+#import "AppDelegate.h"
+
 #import "Contact.h"
 #import "ContactCell.h"
 
@@ -39,6 +40,7 @@
 {
     [super viewDidLoad];
     
+    cData = [[CoreDataHelper alloc]init];
     
     //Idicates activity while table view loads data
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -113,8 +115,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Contact" withSortDescriptor:@"contact"];
-    
+    NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Contact" withSortDescriptor:@""];
     //Return the number of rows
     return [matchingData count];
 }
@@ -172,8 +173,6 @@
             
         newContact.contactNumber = [[nodeIndex objectForKey:@"node"] objectForKey:@"phone_number"];
         }
-        
-        NSLog(@"%@", newContact);
     }
 }
 

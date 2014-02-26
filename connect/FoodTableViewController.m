@@ -79,7 +79,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 0;
+    NSArray *allRestaurants = [cData getArrayOfManagedObjectsForEntity:@"Restaurant" withSortDescriptor:@""];
+    return [allRestaurants count];
 }
     
 - (FoodCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -89,7 +90,7 @@
         
         // Configure the cell
         
-        NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Restaurant" withSortDescriptor:@""];
+        NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Restaurant" withSortDescriptor:@"restaurantName"];
         
     if(indexPath.row < matchingData.count) {
         Restaurant *foodObj = [matchingData objectAtIndex:indexPath.row];
@@ -99,8 +100,23 @@
         
         //cell.hoursLabel.text = foodObj.hours.
         
-//        NSSet *hourSet = foodObj.hours;
-//        NSArray *hourArray = hourSet allObjects;
+        NSSet *hourSet = foodObj.hours;
+        NSArray *hourArray = [hourSet allObjects];
+        NSMutableArray *hourArray2 = [[NSMutableArray alloc]initWithArray:[hourSet allObjects]];
+        NSSortDescriptor *arraySort = [[NSSortDescriptor alloc]initWithKey:@"hourStart" ascending:true];
+        [hourArray2 sortedArrayUsingDescriptors:[NSArray arrayWithObject:arraySort]];
+        
+        
+        NSMutableString *hourString = [NSMutableString stringWithFormat:@""];
+        for (int x = 0; x<[hourArray count]; x++) {
+            if (x>0) {
+                [hourString appendString:@", "];
+            }
+            Hour *hourObj = [hourArray2 objectAtIndex:x];
+            NSString *dateString = [self convertDatesToStringWithStart:hourObj.hourStart andEnd:hourObj.hourEnd];
+            [hourString appendString:dateString];
+        }
+        cell.hoursLabel.text = hourString;
         
     } else {
         cell.nameLabel.text = @"NoData";
@@ -210,9 +226,9 @@
             Hour *newHour = [self getHourForRestaurant:aRestaurant];
             newHour.restaurant = newRestaurant;
             
-            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+            // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
             // End of core data
-            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+            // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
             
             NSLog(@"add me -- %@", [aRestaurant objectForKey:@"concept_title"]);
             
@@ -307,6 +323,25 @@
             [hoursArray addObject:hoursDict];
         }
     }
+}
+
+-(NSString*)convertDatesToStringWithStart:(NSDate*)startDate andEnd:(NSDate*)endDate {
+    NSString *dateString;
+    
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    [outputFormatter setDateFormat:@"hh:mm a"];
+    
+    // Start Time
+    
+    NSString *startDateString = [outputFormatter stringFromDate:startDate];
+    
+    // End Time
+    
+    NSString *endDateString = [outputFormatter stringFromDate:endDate];
+    
+    dateString = [NSString stringWithFormat:@"%@ - %@", startDateString, endDateString];
+    
+    return dateString;
 }
 
 -(Hour*)getHourForRestaurant:(NSDictionary*)restaurantData {

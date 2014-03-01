@@ -53,6 +53,7 @@
 		E03C4EFD18BC008C00B93C1C /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EFC18BC008C00B93C1C /* ContactsViewController.m */; };
 		E03C4F0418BC0AF700B93C1C /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4F0318BC0AF700B93C1C /* ContactCell.m */; };
 		E03C4F0918BFE47200B93C1C /* NewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4F0818BFE47200B93C1C /* NewsTableViewController.m */; };
+		E03C4F0F18C10D7D00B93C1C /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4F0E18C10D7D00B93C1C /* XMLParser.m */; };
 		E06CA0F0188F4632003BE618 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E06CA0EF188F4632003BE618 /* Storyboard.storyboard */; };
 		E0C821DD18A0675A00598450 /* FaqViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C821DC18A0675A00598450 /* FaqViewController.m */; };
 		E0C821E018A9A39100598450 /* FAQCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C821DF18A9A39100598450 /* FAQCell.m */; };
@@ -133,6 +134,8 @@
 		E03C4F0718BFE47200B93C1C /* NewsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsTableViewController.h; sourceTree = "<group>"; };
 		E03C4F0818BFE47200B93C1C /* NewsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsTableViewController.m; sourceTree = "<group>"; };
 		E03C4F0A18C0012F00B93C1C /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		E03C4F0D18C10D7D00B93C1C /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParser.h; sourceTree = "<group>"; };
+		E03C4F0E18C10D7D00B93C1C /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParser.m; sourceTree = "<group>"; };
 		E06CA0EF188F4632003BE618 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		E0C821DB18A0675A00598450 /* FaqViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FaqViewController.h; path = ../FaqViewController.h; sourceTree = "<group>"; };
 		E0C821DC18A0675A00598450 /* FaqViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FaqViewController.m; path = ../FaqViewController.m; sourceTree = "<group>"; };
@@ -351,8 +354,18 @@
 			children = (
 				E03C4F0718BFE47200B93C1C /* NewsTableViewController.h */,
 				E03C4F0818BFE47200B93C1C /* NewsTableViewController.m */,
+				E03C4F0C18C10D5900B93C1C /* Parser Class */,
 			);
 			name = News;
+			sourceTree = "<group>";
+		};
+		E03C4F0C18C10D5900B93C1C /* Parser Class */ = {
+			isa = PBXGroup;
+			children = (
+				E03C4F0D18C10D7D00B93C1C /* XMLParser.h */,
+				E03C4F0E18C10D7D00B93C1C /* XMLParser.m */,
+			);
+			name = "Parser Class";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -471,6 +484,7 @@
 				6A693EA918B6AF7600D9289C /* Restaurant.m in Sources */,
 				E03C4EEC18B2E85100B93C1C /* FoodTableViewController.m in Sources */,
 				6A05306218A0732D00B3CD04 /* FAQ.m in Sources */,
+				E03C4F0F18C10D7D00B93C1C /* XMLParser.m in Sources */,
 				E03C4EE318B2E7DF00B93C1C /* Event.m in Sources */,
 				E03C4EE018B2E7DF00B93C1C /* News.m in Sources */,
 				6A693E9018B53D1400D9289C /* CoreDataHelper.m in Sources */,

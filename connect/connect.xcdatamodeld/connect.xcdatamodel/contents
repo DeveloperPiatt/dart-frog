@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="12F45" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Contact" representedClassName="Contact" syncable="YES">
         <attribute name="contactNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="contactTitle" optional="YES" attributeType="String" syncable="YES"/>
@@ -33,6 +33,7 @@
     <entity name="News" representedClassName="News" syncable="YES">
         <attribute name="newsDate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="newsIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="newsLink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="newsSummary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="newsTitle" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -54,7 +55,7 @@
         <element name="FAQ" positionX="367" positionY="-18" width="128" height="90"/>
         <element name="Hour" positionX="252" positionY="396" width="128" height="88"/>
         <element name="Location" positionX="-155" positionY="153" width="128" height="135"/>
-        <element name="News" positionX="0" positionY="-162" width="128" height="105"/>
+        <element name="News" positionX="0" positionY="-162" width="128" height="118"/>
         <element name="Restaurant" positionX="52" positionY="390" width="128" height="88"/>
         <element name="Tweet" positionX="223" positionY="-189" width="128" height="120"/>
     </elements>

@@ -9,20 +9,13 @@
 #import "NewsTableViewController.h"
 #import "AppDelegate.h"
 #import "CoreDataHelper.h"
+#import "XMLParser.h"
 
 
 @interface NewsTableViewController () {
     
-    NSManagedObjectContext *managedObjectContext;
-    NSURLConnection *connection;
-    NSXMLParser *parser;
-    NSMutableArray *weData;
-    NSMutableDictionary *xmlDataDictionary;
-    NSString *currentElement;
-    NSMutableString *ElementValue;
-    BOOL errorParsing;
     CoreDataHelper *cData;
-    NSError *error;
+    NSManagedObjectContext *managedObjectContext;
 }
 
 @end
@@ -49,6 +42,16 @@
     //Creates and returns managed object of AppDelegate class
     AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
     managedObjectContext = [appdelegate managedObjectContext];
+    
+    NSURL *url = [[NSURL alloc]initWithString:@"http://blogs.oregonstate.edu/newstudents/feed/"];
+    NSData *data = [[NSData alloc]initWithContentsOfURL:url];
+    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
+    
+    Parser *theParser = [[Parser alloc]initParser];
+    
+    [xmlParser setDelegate:theParser];
+    
+    
 
 }
 

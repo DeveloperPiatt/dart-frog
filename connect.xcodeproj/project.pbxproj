@@ -23,8 +23,8 @@
 		6A0CAC681891DAE300E7E718 /* favorite_not_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0CAC661891DAE300E7E718 /* favorite_not_selected.png */; };
 		6A0CAC691891DAE300E7E718 /* favorite_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0CAC671891DAE300E7E718 /* favorite_selected.png */; };
 		6A160D4B18BBA2F100CA6205 /* Hour.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A160D4A18BBA2F100CA6205 /* Hour.m */; };
+		6A160D5118BFE7AE00CA6205 /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A160D5018BFE7AE00CA6205 /* Restaurant.m */; };
 		6A693E9018B53D1400D9289C /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A693E8F18B53D1400D9289C /* CoreDataHelper.m */; };
-		6A693EA918B6AF7600D9289C /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A693EA818B6AF7600D9289C /* Restaurant.m */; };
 		6A6D0E5F188F3FDF00CAD90B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6D0E5E188F3FDF00CAD90B /* Foundation.framework */; };
 		6A6D0E61188F3FDF00CAD90B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6D0E60188F3FDF00CAD90B /* CoreGraphics.framework */; };
 		6A6D0E63188F3FDF00CAD90B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6D0E62188F3FDF00CAD90B /* UIKit.framework */; };
@@ -86,10 +86,11 @@
 		6A0CAC671891DAE300E7E718 /* favorite_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite_selected.png; sourceTree = "<group>"; };
 		6A160D4918BBA2F100CA6205 /* Hour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hour.h; sourceTree = "<group>"; };
 		6A160D4A18BBA2F100CA6205 /* Hour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hour.m; sourceTree = "<group>"; };
+		6A160D4F18BFE7AE00CA6205 /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
+		6A160D5018BFE7AE00CA6205 /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
+		6A160D5218C0036500CA6205 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		6A693E8E18B53D1400D9289C /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		6A693E8F18B53D1400D9289C /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
-		6A693EA718B6AF7600D9289C /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
-		6A693EA818B6AF7600D9289C /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
 		6A6D0E5B188F3FDF00CAD90B /* connect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = connect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A6D0E5E188F3FDF00CAD90B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6A6D0E60188F3FDF00CAD90B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -199,11 +200,11 @@
 				E03C4ED918B2E7DE00B93C1C /* Tweet.m */,
 				6A05306018A0732D00B3CD04 /* FAQ.h */,
 				6A05306118A0732D00B3CD04 /* FAQ.m */,
+				6A160D4F18BFE7AE00CA6205 /* Restaurant.h */,
+				6A160D5018BFE7AE00CA6205 /* Restaurant.m */,
 				6A6D0E72188F3FDF00CAD90B /* connect.xcdatamodeld */,
 				6A160D4918BBA2F100CA6205 /* Hour.h */,
 				6A160D4A18BBA2F100CA6205 /* Hour.m */,
-				6A693EA718B6AF7600D9289C /* Restaurant.h */,
-				6A693EA818B6AF7600D9289C /* Restaurant.m */,
 			);
 			name = "Core Data";
 			path = ..;
@@ -241,6 +242,7 @@
 		6A6D0E5D188F3FDF00CAD90B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6A160D5218C0036500CA6205 /* libxml2.dylib */,
 				E00FB50D18986E8F003A8327 /* MapKit.framework */,
 				6A6D0E5E188F3FDF00CAD90B /* Foundation.framework */,
 				6A6D0E60188F3FDF00CAD90B /* CoreGraphics.framework */,
@@ -453,10 +455,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E03C4EDD18B2E7DF00B93C1C /* Contact.m in Sources */,
-				6A693EA918B6AF7600D9289C /* Restaurant.m in Sources */,
 				E03C4EEC18B2E85100B93C1C /* FoodTableViewController.m in Sources */,
 				6A05306218A0732D00B3CD04 /* FAQ.m in Sources */,
 				E03C4EE318B2E7DF00B93C1C /* Event.m in Sources */,
+				6A160D5118BFE7AE00CA6205 /* Restaurant.m in Sources */,
 				E03C4EE018B2E7DF00B93C1C /* News.m in Sources */,
 				6A693E9018B53D1400D9289C /* CoreDataHelper.m in Sources */,
 				E03C4EE618B2E7DF00B93C1C /* Location.m in Sources */,
@@ -590,6 +592,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "connect/connect-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = "connect/connect-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -603,6 +609,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "connect/connect-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = "connect/connect-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

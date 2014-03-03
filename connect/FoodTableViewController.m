@@ -85,40 +85,43 @@
     
 - (FoodCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-        static NSString *cellIdentifier = @"FoodCell";
-        FoodCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    static NSString *cellIdentifier = @"FoodCell";
+    FoodCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
-        // Configure the cell
+    // Configure the cell
         
-        NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Restaurant" withSortDescriptor:@"restaurantName"];
-        
+    NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"Restaurant" withSortDescriptor:@"restaurantName"];
+    
     if(indexPath.row < matchingData.count) {
-        Restaurant *foodObj = [matchingData objectAtIndex:indexPath.row];
         
+        Restaurant *foodObj = [matchingData objectAtIndex:indexPath.row];
         cell.nameLabel.text = foodObj.restaurantName;
         cell.locationLabel.text = foodObj.location.locationName;
         
-        //cell.hoursLabel.text = foodObj.hours.
-        
         NSSet *hourSet = foodObj.hours;
-        NSArray *hourArray = [hourSet allObjects];
-        NSMutableArray *hourArray2 = [[NSMutableArray alloc]initWithArray:[hourSet allObjects]];
-        NSSortDescriptor *arraySort = [[NSSortDescriptor alloc]initWithKey:@"hourStart" ascending:true];
-        [hourArray2 sortedArrayUsingDescriptors:[NSArray arrayWithObject:arraySort]];
         
+        /*
+         Important to note that foodObj.hours is a NSSet of dictionaries. We are putting the dictionaries into a 
+         mutable array so that we can sort them by the start times.
+         */
+        NSMutableArray *hourArray = [[NSMutableArray alloc]initWithArray:[hourSet allObjects]];
+        NSSortDescriptor *arraySort = [[NSSortDescriptor alloc]initWithKey:@"hourStart" ascending:true];
+        NSArray *sortedArray = [hourArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:arraySort]];
         
         NSMutableString *hourString = [NSMutableString stringWithFormat:@""];
         for (int x = 0; x<[hourArray count]; x++) {
+            // Need to lead each new date after the first with ', ' so that it is displayed correctly
             if (x>0) {
                 [hourString appendString:@", "];
             }
-            Hour *hourObj = [hourArray2 objectAtIndex:x];
+            Hour *hourObj = [sortedArray objectAtIndex:x];
             NSString *dateString = [self convertDatesToStringWithStart:hourObj.hourStart andEnd:hourObj.hourEnd];
             [hourString appendString:dateString];
         }
         cell.hoursLabel.text = hourString;
         
     } else {
+        // This should never actually go off and could realistically be removed
         cell.nameLabel.text = @"NoData";
         cell.locationLabel.text = @"NoData";
         cell.hoursLabel.text = @"NoData";
@@ -164,7 +167,8 @@
     [cData removeManagedObjectsForEntity:@"Hour"];
     NSLog(@"Removed all hours and restaurants");
     [self createManagedObjectsForFoodEntityUsingWebData:webData];
-    [cData saveManagedObjectContext];
+    [[self tableView] reloadData];
+//    [cData saveManagedObjectContext];
     
 }
 
@@ -198,130 +202,75 @@
      particular restaurant.
      */
     
-    NSMutableDictionary *uniqueRestaurantDict = [[NSMutableDictionary alloc]init];
+//    NSMutableDictionary *uniqueRestaurantDict = [[NSMutableDictionary alloc]init];
     
     // Iterating through all the restaurants in allDataArray.
     for (NSDictionary *aRestaurant in allDataArray) {
         
-        // Checking each restaurant entry to see if it's unique or not.
-        if ([uniqueRestaurantDict objectForKey:[aRestaurant objectForKey:@"concept_title"]] == NULL) {
+        NSString *rName = [aRestaurant objectForKey:@"concept_title"];
+        NSString *rLocation = [aRestaurant objectForKey:@"zone"];
+        
+        // Create the new hour set
+        Hour *newHour = [self getHourForRestaurant:aRestaurant];
+        
+        // Pointer for restaurant
+        Restaurant *restaurantObj;
+        
+        // Check and see if restaurant name is already in core data with restaurant location
+        
+        NSEntityDescription *restaurantEntityDesc = [NSEntityDescription entityForName:@"Restaurant" inManagedObjectContext:managedObjectContext];
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+        [fetchRequest setEntity:restaurantEntityDesc];
+        
+        NSSortDescriptor *sortDescriptorIndex = [[NSSortDescriptor alloc]initWithKey:@"restaurantName" ascending:YES];
+        
+        NSArray *sortDescriptors = [[NSArray alloc]initWithObjects: sortDescriptorIndex, nil];
+        fetchRequest.sortDescriptors = sortDescriptors;
+        
+        NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"restaurantName = %@", rName];
+        NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"location.locationName = %@", rLocation];
+        NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate1, predicate2]];
+        [fetchRequest setPredicate:predicate];
+        
+        NSError *error;
+        NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        
+        // If so, add a new set of hours to the hours set
+        
+        if ([matchingData count] > 0) {
+            restaurantObj = [matchingData objectAtIndex:0];
             
-            // Setting up the managed objects we will be working with
-            NSEntityDescription *restaurantEntityDesc = [NSEntityDescription entityForName:@"Restaurant" inManagedObjectContext:managedObjectContext];
-            Restaurant *newRestaurant = [[Restaurant alloc]initWithEntity:restaurantEntityDesc insertIntoManagedObjectContext:managedObjectContext];
-            Location *possibleLocation = [self getLocation:[aRestaurant objectForKey:@"zone"]];
-            
-            if (possibleLocation == nil) {
-                NSEntityDescription *locationEntityDesc = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
-                Location *newLocation = [[Location alloc]initWithEntity:locationEntityDesc insertIntoManagedObjectContext:managedObjectContext];
-                
-                newLocation.locationName = [aRestaurant objectForKey:@"zone"];
-                newRestaurant.location = newLocation;
-            } else {
-                NSLog(@"Location already exists");
-                newRestaurant.location = possibleLocation;
-            }
-
-            newRestaurant.restaurantName = [aRestaurant objectForKey:@"concept_title"];
-            Hour *newHour = [self getHourForRestaurant:aRestaurant];
-            newHour.restaurant = newRestaurant;
-            
-            // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-            // End of core data
-            // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-            
-            NSLog(@"add me -- %@", [aRestaurant objectForKey:@"concept_title"]);
-            
-            /*
-             New entry. Need to create an array for holding onto sets of start/end times. Store those
-             values in dictionaries which will be added to the array. Then store that array.
-             */
-            
-            NSMutableArray *hoursArray = [[NSMutableArray alloc]init];
-            
-            // Setting up an object to hold a start and end time for this current entry
-            NSMutableDictionary *hoursDict = [[NSMutableDictionary alloc]init];
-            [hoursDict setObject:[aRestaurant objectForKey:@"start"] forKey:@"start"];
-            [hoursDict setObject:[aRestaurant objectForKey:@"end"] forKey:@"end"];
-            
-            /* 
-             Adding the hours object to the array that will store all of said entries
-             As we iterate through allDataArray a restaurant may come up more than once
-             if it closes and re-opens later in the day. By the end of our iteration
-             through allDataArray this array could have 1-x sets of start/end times
-             */
-            [hoursArray addObject:hoursDict];
-            
-            // Setting up a dictionary for holding restaurantData
-            NSMutableDictionary *restaurantData = [[NSMutableDictionary alloc]init];
-            
-            // Setting the hours array so that we can access it later
-            [restaurantData setObject:hoursArray forKey:@"hours"];
-            
-            /*
-             Setting the 'zone', or the location, of the restaurant. We only need to
-             do this once when we first set up this restaurant data object.
-             */
-             [restaurantData setObject:[aRestaurant objectForKey:@"zone"] forKey:@"location"];
-            
-            /* 
-             And finally we add the restaurant data to a dictionary and key it with
-             the restaurant name
-             */
-             [uniqueRestaurantDict setObject:restaurantData forKey:[aRestaurant objectForKey:@"concept_title"]];
         } else {
-            
-            // Setting up the managed objects we will be working with
             NSEntityDescription *restaurantEntityDesc = [NSEntityDescription entityForName:@"Restaurant" inManagedObjectContext:managedObjectContext];
+            restaurantObj = [[Restaurant alloc]initWithEntity:restaurantEntityDesc insertIntoManagedObjectContext:managedObjectContext];
+            restaurantObj.restaurantName = rName;
             
-            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-            [fetchRequest setEntity:restaurantEntityDesc];
-            
-            //Perform fetch request on entity that fits the description
-            //Predicates used to select entities based on certain criteria
-            NSSortDescriptor *sortDescriptorIndex = [[NSSortDescriptor alloc]initWithKey:@"restaurantName" ascending:YES];
-            NSArray *sortDescriptors = [[NSArray alloc]initWithObjects: sortDescriptorIndex, nil];
-                
-            fetchRequest.sortDescriptors = sortDescriptors;
-            
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"restaurantName = %@", [aRestaurant objectForKey:@"concept_title"]];
-            
-            [fetchRequest setPredicate:predicate];
-            
-            NSError *error;
-            NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-            
-            Restaurant *repeatedRestaurant = [matchingData objectAtIndex:0];
-
-            Hour *newHour = [self getHourForRestaurant:aRestaurant];
-            
-            newHour.restaurant = repeatedRestaurant;
-            
-            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-            // End of core data
-            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-            
-            NSLog(@"duplicate -- %@", [aRestaurant objectForKey:@"concept_title"]);
-            
-            /*
-             Already have an entry for this location. Instead we need to snag the restaurant data (rdata),
-             pull the hours array and add a new set of hours data.
-             */
-            
-            // Setting a pointer to the restaurant data that we know should already exist
-            NSMutableDictionary *rData = [uniqueRestaurantDict objectForKey:[aRestaurant objectForKey:@"concept_title"]];
-            
-            // And another pointer to the hours array that we know should exist in the restaurant data
-            NSMutableArray *hoursArray = [rData objectForKey:@"hours"];
-            
-            // creating new set of hours data
-            NSMutableDictionary *hoursDict = [[NSMutableDictionary alloc]init];
-            [hoursDict setObject:[aRestaurant objectForKey:@"start"] forKey:@"start"];
-            [hoursDict setObject:[aRestaurant objectForKey:@"end"] forKey:@"end"];
-            
-            // and adding it to the hours array
-            [hoursArray addObject:hoursDict];
         }
+        
+        NSMutableSet *hourSet = [NSMutableSet setWithSet:restaurantObj.hours];
+        [hourSet addObject:newHour];
+        
+        restaurantObj.hours = hourSet;
+        
+        // Check and see if location already exists in core data
+        // If so get a pointer to that location
+        // If not create the location
+        // Set that location as the restaurant location
+        
+        if ([matchingData count]<1) {
+            // Restaurant is new, need to get a location for it
+            Location *locationObj = [self getLocation:rLocation];
+            if (locationObj == nil) {
+                NSEntityDescription *locationEntityDesc = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
+                locationObj = [[Location alloc]initWithEntity:locationEntityDesc insertIntoManagedObjectContext:managedObjectContext];
+                
+                locationObj.locationName = [aRestaurant objectForKey:@"zone"];
+            }
+            restaurantObj.location = locationObj;
+        }
+        
+        [cData saveManagedObjectContext];
     }
 }
 
@@ -411,6 +360,5 @@
     }
     
 }
-
 
 @end

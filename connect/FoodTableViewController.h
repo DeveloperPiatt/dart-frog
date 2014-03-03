@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FoodTableViewController : UITableViewController
+@interface FoodTableViewController : UITableViewController <NSXMLParserDelegate>
 
 @end

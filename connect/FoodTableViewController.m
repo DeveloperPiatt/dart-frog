@@ -20,7 +20,6 @@
     NSManagedObjectContext *managedObjectContext;
     NSMutableData *webData;
     NSURLConnection *connection;
-    
     CoreDataHelper *cData;
 }
 
@@ -167,7 +166,6 @@
     [cData removeManagedObjectsForEntity:@"Hour"];
     [self createManagedObjectsForFoodEntityUsingWebData:webData];
     [[self tableView] reloadData];
-//    [cData saveManagedObjectContext];
     
 }
 
@@ -201,7 +199,6 @@
      particular restaurant.
      */
     
-//    NSMutableDictionary *uniqueRestaurantDict = [[NSMutableDictionary alloc]init];
     
     // Iterating through all the restaurants in allDataArray.
     for (NSDictionary *aRestaurant in allDataArray) {

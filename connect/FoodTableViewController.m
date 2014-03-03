@@ -165,7 +165,6 @@
      */
     [cData removeManagedObjectsForEntity:@"Restaurant"];
     [cData removeManagedObjectsForEntity:@"Hour"];
-    NSLog(@"Removed all hours and restaurants");
     [self createManagedObjectsForFoodEntityUsingWebData:webData];
     [[self tableView] reloadData];
 //    [cData saveManagedObjectContext];
@@ -314,8 +313,6 @@
     
     if (![[restaurantData objectForKey:@"start"] isEqual:[NSNull null]]) {
         NSDate *formatterDate = [inputFormatter dateFromString:[restaurantData objectForKey:@"start"]];
-        NSString *newDateString = [outputFormatter stringFromDate:formatterDate];
-        NSLog(@"Start Time -- %@", newDateString);
         newHour.hourStart = formatterDate;
     } else {
         newHour.hourStart = nil;
@@ -323,8 +320,6 @@
     
     if (![[restaurantData objectForKey:@"end"] isEqual:[NSNull null]]) {
         NSDate *formatterDate = [inputFormatter dateFromString:[restaurantData objectForKey:@"end"]];
-        NSString *newDateString = [outputFormatter stringFromDate:formatterDate];
-        NSLog(@"End Time -- %@", newDateString);
         newHour.hourEnd = formatterDate;
     } else {
         newHour.hourEnd = nil;

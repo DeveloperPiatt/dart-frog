@@ -31,9 +31,6 @@
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
     return self;
 }
 
@@ -42,6 +39,7 @@
     [super viewDidLoad];
     
     cData = [[CoreDataHelper alloc]init];
+    
     //Creates and returns managed object of AppDelegate class
     AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
     managedObjectContext = [appdelegate managedObjectContext];
@@ -53,11 +51,10 @@
     NSURL *url = [NSURL URLWithString:@"https://uhds.oregonstate.edu/api/dining/calendar/index"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
-    //Loads url request and sends messages to delegate as the load progresses
+    //Loads url request
     connection = [NSURLConnection connectionWithRequest:request delegate:self];
     
-    if(connection)
-    {
+    if(connection) {
         webData = [[NSMutableData alloc]init];
     }
 }
@@ -109,9 +106,9 @@
         NSArray *sortedArray = [hourArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:arraySort]];
         
         NSMutableString *hourString = [NSMutableString stringWithFormat:@""];
-        for (int x = 0; x<[hourArray count]; x++) {
+        for (int x = 0; x < [hourArray count]; x++) {
             // Need to lead each new date after the first with ', ' so that it is displayed correctly
-            if (x>0) {
+            if (x > 0) {
                 [hourString appendString:@", "];
             }
             Hour *hourObj = [sortedArray objectAtIndex:x];
@@ -130,15 +127,15 @@
     return cell;
 }
 
-//Sent when the connection has received sufficient data to construct the URL response
+// Sent when the connection has received sufficient data to construct the URL response
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    //Resets webData on valid response
+    // Resets webData on valid response
     [webData setLength:0];
 }
 
 
-//Sets the recieved data to webData for use later. We are currently expecting it to receive JSON
+// Sets the recieved data to webData for use later. We are currently expecting it to receive JSON
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [webData appendData:data];
@@ -171,7 +168,8 @@
     
 }
 
--(void)createManagedObjectsForFoodEntityUsingWebData:(NSData*)wData {
+-(void)createManagedObjectsForFoodEntityUsingWebData:(NSData*)wData
+{
     //Create foundation object for JSON data and stores values in array
     NSArray *allDataArray = [NSJSONSerialization JSONObjectWithData:wData options:0 error:nil];
     
@@ -257,7 +255,7 @@
         // If not create the location
         // Set that location as the restaurant location
         
-        if ([matchingData count]<1) {
+        if ([matchingData count] < 1) {
             // Restaurant is new, need to get a location for it
             Location *locationObj = [self getLocation:rLocation];
             if (locationObj == nil) {
@@ -273,18 +271,17 @@
     }
 }
 
--(NSString*)convertDatesToStringWithStart:(NSDate*)startDate andEnd:(NSDate*)endDate {
+-(NSString *)convertDatesToStringWithStart:(NSDate*)startDate andEnd:(NSDate*)endDate
+{
     NSString *dateString;
     
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     [outputFormatter setDateFormat:@"hh:mm a"];
     
     // Start Time
-    
     NSString *startDateString = [outputFormatter stringFromDate:startDate];
     
     // End Time
-    
     NSString *endDateString = [outputFormatter stringFromDate:endDate];
     
     dateString = [NSString stringWithFormat:@"%@ - %@", startDateString, endDateString];
@@ -292,7 +289,8 @@
     return dateString;
 }
 
--(Hour*)getHourForRestaurant:(NSDictionary*)restaurantData {
+-(Hour *)getHourForRestaurant:(NSDictionary*)restaurantData
+{
     /*
      This function merely puts together our Hour managed object using the restaurant
      data pulled from the web. It returns an Hour object with a start/end time set.
@@ -327,15 +325,16 @@
     return newHour;
 }
 
--(Location*)getLocation:(NSString*)locationName {
+-(Location *)getLocation:(NSString*)locationName
+{
     // Setting up the managed objects we will be working with
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:managedObjectContext];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
     [fetchRequest setEntity:entityDescription];
     
-    //Perform fetch request on entity that fits the description
-    //Predicates used to select entities based on certain criteria
+    // Perform fetch request on entity that fits the description
+    // Predicates used to select entities based on certain criteria
     NSSortDescriptor *sortDescriptorIndex = [[NSSortDescriptor alloc]initWithKey:@"locationName" ascending:YES];
     NSArray *sortDescriptors = [[NSArray alloc]initWithObjects: sortDescriptorIndex, nil];
     

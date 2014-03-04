@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 #import "News.h"
 
 @interface NewsTableViewController : UITableViewController
+
+@property (nonatomic, retain) AppDelegate *app;
+@property (nonatomic, retain) News *theNews;
 
 @end

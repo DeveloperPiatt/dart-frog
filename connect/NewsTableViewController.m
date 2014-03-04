@@ -7,20 +7,22 @@
 //
 
 #import "NewsTableViewController.h"
-#import "AppDelegate.h"
 #import "CoreDataHelper.h"
 #import "XMLParser.h"
+#import "NewsCell.h"
 
 
 @interface NewsTableViewController () {
     
-    CoreDataHelper *cData;
     NSManagedObjectContext *managedObjectContext;
+    XMLParser *theParser;
 }
 
 @end
 
 @implementation NewsTableViewController
+@synthesize app;
+@synthesize theNews;
 
 # pragma - mark Initilize
 
@@ -34,7 +36,10 @@
 {
     [super viewDidLoad];
     
-    cData = [[CoreDataHelper alloc]init];
+    NSLog(@"Hi");
+    app = [[UIApplication sharedApplication] delegate];
+    
+    [self.tableView reloadData];
     
     //Idicates activity while table view loads data
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -43,15 +48,22 @@
     AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
     managedObjectContext = [appdelegate managedObjectContext];
     
+    
     NSURL *url = [[NSURL alloc]initWithString:@"http://blogs.oregonstate.edu/newstudents/feed/"];
     NSData *data = [[NSData alloc]initWithContentsOfURL:url];
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
     
-    Parser *theParser = [[Parser alloc]initParser];
+    theParser = [[XMLParser alloc]initParser];
     
     [xmlParser setDelegate:theParser];
     
+    BOOL worked = [xmlParser parse];
     
+    if (worked) {
+        NSLog(@"Amount %i", [theParser.xmlArray count]);
+    } else {
+        NSLog(@"No");
+    }
 
 }
 
@@ -71,41 +83,24 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray *matchingData = [cData getArrayOfManagedObjectsForEntity:@"News" withSortDescriptor:@""];
-    
     //Return the number of rows
-    return [matchingData count];
+    return [theParser.xmlArray count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (NewsCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"NewsCell";
+    NewsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
+    NSLog(@"%d", [theParser.xmlArray count]);
+    theNews = [theParser.xmlArray objectAtIndex:indexPath.row];
+    
+    cell.storyTitle.text = theNews.newsTitle;
+    cell.storyDate.text = theNews.newsDate;
+    cell.storyDescript.text = theNews.newsSummary;
     
     return cell;
 }
-
-#pragma mark - Connection
-
-- (void)parserDidStartDocument:(NSXMLParser *)parser
-{
-    NSLog(@"Found file");
-    NSLog(@"Begin parse");
-    
-}
-
-#pragma mark - XML transformation
-
--(void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    NSLog(@"ConnectionFinishedLoading");
-    [cData removeManagedObjectsForEntity:@"News"];
-    [cData saveManagedObjectContext];
-    [self.tableView reloadData];
-}
-
 
 #pragma mark - Navigation
 

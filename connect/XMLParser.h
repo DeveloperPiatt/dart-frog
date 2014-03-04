@@ -10,12 +10,13 @@
 #import "AppDelegate.h"
 #import "News.h"
 
-@interface Parser : NSObject <NSXMLParserDelegate> {
+@interface XMLParser : NSObject <NSXMLParserDelegate> {
     
-    AppDelegate *app;
     News *theNews;
     NSMutableString *currentElementValue;
 }
+
+@property (strong, nonatomic) NSMutableArray *xmlArray;
 
 -(id)initParser;
 

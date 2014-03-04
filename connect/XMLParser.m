@@ -6,51 +6,43 @@
 //  Copyright (c) 2014 Oregon State University. All rights reserved.
 //
 
+#import "AppDelegate.h"
 #import "XMLParser.h"
 #import "News.h"
 
-@implementation Parser
+@implementation XMLParser
+@synthesize xmlArray;
 
 -(id) initParser {
     
     if (self == [super init]) {
-        app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     }
-    
     return self;
 }
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     
-    NSInteger *indexCounter;
-    
-    if ([elementName isEqualToString:@"rss"])
+    if ([elementName isEqualToString:@"channel"])
     {
-        
-        app.xmlArray = [[NSMutableArray alloc] init];
+        xmlArray = [[NSMutableArray alloc]init];
     }
     
     else if ([elementName isEqualToString:@"item"])
     {
         theNews = [[News alloc] init];
-        
-        theNews.newsTitle = [[attributeDict objectForKey:@"title"] stringValue];
-        theNews.newsDate = [[attributeDict objectForKey:@"pubDate"] stringValue];
-        theNews.newsSummary = [[attributeDict objectForKey:@"description"] stringValue];
-        theNews.newsLink = [[attributeDict objectForKey:@"link"] stringValue];
-        theNews.newsIndex = indexCounter;
-        
-        indexCounter++;
+        NSLog(@"%@",attributeDict);
+        //theNews.newsTitle = [[attributeDict objectForKey:@"title"] stringValue];
+        //theNews.newsDate = [[attributeDict objectForKey:@"pubDate"] stringValue];
+        //theNews.newsSummary = [[attributeDict objectForKey:@"description"] stringValue];
+        //theNews.newsLink = [[attributeDict objectForKey:@"link"] stringValue];
         
     }
 }
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
     
-    if(!currentElementValue)
-    {
+    if(!currentElementValue) {
         currentElementValue = [[NSMutableString alloc] initWithString:string];
-    }
-    else {
+    } else {
         [currentElementValue appendString:string];
     }
     
@@ -58,17 +50,20 @@
 
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
     
-    if ([elementName isEqualToString:@"rss"])
-    {
+    if ([elementName isEqualToString:@"channel"]) {
         return;
     }
     
-    if ([elementName isEqualToString:@"item"])
-    {
-      app.xmlArray
+    if ([elementName isEqualToString:@"item"]) {
+        [xmlArray addObject:theNews];
+        
+        theNews = nil;
+        
+    } else {
+        
+        [theNews setValue:currentElementValue forKey:elementName];
+        currentElementValue = nil;
     }
-    
 }
-
 
 @end

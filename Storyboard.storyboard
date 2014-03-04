@@ -910,16 +910,16 @@
             </objects>
             <point key="canvasLocation" x="1195" y="-1466"/>
         </scene>
-        <!--Table View Controller - News-->
+        <!--News Table View Controller - News-->
         <scene sceneID="mQ0-zq-b68">
             <objects>
-                <tableViewController title="News" id="RYQ-dK-qFA" sceneMemberID="viewController">
+                <tableViewController title="News" id="RYQ-dK-qFA" customClass="NewsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="117" sectionHeaderHeight="22" sectionFooterHeight="22" id="oKf-wn-Fel">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="117" id="4aa-nN-1pz">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewsCell" rowHeight="117" id="4aa-nN-1pz" customClass="NewsCell">
                                 <rect key="frame" x="0.0" y="86" width="320" height="117"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4aa-nN-1pz" id="gmO-gF-AaY">
@@ -952,6 +952,9 @@
                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="storyDate" destination="Vey-XA-Xd5" id="QtD-Yg-Bib"/>
+                                    <outlet property="storyDescript" destination="nua-Ol-VAP" id="ZFN-CZ-Kyg"/>
+                                    <outlet property="storyTitle" destination="XgQ-b3-6sD" id="VKh-kY-rsf"/>
                                     <segue destination="5sD-O2-4PX" kind="push" id="2DK-hs-eKA"/>
                                 </connections>
                             </tableViewCell>

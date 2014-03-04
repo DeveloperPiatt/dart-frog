@@ -40,6 +40,7 @@
 		6A6D0E80188F3FDF00CAD90B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6D0E64188F3FDF00CAD90B /* CoreData.framework */; };
 		6A6D0E88188F3FDF00CAD90B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A6D0E86188F3FDF00CAD90B /* InfoPlist.strings */; };
 		6A6D0E8A188F3FDF00CAD90B /* connectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6D0E89188F3FDF00CAD90B /* connectTests.m */; };
+		6A8A3E5F18C6431B004796A1 /* CalendarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8A3E5E18C6431B004796A1 /* CalendarTableViewController.m */; };
 		E00FB50A18986D04003A8327 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = E00FB50918986D04003A8327 /* twitter.png */; };
 		E00FB50C18986D36003A8327 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = E00FB50B18986D36003A8327 /* facebook.png */; };
 		E00FB50E18986E8F003A8327 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E00FB50D18986E8F003A8327 /* MapKit.framework */; };
@@ -109,6 +110,8 @@
 		6A6D0E85188F3FDF00CAD90B /* connectTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "connectTests-Info.plist"; sourceTree = "<group>"; };
 		6A6D0E87188F3FDF00CAD90B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6A6D0E89188F3FDF00CAD90B /* connectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = connectTests.m; sourceTree = "<group>"; };
+		6A8A3E5D18C6431B004796A1 /* CalendarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTableViewController.h; sourceTree = "<group>"; };
+		6A8A3E5E18C6431B004796A1 /* CalendarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTableViewController.m; sourceTree = "<group>"; };
 		E00FB50918986D04003A8327 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		E00FB50B18986D36003A8327 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 		E00FB50D18986E8F003A8327 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -167,20 +170,9 @@
 		6A0CAC4D18919F6700E7E718 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				6A0CAC661891DAE300E7E718 /* favorite_not_selected.png */,
-				6A0CAC671891DAE300E7E718 /* favorite_selected.png */,
-				6A0CAC4E18919F9100E7E718 /* back_arrow.png */,
-				6A0CAC4F18919F9100E7E718 /* calendar.png */,
-				6A0CAC5018919F9100E7E718 /* calendarSmall.png */,
-				6A0CAC5118919F9100E7E718 /* clock.png */,
-				6A0CAC5218919F9100E7E718 /* date_time_bar.png */,
-				6A0CAC5318919F9100E7E718 /* dropDownArrow.png */,
-				6A0CAC5418919F9100E7E718 /* fav_noselect.png */,
-				6A0CAC5518919F9100E7E718 /* fav_select.png */,
-				6A0CAC5618919F9100E7E718 /* horizontal_bar.png */,
-				6A0CAC5718919F9100E7E718 /* location_favorite_bar2.png */,
-				6A0CAC5818919F9100E7E718 /* mapPin.png */,
-				6A0CAC5918919F9100E7E718 /* star.png */,
+				6A8A3E5918C55C23004796A1 /* Images */,
+				6A8A3E5D18C6431B004796A1 /* CalendarTableViewController.h */,
+				6A8A3E5E18C6431B004796A1 /* CalendarTableViewController.m */,
 			);
 			name = Calendar;
 			sourceTree = "<group>";
@@ -298,6 +290,27 @@
 				6A6D0E86188F3FDF00CAD90B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6A8A3E5918C55C23004796A1 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				6A0CAC661891DAE300E7E718 /* favorite_not_selected.png */,
+				6A0CAC671891DAE300E7E718 /* favorite_selected.png */,
+				6A0CAC4E18919F9100E7E718 /* back_arrow.png */,
+				6A0CAC4F18919F9100E7E718 /* calendar.png */,
+				6A0CAC5018919F9100E7E718 /* calendarSmall.png */,
+				6A0CAC5118919F9100E7E718 /* clock.png */,
+				6A0CAC5218919F9100E7E718 /* date_time_bar.png */,
+				6A0CAC5318919F9100E7E718 /* dropDownArrow.png */,
+				6A0CAC5418919F9100E7E718 /* fav_noselect.png */,
+				6A0CAC5518919F9100E7E718 /* fav_select.png */,
+				6A0CAC5618919F9100E7E718 /* horizontal_bar.png */,
+				6A0CAC5718919F9100E7E718 /* location_favorite_bar2.png */,
+				6A0CAC5818919F9100E7E718 /* mapPin.png */,
+				6A0CAC5918919F9100E7E718 /* star.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		E00FB50818986CB2003A8327 /* Social */ = {
@@ -459,6 +472,7 @@
 				6A05306218A0732D00B3CD04 /* FAQ.m in Sources */,
 				E03C4EE318B2E7DF00B93C1C /* Event.m in Sources */,
 				6A160D5118BFE7AE00CA6205 /* Restaurant.m in Sources */,
+				6A8A3E5F18C6431B004796A1 /* CalendarTableViewController.m in Sources */,
 				E03C4EE018B2E7DF00B93C1C /* News.m in Sources */,
 				6A693E9018B53D1400D9289C /* CoreDataHelper.m in Sources */,
 				E03C4EE618B2E7DF00B93C1C /* Location.m in Sources */,

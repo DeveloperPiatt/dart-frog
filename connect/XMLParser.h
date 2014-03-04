@@ -12,6 +12,7 @@
 
 @interface XMLParser : NSObject <NSXMLParserDelegate> {
     
+    NSManagedObjectContext *managedObjectContext;
     News *theNews;
     NSMutableString *currentElementValue;
 }

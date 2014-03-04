@@ -16,8 +16,14 @@
 -(id) initParser {
     
     if (self == [super init]) {
+        AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
+        managedObjectContext = [appdelegate managedObjectContext];
     }
     return self;
+}
+
+- (void)parserDidStartDocument:(NSXMLParser *)parser {
+	NSLog(@"found file and started parsing");
 }
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
@@ -27,14 +33,16 @@
         xmlArray = [[NSMutableArray alloc]init];
     }
     
-    else if ([elementName isEqualToString:@"item"])
+    if ([elementName isEqualToString:@"item"])
     {
-        theNews = [[News alloc] init];
+        NSLog(@"Item found");
+        NSEntityDescription *newsEntityDesc = [NSEntityDescription entityForName:@"News" inManagedObjectContext:managedObjectContext];
+        theNews = [[News alloc]initWithEntity:newsEntityDesc insertIntoManagedObjectContext:managedObjectContext];
         NSLog(@"%@",attributeDict);
-        //theNews.newsTitle = [[attributeDict objectForKey:@"title"] stringValue];
-        //theNews.newsDate = [[attributeDict objectForKey:@"pubDate"] stringValue];
-        //theNews.newsSummary = [[attributeDict objectForKey:@"description"] stringValue];
-        //theNews.newsLink = [[attributeDict objectForKey:@"link"] stringValue];
+        theNews.newsTitle = [[attributeDict objectForKey:@"title"] stringValue];
+        theNews.newsDate = [[attributeDict objectForKey:@"pubDate"] stringValue];
+        theNews.newsSummary = [[attributeDict objectForKey:@"description"] stringValue];
+        theNews.newsLink = [[attributeDict objectForKey:@"link"] stringValue];
         
     }
 }
@@ -58,11 +66,6 @@
         [xmlArray addObject:theNews];
         
         theNews = nil;
-        
-    } else {
-        
-        [theNews setValue:currentElementValue forKey:elementName];
-        currentElementValue = nil;
     }
 }
 

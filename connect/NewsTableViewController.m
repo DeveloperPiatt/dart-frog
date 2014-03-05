@@ -35,8 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSLog(@"Hi");
+
     app = [[UIApplication sharedApplication] delegate];
     
     [self.tableView reloadData];
@@ -60,7 +59,7 @@
     BOOL worked = [xmlParser parse];
     
     if (worked) {
-        NSLog(@"Amount %i", [theParser.xmlArray count]);
+        NSLog(@"%@", theParser.xmlArray);
     } else {
         NSLog(@"No");
     }

@@ -15,6 +15,13 @@
     NSManagedObjectContext *managedObjectContext;
     News *theNews;
     NSMutableString *currentElementValue;
+    
+    NSString *element;
+    NSDictionary *item;
+    NSMutableString *title;
+    NSMutableString *date;
+    NSMutableString *summary;
+    NSMutableString *link;
 }
 
 @property (strong, nonatomic) NSMutableArray *xmlArray;

@@ -18,6 +18,7 @@
     if (self == [super init]) {
         AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
         managedObjectContext = [appdelegate managedObjectContext];
+        xmlArray = [[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -28,32 +29,32 @@
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     
-    if ([elementName isEqualToString:@"channel"])
-    {
-        xmlArray = [[NSMutableArray alloc]init];
+    // current element
+    element = elementName;
+    
+    // each news ariticle is an item
+    if ([elementName isEqualToString:@"item"]) {
+        item = [[NSMutableDictionary alloc] init];
+        title = [[NSMutableString alloc] init];
+        date = [[NSMutableString alloc] init];
+        summary = [[NSMutableString alloc] init];
+        link = [[NSMutableString alloc] init];
     }
     
-    if ([elementName isEqualToString:@"item"])
-    {
-        NSLog(@"Item found");
-        NSEntityDescription *newsEntityDesc = [NSEntityDescription entityForName:@"News" inManagedObjectContext:managedObjectContext];
-        theNews = [[News alloc]initWithEntity:newsEntityDesc insertIntoManagedObjectContext:managedObjectContext];
-        NSLog(@"%@",attributeDict);
-        theNews.newsTitle = [[attributeDict objectForKey:@"title"] stringValue];
-        theNews.newsDate = [[attributeDict objectForKey:@"pubDate"] stringValue];
-        theNews.newsSummary = [[attributeDict objectForKey:@"description"] stringValue];
-        theNews.newsLink = [[attributeDict objectForKey:@"link"] stringValue];
-        
-    }
+    // need to set the current element value to nil each time we find a new element because of whitespaces
+    // in theory there is a delegate method to catch white spaces, but i think it isn't working because the
+    // XML file doesn't have a doctype set
+    currentElementValue = nil;
 }
+
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
     
+    // Putting together the values of the different elements
     if(!currentElementValue) {
         currentElementValue = [[NSMutableString alloc] initWithString:string];
     } else {
         [currentElementValue appendString:string];
     }
-    
 }
 
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
@@ -62,10 +63,32 @@
         return;
     }
     
+    // Capturing the data from currentElementValue into the associated string
+    
+    if ([elementName isEqualToString:@"link"]) {
+        [link appendString:currentElementValue];
+    }
+    
+    if ([elementName isEqualToString:@"title"]) {
+        [title appendString:currentElementValue];
+    }
+    
+    if ([elementName isEqualToString:@"pubDate"]) {
+        [date appendString:currentElementValue];
+    }
+    
+    if ([elementName isEqualToString:@"description"]) {
+        [summary appendString:currentElementValue];
+    }
+    
+    // end of item, store all the data gathered and add the dictionary object to our xmlArray
     if ([elementName isEqualToString:@"item"]) {
-        [xmlArray addObject:theNews];
+        [item setValue:title forKey:@"title"];
+        [item setValue:link forKey:@"link"];
+        [item setValue:date forKey:@"date"];
+        [item setValue:summary forKey:@"summary"];
         
-        theNews = nil;
+        [xmlArray addObject:item];
     }
 }
 

@@ -74,6 +74,16 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UIStoryboard *storyboard = self.storyboard;
+    UITableViewController *newVC = [storyboard instantiateViewControllerWithIdentifier:@"EventListVC"];
+    newVC.navigationItem.title = @"OH HI";
+    
+    [self.navigationController pushViewController:newVC animated:true];
+    
+}
+
 -(NSArray*)getCalendarTableData
 {
     NSMutableArray *CTData = [[NSMutableArray alloc]init]; //CTData -> Calendar Table Data

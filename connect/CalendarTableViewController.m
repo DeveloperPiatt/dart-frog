@@ -7,6 +7,7 @@
 //
 
 #import "CalendarTableViewController.h"
+#import "EventsTableViewController.h"
 
 @interface CalendarTableViewController ()
 
@@ -67,8 +68,6 @@
     }
     // Configure the cell...
     
-    NSLog(@"%@",[tableDataArray objectAtIndex:indexPath.row]);
-    
     cell.textLabel.text = [[tableDataArray objectAtIndex:indexPath.row] valueForKey:@"Title"];
     
     return cell;
@@ -76,9 +75,12 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
     UIStoryboard *storyboard = self.storyboard;
-    UITableViewController *newVC = [storyboard instantiateViewControllerWithIdentifier:@"EventListVC"];
-    newVC.navigationItem.title = @"OH HI";
+    EventsTableViewController *newVC = [storyboard instantiateViewControllerWithIdentifier:@"EventListVC"];
+    newVC.navigationItem.title = cell.textLabel.text;
+    newVC.calendarData = [tableDataArray objectAtIndex:indexPath.row];
     
     [self.navigationController pushViewController:newVC animated:true];
     

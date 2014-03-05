@@ -41,6 +41,8 @@
 		6A6D0E88188F3FDF00CAD90B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A6D0E86188F3FDF00CAD90B /* InfoPlist.strings */; };
 		6A6D0E8A188F3FDF00CAD90B /* connectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6D0E89188F3FDF00CAD90B /* connectTests.m */; };
 		6A8A3E5F18C6431B004796A1 /* CalendarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8A3E5E18C6431B004796A1 /* CalendarTableViewController.m */; };
+		6A8A3E6218C743D8004796A1 /* EventsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8A3E6118C743D8004796A1 /* EventsTableViewController.m */; };
+		6A8AE47C18C7480100A055A7 /* EventStandardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8AE47B18C7480100A055A7 /* EventStandardCell.m */; };
 		E00FB50A18986D04003A8327 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = E00FB50918986D04003A8327 /* twitter.png */; };
 		E00FB50C18986D36003A8327 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = E00FB50B18986D36003A8327 /* facebook.png */; };
 		E00FB50E18986E8F003A8327 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E00FB50D18986E8F003A8327 /* MapKit.framework */; };
@@ -112,6 +114,10 @@
 		6A6D0E89188F3FDF00CAD90B /* connectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = connectTests.m; sourceTree = "<group>"; };
 		6A8A3E5D18C6431B004796A1 /* CalendarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTableViewController.h; sourceTree = "<group>"; };
 		6A8A3E5E18C6431B004796A1 /* CalendarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTableViewController.m; sourceTree = "<group>"; };
+		6A8A3E6018C743D8004796A1 /* EventsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsTableViewController.h; sourceTree = "<group>"; };
+		6A8A3E6118C743D8004796A1 /* EventsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsTableViewController.m; sourceTree = "<group>"; };
+		6A8AE47A18C7480100A055A7 /* EventStandardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventStandardCell.h; sourceTree = "<group>"; };
+		6A8AE47B18C7480100A055A7 /* EventStandardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventStandardCell.m; sourceTree = "<group>"; };
 		E00FB50918986D04003A8327 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		E00FB50B18986D36003A8327 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 		E00FB50D18986E8F003A8327 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -170,9 +176,12 @@
 		6A0CAC4D18919F6700E7E718 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				6A8AE47D18C7480A00A055A7 /* Table Cell */,
 				6A8A3E5918C55C23004796A1 /* Images */,
 				6A8A3E5D18C6431B004796A1 /* CalendarTableViewController.h */,
 				6A8A3E5E18C6431B004796A1 /* CalendarTableViewController.m */,
+				6A8A3E6018C743D8004796A1 /* EventsTableViewController.h */,
+				6A8A3E6118C743D8004796A1 /* EventsTableViewController.m */,
 			);
 			name = Calendar;
 			sourceTree = "<group>";
@@ -311,6 +320,15 @@
 				6A0CAC5918919F9100E7E718 /* star.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		6A8AE47D18C7480A00A055A7 /* Table Cell */ = {
+			isa = PBXGroup;
+			children = (
+				6A8AE47A18C7480100A055A7 /* EventStandardCell.h */,
+				6A8AE47B18C7480100A055A7 /* EventStandardCell.m */,
+			);
+			name = "Table Cell";
 			sourceTree = "<group>";
 		};
 		E00FB50818986CB2003A8327 /* Social */ = {
@@ -474,6 +492,7 @@
 				6A160D5118BFE7AE00CA6205 /* Restaurant.m in Sources */,
 				6A8A3E5F18C6431B004796A1 /* CalendarTableViewController.m in Sources */,
 				E03C4EE018B2E7DF00B93C1C /* News.m in Sources */,
+				6A8AE47C18C7480100A055A7 /* EventStandardCell.m in Sources */,
 				6A693E9018B53D1400D9289C /* CoreDataHelper.m in Sources */,
 				E03C4EE618B2E7DF00B93C1C /* Location.m in Sources */,
 				6A6D0E71188F3FDF00CAD90B /* AppDelegate.m in Sources */,
@@ -485,6 +504,7 @@
 				E03C4EFD18BC008C00B93C1C /* ContactsViewController.m in Sources */,
 				E03C4EF118B7CCA800B93C1C /* FoodCell.m in Sources */,
 				6A6D0E6D188F3FDF00CAD90B /* main.m in Sources */,
+				6A8A3E6218C743D8004796A1 /* EventsTableViewController.m in Sources */,
 				6A160D4B18BBA2F100CA6205 /* Hour.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

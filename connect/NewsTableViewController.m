@@ -61,6 +61,9 @@
     
     if (worked) {
         NSLog(@"Amount %i", [theParser.xmlArray count]);
+        for (theNews in theParser.xmlArray) {
+            NSLog (@"%@", theNews);
+        }
     } else {
         NSLog(@"No");
     }
@@ -84,6 +87,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //Return the number of rows
+    NSLog(@"Returning %i", [theParser.xmlArray count]);
     return [theParser.xmlArray count];
 }
 
@@ -92,7 +96,7 @@
     static NSString *CellIdentifier = @"NewsCell";
     NewsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    NSLog(@"%d", [theParser.xmlArray count]);
+    NSLog(@"%i", [theParser.xmlArray count]);
     theNews = [theParser.xmlArray objectAtIndex:indexPath.row];
     
     cell.storyTitle.text = theNews.newsTitle;

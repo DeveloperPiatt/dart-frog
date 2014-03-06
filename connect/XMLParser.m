@@ -33,18 +33,13 @@
         xmlArray = [[NSMutableArray alloc]init];
     }
     
-    if ([elementName isEqualToString:@"item"])
+    else if ([elementName isEqualToString:@"item"])
     {
         NSLog(@"Item found");
         NSEntityDescription *newsEntityDesc = [NSEntityDescription entityForName:@"News" inManagedObjectContext:managedObjectContext];
         theNews = [[News alloc]initWithEntity:newsEntityDesc insertIntoManagedObjectContext:managedObjectContext];
-        NSLog(@"%@",attributeDict);
-        theNews.newsTitle = [[attributeDict objectForKey:@"title"] stringValue];
-        theNews.newsDate = [[attributeDict objectForKey:@"pubDate"] stringValue];
-        theNews.newsSummary = [[attributeDict objectForKey:@"description"] stringValue];
-        theNews.newsLink = [[attributeDict objectForKey:@"link"] stringValue];
-        
     }
+    
 }
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
     
@@ -62,11 +57,32 @@
         return;
     }
     
-    if ([elementName isEqualToString:@"item"]) {
-        [xmlArray addObject:theNews];
-        
-        theNews = nil;
+    NSLog(@"Element Name: %@", elementName);
+    NSLog(@"Current Element Value: %@", currentElementValue);
+    
+    if ([elementName isEqualToString:@"title"]) {
+        theNews.newsTitle = currentElementValue;
     }
+    
+    if ([elementName isEqualToString:@"pubDate"]) {
+        theNews.newsDate = currentElementValue;
+    }
+    
+    if ([elementName isEqualToString:@"description"]) {
+        theNews.newsSummary = currentElementValue;
+    }
+    
+    if ([elementName isEqualToString:@"link"]) {
+        theNews.newsLink = currentElementValue;
+    }
+
+    
+    if (theNews != nil) {
+        [xmlArray addObject:theNews];
+    }
+    
+    currentElementValue = nil;
+    
 }
 
 @end

@@ -23,16 +23,22 @@
 }
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
-	NSLog(@"found file and started parsing");
+	NSLog(@"Found file and started parsing");
 }
+
+/*
+ In the xml file for the news feature, each article is an "item" element. Items have child elements that provide the title, description, publication date, etc. This XMLparser class creates a News entity for each item in the xml file and assigns the appropriate child elements of the item to the attributes of the News entity. Once a News entity has been created and all attribute assigned values, the News entity is added to xmlArray. So, when the parsing is done, xmlArray contains all the items found in the xml file.
+ */
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     
+    // channel is the parent element of all items
     if ([elementName isEqualToString:@"channel"])
     {
         xmlArray = [[NSMutableArray alloc]init];
     }
     
+    // create News entity when item element is found
     else if ([elementName isEqualToString:@"item"])
     {
         NSLog(@"Item found");
@@ -41,6 +47,7 @@
     }
     
 }
+
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
 
         currentElementValue = [[NSMutableString alloc] initWithString:string];

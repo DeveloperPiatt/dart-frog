@@ -64,17 +64,11 @@
     
     if ([elementName isEqualToString:@"title"]) {
         theNews.newsTitle = currentElementValue;
-    }
-    
-    if ([elementName isEqualToString:@"pubDate"]) {
+    } else if ([elementName isEqualToString:@"pubDate"]) {
         theNews.newsDate = currentElementValue;
-    }
-    
-    if ([elementName isEqualToString:@"description"]) {
+    } else if ([elementName isEqualToString:@"description"]) {
         theNews.newsSummary = currentElementValue;
-    }
-    
-    if ([elementName isEqualToString:@"link"]) {
+    } else if ([elementName isEqualToString:@"link"]) {
         theNews.newsLink = currentElementValue;
     }
 

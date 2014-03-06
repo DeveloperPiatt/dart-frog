@@ -72,8 +72,9 @@
     }
 
     
-    if (theNews != nil) {
+    if ([elementName isEqualToString:@"item"]) {
         [xmlArray addObject:theNews];
+        theNews = nil;
     }
     
     currentElementValue = nil;

@@ -42,13 +42,8 @@
     
 }
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-    
-    if(!currentElementValue) {
+
         currentElementValue = [[NSMutableString alloc] initWithString:string];
-    } else {
-        [currentElementValue appendString:string];
-    }
-    
 }
 
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {

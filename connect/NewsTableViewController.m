@@ -98,13 +98,15 @@
     theNews = [theParser.xmlArray objectAtIndex:indexPath.row];
     
     cell.storyTitle.text = theNews.newsTitle;
+    
+    theNews.newsDate = [theNews.newsDate substringToIndex: MIN(16, [theNews.newsDate length])];
     cell.storyDate.text = theNews.newsDate;
+    
     cell.storyDescript.text = theNews.newsSummary;
     
     return cell;
 }
-
-#pragma mark - Navigation
+# pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
 //-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

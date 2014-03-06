@@ -36,10 +36,7 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"Hi");
     app = [[UIApplication sharedApplication] delegate];
-    
-    [self.tableView reloadData];
     
     //Idicates activity while table view loads data
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -67,7 +64,8 @@
     } else {
         NSLog(@"No");
     }
-
+    
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning

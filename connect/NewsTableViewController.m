@@ -102,22 +102,28 @@
     theNews.newsDate = [theNews.newsDate substringToIndex:16];
     cell.storyDate.text = theNews.newsDate;
     
-    // Want to cut off description at the end of a word
+    /*Want to cut off description at the end of a word
     
-    BOOL foundSpace = false;
-    int endPoint = 120;
+    if ([theNews.newsSummary length] > 120) {
+        BOOL foundSpace = false;
+        int endPoint = 120;
     
-    while (!foundSpace) {
-        NSString *lastChar = [theNews.newsSummary substringWithRange:NSMakeRange(endPoint, 1)];
-        if ([lastChar isEqualToString:@" "]) {
-            foundSpace = true;
-        } else {
-            endPoint++;
+        while (!foundSpace) {
+            NSString *lastChar = [theNews.newsSummary substringWithRange:NSMakeRange(endPoint, 1)];
+            if ([lastChar isEqualToString:@" "]) {
+                foundSpace = true;
+            } else {
+                endPoint++;
+            }
         }
-    }
     
-    theNews.newsSummary = [theNews.newsSummary substringToIndex: MIN(endPoint, [theNews.newsSummary length])];
-    theNews.newsSummary = [theNews.newsSummary stringByAppendingString:@"..."];
+        theNews.newsSummary = [theNews.newsSummary substringToIndex: MIN(endPoint, [theNews.newsSummary length])];
+        theNews.newsSummary = [theNews.newsSummary stringByAppendingString:@"..."];
+        cell.storyDescript.text = theNews.newsSummary;
+    } else {
+        cell.storyDescript.text = theNews.newsSummary;
+    }*/
+    
     cell.storyDescript.text = theNews.newsSummary;
     
     return cell;

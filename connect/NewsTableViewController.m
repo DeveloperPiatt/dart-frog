@@ -86,7 +86,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //Return the number of rows
-    NSLog(@"Returning %i", [theParser.xmlArray count]);
+    NSLog(@"Number of rows: %i", [theParser.xmlArray count]);
     return [theParser.xmlArray count];
 }
 
@@ -95,7 +95,6 @@
     static NSString *CellIdentifier = @"NewsCell";
     NewsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    NSLog(@"%i", [theParser.xmlArray count]);
     theNews = [theParser.xmlArray objectAtIndex:indexPath.row];
     
     cell.storyTitle.text = theNews.newsTitle;

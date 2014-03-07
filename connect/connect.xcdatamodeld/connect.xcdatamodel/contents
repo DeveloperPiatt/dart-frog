@@ -54,7 +54,7 @@
         <element name="FAQ" positionX="367" positionY="-18" width="128" height="90"/>
         <element name="Hour" positionX="252" positionY="396" width="128" height="88"/>
         <element name="Location" positionX="-155" positionY="153" width="128" height="135"/>
-        <element name="News" positionX="0" positionY="-162" width="128" height="103"/>
+        <element name="News" positionX="0" positionY="-162" width="128" height="118"/>
         <element name="Restaurant" positionX="52" positionY="390" width="128" height="88"/>
         <element name="Tweet" positionX="223" positionY="-189" width="128" height="120"/>
     </elements>

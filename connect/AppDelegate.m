@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "XMLParser.h"
 
 @implementation AppDelegate
 

@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "News.h"
 
-@interface XMLParser : NSObject <NSXMLParserDelegate> {
+@interface NewsXMLParser : NSObject <NSXMLParserDelegate> {
     
     NSManagedObjectContext *managedObjectContext;
     News *theNews;

@@ -8,14 +8,14 @@
 
 #import "NewsTableViewController.h"
 #import "CoreDataHelper.h"
-#import "XMLParser.h"
+#import "NewsXMLParser.h"
 #import "NewsCell.h"
 
 
 @interface NewsTableViewController () {
     
     NSManagedObjectContext *managedObjectContext;
-    XMLParser *theParser;
+    NewsXMLParser *theParser;
 }
 
 @end
@@ -50,7 +50,7 @@
     NSData *data = [[NSData alloc]initWithContentsOfURL:url];
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
     
-    theParser = [[XMLParser alloc]initParser];
+    theParser = [[NewsXMLParser alloc]initParser];
     
     [xmlParser setDelegate:theParser];
     
@@ -65,6 +65,7 @@
         NSLog(@"No");
     }
     
+    NSLog(@"Reloading Data");
     [self.tableView reloadData];
 }
 
@@ -98,34 +99,9 @@
     theNews = [theParser.xmlArray objectAtIndex:indexPath.row];
     
     cell.storyTitle.text = theNews.newsTitle;
-    
-    theNews.newsDate = [theNews.newsDate substringToIndex:16];
     cell.storyDate.text = theNews.newsDate;
-    
-    /*Want to cut off description at the end of a word
-    
-    if ([theNews.newsSummary length] > 120) {
-        BOOL foundSpace = false;
-        int endPoint = 120;
-    
-        while (!foundSpace) {
-            NSString *lastChar = [theNews.newsSummary substringWithRange:NSMakeRange(endPoint, 1)];
-            if ([lastChar isEqualToString:@" "]) {
-                foundSpace = true;
-            } else {
-                endPoint++;
-            }
-        }
-    
-        theNews.newsSummary = [theNews.newsSummary substringToIndex: MIN(endPoint, [theNews.newsSummary length])];
-        theNews.newsSummary = [theNews.newsSummary stringByAppendingString:@"..."];
-        cell.storyDescript.text = theNews.newsSummary;
-    } else {
-        cell.storyDescript.text = theNews.newsSummary;
-    }*/
-    
     cell.storyDescript.text = theNews.newsSummary;
-    
+
     return cell;
 }
 # pragma mark - Navigation

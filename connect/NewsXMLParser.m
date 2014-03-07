@@ -94,8 +94,6 @@
         
     } else if ([elementName isEqualToString:@"link"]) {
         theNews.newsLink = currentElementValue;
-    } else if ([elementName isEqualToString:@"content:encoded"]) {
-        theNews.newsStory = @"Story";
     }
 
     

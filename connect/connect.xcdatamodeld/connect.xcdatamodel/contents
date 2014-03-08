@@ -31,6 +31,7 @@
         <relationship name="restaurants" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Restaurant" inverseName="location" inverseEntity="Restaurant" syncable="YES"/>
     </entity>
     <entity name="News" representedClassName="News" syncable="YES">
+        <attribute name="newsContent" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="newsDate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="newsLink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="newsSummary" optional="YES" attributeType="String" syncable="YES"/>
@@ -49,13 +50,13 @@
         <attribute name="tweetUser" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Contact" positionX="376" positionY="-135" width="128" height="75"/>
-        <element name="Event" positionX="448" positionY="207" width="128" height="135"/>
-        <element name="FAQ" positionX="367" positionY="-18" width="128" height="90"/>
-        <element name="Hour" positionX="252" positionY="396" width="128" height="88"/>
-        <element name="Location" positionX="-155" positionY="153" width="128" height="135"/>
-        <element name="News" positionX="0" positionY="-162" width="128" height="103"/>
-        <element name="Restaurant" positionX="52" positionY="390" width="128" height="88"/>
-        <element name="Tweet" positionX="223" positionY="-189" width="128" height="120"/>
+        <element name="Contact" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Event" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="FAQ" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Hour" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Location" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="News" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Restaurant" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Tweet" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

@@ -17,5 +17,6 @@
 @property (nonatomic, retain) NSString * newsSummary;
 @property (nonatomic, retain) NSString * newsTitle;
 @property (nonatomic, retain) NSString * newsLink;
+@property (nonatomic, retain) NSString * newsContent;
 
 @end

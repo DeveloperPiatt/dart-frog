@@ -7,8 +7,13 @@
 //
 
 #import "EventsTableViewController.h"
+#include "CalendarXMLParser.h"
+#include "EventStandardCell.h"
 
-@interface EventsTableViewController ()
+@interface EventsTableViewController () {
+    NSArray *eventDataArray;
+    CalendarXMLParser *parser;
+}
 
 @end
 
@@ -30,6 +35,8 @@
     [super viewDidLoad];
     
     NSLog(@"Displaying Data For -- %@", [calendarData objectForKey:@"Title"]);
+    
+    eventDataArray = [self getEventData];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -70,7 +77,7 @@
     return cell;
 }
 
--(void)getEventList {
+-(NSArray*)getEventData {
     /*
      today
      week
@@ -78,6 +85,23 @@
      
      http://calendar.oregonstate.edu/today/' + myScope + '/' + myCalName + '/rss20.xml
      */
+    
+    NSURL *url = [[NSURL alloc]initWithString:@"http://calendar.oregonstate.edu/today/month/osu-conferences/rss20.xml"];
+    NSData *data = [[NSData alloc]initWithContentsOfURL:url];
+    NSXMLParser *xmlParser = [[NSXMLParser alloc]initWithData:data];
+    
+    parser = [[CalendarXMLParser alloc]initParser];
+    [xmlParser setDelegate:parser];
+    
+    BOOL parseWorked = [xmlParser parse];
+    
+    if (parseWorked) {
+        NSLog(@"%@", parser.eventsArray);
+    } else {
+        NSLog(@"Parse Failed");
+    }
+    
+    return parser.eventsArray;
 }
 
 @end

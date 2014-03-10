@@ -41,7 +41,7 @@
     // Create News entity when item element is found
     else if ([elementName isEqualToString:@"item"])
     {
-        NSLog(@"Item found");
+//        NSLog(@"Item found");
         NSEntityDescription *newsEntityDesc = [NSEntityDescription entityForName:@"News" inManagedObjectContext:managedObjectContext];
         theNews = [[News alloc]initWithEntity:newsEntityDesc insertIntoManagedObjectContext:managedObjectContext];
     }
@@ -55,19 +55,31 @@
     NSScanner *theScanner = [NSScanner scannerWithString:string];
     NSString *html;
     
+    NSString *finalString = string;
+    
     while ([theScanner isAtEnd] == NO) {
         
         [theScanner scanUpToString:@"&#" intoString: NULL];
         [theScanner scanUpToString: @";" intoString: &html];
+        
+        if (html != NULL) {
+            NSString *htmlIntString = [html stringByReplacingOccurrencesOfString:@"&#" withString:@""];
+            unichar replaceWithMe = (unichar)[htmlIntString intValue];
+            NSLog (@"The html string is %@, replace it with %C", htmlIntString, replaceWithMe);
+            
+            finalString = [string stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@;", html] withString:[NSString stringWithFormat:@"%C", replaceWithMe]];
+        }
     }
     
-     NSLog (@"The html string is: %@", html);
+    
+    NSLog(@"%@", finalString);
+    
 
     // Gets characters found between opening and closing tags of element
     if (!currentElementValue) {
-        currentElementValue = [[NSMutableString alloc] initWithString:string];
+        currentElementValue = [[NSMutableString alloc] initWithString:finalString];
     } else {
-        [currentElementValue appendString:string];
+        [currentElementValue appendString:finalString];
     }
 }
 
@@ -77,8 +89,8 @@
         return;
     }
     
-    NSLog(@"Element Name: %@", elementName);
-    NSLog(@"Current Element Value: %@", currentElementValue);
+//    NSLog(@"Element Name: %@", elementName);
+//    NSLog(@"Current Element Value: %@", currentElementValue);
     
     if ([elementName isEqualToString:@"title"]) {
         theNews.newsTitle = currentElementValue;
@@ -110,9 +122,15 @@
         theNews.newsSummary = [theNews.newsSummary stringByAppendingString:@"..."];
         
     } else if ([elementName isEqualToString:@"link"]) {
-        theNews.newsLink = currentElementValue;
+        
+        
+        theNews.newsLink = [NSString stringWithString:currentElementValue];
+        
+        
     } else if ([elementName isEqualToString:@"content:encoded"]) {
+        
         theNews.newsContent = currentElementValue;
+        
     }
 
     

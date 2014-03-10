@@ -81,11 +81,11 @@
     NSLog(@"Current Element Value: %@", currentElementValue);
     
     if ([elementName isEqualToString:@"title"]) {
-        theNews.newsTitle = currentElementValue;
+        theNews.newsTitle = [NSString stringWithString:currentElementValue];
     } else if ([elementName isEqualToString:@"pubDate"]) {
-        theNews.newsDate = [currentElementValue substringToIndex:16];
+        theNews.newsDate = [NSString stringWithString:[currentElementValue substringToIndex:16]];
     } else if ([elementName isEqualToString:@"description"]) {
-        theNews.newsSummary = currentElementValue;
+        theNews.newsSummary = [NSString stringWithString:currentElementValue];
         
         // Want to cut-off description at the end of a word after about 120 characters
         /* This is done while the file is being parsed rather than when the rows are being created because the function that creates the rows is called continuously as the table view is scrolled. We don't want to continuously edit the description and append "..." */
@@ -110,9 +110,9 @@
         theNews.newsSummary = [theNews.newsSummary stringByAppendingString:@"..."];
         
     } else if ([elementName isEqualToString:@"link"]) {
-        theNews.newsLink = currentElementValue;
+        theNews.newsLink = [NSString stringWithString:currentElementValue];
     } else if ([elementName isEqualToString:@"content:encoded"]) {
-        theNews.newsContent = currentElementValue;
+        theNews.newsContent = [NSString stringWithString:currentElementValue];
     }
 
     

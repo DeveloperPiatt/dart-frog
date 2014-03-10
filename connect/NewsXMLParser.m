@@ -51,6 +51,17 @@
 }
 
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
+    
+    NSScanner *theScanner = [NSScanner scannerWithString:string];
+    NSString *html;
+    
+    while ([theScanner isAtEnd] == NO) {
+        
+        [theScanner scanUpToString:@"&#" intoString: NULL];
+        [theScanner scanUpToString: @";" intoString: &html];
+    }
+    
+     NSLog (@"The html string is: %@", html);
 
     // Gets characters found between opening and closing tags of element
     if (!currentElementValue) {

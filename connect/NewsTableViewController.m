@@ -57,15 +57,15 @@
     BOOL worked = [xmlParser parse];
     
     if (worked) {
-        NSLog(@"Amount %i", [theParser.xmlArray count]);
+        // NSLog(@"Amount %i", [theParser.xmlArray count]);
         for (theNews in theParser.xmlArray) {
-            NSLog (@"%@", theNews);
+            // NSLog (@"%@", theNews);
         }
     } else {
-        NSLog(@"No");
+        // NSLog(@"No");
     }
     
-    NSLog(@"Reloading Data");
+    // NSLog(@"Reloading Data");
     [self.tableView reloadData];
 }
 
@@ -86,7 +86,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //Return the number of rows
-    NSLog(@"Number of rows: %i", [theParser.xmlArray count]);
     return [theParser.xmlArray count];
 }
 

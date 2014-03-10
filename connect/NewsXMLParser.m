@@ -23,7 +23,7 @@
 }
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
-	NSLog(@"Found file and started parsing");
+	//NSLog(@"Found file and started parsing");
 }
 
 /*
@@ -41,7 +41,7 @@
     // Create News entity when item element is found
     else if ([elementName isEqualToString:@"item"])
     {
-//        NSLog(@"Item found");
+        // NSLog(@"Item found");
         NSEntityDescription *newsEntityDesc = [NSEntityDescription entityForName:@"News" inManagedObjectContext:managedObjectContext];
         theNews = [[News alloc]initWithEntity:newsEntityDesc insertIntoManagedObjectContext:managedObjectContext];
     }
@@ -53,33 +53,34 @@
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
     
     NSScanner *theScanner = [NSScanner scannerWithString:string];
-    NSString *html;
+    NSString *charEntityRef;
     
-    NSString *finalString = string;
+    NSString *cleanString = string;
     
-    while ([theScanner isAtEnd] == NO) {
+    while (![theScanner isAtEnd]) {
         
         [theScanner scanUpToString:@"&#" intoString: NULL];
-        [theScanner scanUpToString: @";" intoString: &html];
+        [theScanner scanUpToString: @";" intoString: &charEntityRef];
         
-        if (html != NULL) {
-            NSString *htmlIntString = [html stringByReplacingOccurrencesOfString:@"&#" withString:@""];
-            unichar replaceWithMe = (unichar)[htmlIntString intValue];
-            NSLog (@"The html string is %@, replace it with %C", htmlIntString, replaceWithMe);
+        if (charEntityRef != NULL) {
             
-            finalString = [string stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@;", html] withString:[NSString stringWithFormat:@"%C", replaceWithMe]];
+            NSString *decimalEntity = [charEntityRef stringByReplacingOccurrencesOfString:@"&#" withString:@""];
+            unichar uniChar = (unichar)[decimalEntity intValue];
+            // NSLog (@"The html string is %@, replace it with %C", decimalEntity, uniChar);
+            
+            cleanString = [string stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@;", charEntityRef] withString:[NSString stringWithFormat:@"%C", uniChar]];
         }
     }
     
     
-    NSLog(@"%@", finalString);
+    // NSLog(@"%@", cleanString);
     
 
     // Gets characters found between opening and closing tags of element
     if (!currentElementValue) {
-        currentElementValue = [[NSMutableString alloc] initWithString:finalString];
+        currentElementValue = [[NSMutableString alloc] initWithString:cleanString];
     } else {
-        [currentElementValue appendString:finalString];
+        [currentElementValue appendString:cleanString];
     }
 }
 

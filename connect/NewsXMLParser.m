@@ -46,12 +46,18 @@
         theNews = [[News alloc]initWithEntity:newsEntityDesc insertIntoManagedObjectContext:managedObjectContext];
     }
     
+     currentElementValue = nil;
+    
 }
 
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
 
     // Gets characters found between opening and closing tags of element
-    currentElementValue = [[NSMutableString alloc] initWithString:string];
+    if (!currentElementValue) {
+        currentElementValue = [[NSMutableString alloc] initWithString:string];
+    } else {
+        [currentElementValue appendString:string];
+    }
 }
 
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
@@ -103,9 +109,6 @@
         [xmlArray addObject:theNews];
         theNews = nil;
     }
-    
-    currentElementValue = nil;
-    
 }
 
 @end

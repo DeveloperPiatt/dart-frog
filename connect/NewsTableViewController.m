@@ -57,15 +57,11 @@
     BOOL worked = [xmlParser parse];
     
     if (worked) {
-        // NSLog(@"Amount %i", [theParser.xmlArray count]);
-        for (theNews in theParser.xmlArray) {
-            // NSLog (@"%@", theNews);
-        }
+        NSLog(@"Items found: %i", [theParser.xmlArray count]);
     } else {
-        // NSLog(@"No");
+        NSLog(@"Parser failed");
     }
     
-    // NSLog(@"Reloading Data");
     [self.tableView reloadData];
 }
 

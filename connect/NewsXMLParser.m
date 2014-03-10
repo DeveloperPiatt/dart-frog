@@ -23,7 +23,7 @@
 }
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
-	//NSLog(@"Found file and started parsing");
+	NSLog(@"Found file and started parsing");
 }
 
 /*
@@ -57,17 +57,20 @@
     
     NSString *cleanString = string;
     
+    // Look for character entity references
     while (![theScanner isAtEnd]) {
         
         [theScanner scanUpToString:@"&#" intoString: NULL];
         [theScanner scanUpToString: @";" intoString: &charEntityRef];
         
+        // If an entity reference is found, convert entity to character
         if (charEntityRef != NULL) {
             
             NSString *decimalEntity = [charEntityRef stringByReplacingOccurrencesOfString:@"&#" withString:@""];
             unichar uniChar = (unichar)[decimalEntity intValue];
             // NSLog (@"The html string is %@, replace it with %C", decimalEntity, uniChar);
             
+            // Replace all instances of a reference with the character
             cleanString = [string stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@;", charEntityRef] withString:[NSString stringWithFormat:@"%C", uniChar]];
         }
     }
@@ -110,7 +113,11 @@
             while ((!foundSpace) && (endPoint < [theNews.newsSummary length])) {
                 
                 NSString *lastChar = [theNews.newsSummary substringWithRange:NSMakeRange(endPoint, 1)];
-                if ([lastChar isEqualToString:@" "]) {
+                if ([lastChar isEqualToString:@" "]
+                    || [lastChar isEqualToString:@":"]
+                    || [lastChar isEqualToString:@","]
+                    || [lastChar isEqualToString:@"."]) {
+                    
                     foundSpace = TRUE;
                 } else {
                     endPoint++;

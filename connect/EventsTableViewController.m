@@ -106,6 +106,7 @@
     [cell.monthLabel setText:[hoursData objectForKey:@"month"]];
     [cell.dayNumLabel setText:[hoursData objectForKey:@"dayNum"]];
     [cell.dayOfWeekLabel setText:[hoursData objectForKey:@"dayOfWeek"]];
+    [cell.timeLabel setText:[hoursData objectForKey:@"time"]];
     
     return cell;
 }

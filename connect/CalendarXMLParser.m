@@ -120,7 +120,7 @@
     [yearFormatter setDateFormat:@"yyyy"];
     
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
-    [timeFormatter setDateFormat:@"hh:mm"];
+    [timeFormatter setDateFormat:@"hh:mm a"];
     
     NSDate *formattedDate = [inputFormatter dateFromString:[hoursDict objectForKey:@"start"]];
     

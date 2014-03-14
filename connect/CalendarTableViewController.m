@@ -112,8 +112,8 @@
      This Schema is an adaptation of how things were set up in the Titanium version of the application
      */
     
-    [CTData addObject:@{@"Data" : @{@"type" : @"standard", @"url" : @"newstudentprograms"}, @"Title" : @"New Student Programs"}];
-    [CTData addObject:@{@"Data" : @{@"type" : @"symposium", @"url" : @"symposium"}, @"Title" : @"OSU Scholar Symposium"}];
+    [CTData addObject:@{@"Data" : @{@"Type" : @"standard", @"Url" : @"newstudentprograms"}, @"Title" : @"New Student Programs"}];
+    [CTData addObject:@{@"Data" : @{@"Type" : @"symposium", @"Url" : @"symposium"}, @"Title" : @"OSU Scholar Symposium"}];
     
     return  CTData;
 }

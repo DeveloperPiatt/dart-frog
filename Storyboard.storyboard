@@ -120,6 +120,13 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="dayNumLabel" destination="RVj-MT-AUA" id="Hju-o0-nn7"/>
+                                    <outlet property="dayOfWeekLabel" destination="GjQ-7G-gIy" id="j2i-2d-T1T"/>
+                                    <outlet property="locationLabel" destination="Jae-3n-eIO" id="IKn-WY-UPT"/>
+                                    <outlet property="monthLabel" destination="LyL-pC-Xh0" id="1d7-8C-Cow"/>
+                                    <outlet property="subtitleLabel" destination="0B3-23-b1b" id="mTJ-wD-jBp"/>
+                                    <outlet property="timeLabel" destination="dhZ-tZ-iDG" id="Shq-6W-ELS"/>
+                                    <outlet property="titleLabel" destination="Yeb-ZB-hED" id="dls-LQ-Hqq"/>
                                     <segue destination="XRp-9D-ghI" kind="push" identifier="seeDetals" id="lRJ-HE-WKL"/>
                                 </connections>
                             </tableViewCell>
@@ -251,7 +258,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.97628071878281408" blue="0.40206171036160154" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Bowling Sign-Ups" id="iQd-0X-BCG"/>
                 </viewController>

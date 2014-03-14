@@ -35,14 +35,38 @@
     [super viewDidLoad];
     
     NSLog(@"Displaying Data For -- %@", [calendarData objectForKey:@"Title"]);
+    NSLog(@"Table Row Style -- %@", [[calendarData objectForKey:@"Data"] objectForKey:@"Type"]);
+    
+    [self setTableViewRowHeight];
     
     eventDataArray = [self getEventData];
+    [[self tableView] reloadData];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)setTableViewRowHeight {
+    /*
+     If the calendar data type is standard, row height needs to be 152
+     If the calendar data type is symposium, row height needs to be 110
+     */
+    
+    NSString *dataType = [[calendarData objectForKey:@"Data"] objectForKey:@"Type"];
+    
+    /*
+     In the future it would be nice if we could pull this from the actual cell and not
+     hard code it
+     */
+    
+    if ([dataType isEqualToString:@"standard"]) {
+        self.tableView.rowHeight = 152;
+    } else if ([dataType isEqualToString:@"symposium"]) {
+        self.tableView.rowHeight = 110;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,24 +79,33 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [eventDataArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    EventStandardCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
+    
+    NSDictionary *cellData = [parser.eventsArray objectAtIndex:indexPath.row];
+    NSDictionary *hoursData = [cellData objectForKey:@"hours"];
+    
+    [cell.titleLabel setText:[cellData objectForKey:@"title"]];
+    [cell.subtitleLabel setText:[cellData objectForKey:@"subtitle"]];
+    [cell.locationLabel setText:[cellData objectForKey:@"location"]];
+    
+    [cell.monthLabel setText:[hoursData objectForKey:@"month"]];
+    [cell.dayNumLabel setText:[hoursData objectForKey:@"dayNum"]];
+    [cell.dayOfWeekLabel setText:[hoursData objectForKey:@"dayOfWeek"]];
     
     return cell;
 }
@@ -96,7 +129,8 @@
     BOOL parseWorked = [xmlParser parse];
     
     if (parseWorked) {
-        NSLog(@"%@", parser.eventsArray);
+        NSLog(@"Parse Worked!");
+//        NSLog(@"%@", parser.eventsArray);
     } else {
         NSLog(@"Parse Failed");
     }

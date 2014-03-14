@@ -15,6 +15,9 @@
     NSDictionary *item;
     NSMutableString *title;
     NSMutableString *subTitle;
+    NSMutableString *location;
+    
+    NSMutableDictionary *hoursDict;
     
 }
 

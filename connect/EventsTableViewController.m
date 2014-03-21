@@ -9,6 +9,7 @@
 #import "EventsTableViewController.h"
 #include "CalendarXMLParser.h"
 #include "EventStandardCell.h"
+#include "EventDescriptionViewController.h"
 
 @interface EventsTableViewController () {
     NSArray *eventDataArray;
@@ -106,9 +107,22 @@
     [cell.monthLabel setText:[hoursData objectForKey:@"month"]];
     [cell.dayNumLabel setText:[hoursData objectForKey:@"dayNum"]];
     [cell.dayOfWeekLabel setText:[hoursData objectForKey:@"dayOfWeek"]];
-    [cell.timeLabel setText:[hoursData objectForKey:@"time"]];
+    [cell.timeLabel setText:[hoursData objectForKey:@"timeStart"]];
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    EventStandardCell *cell = (EventStandardCell*)[tableView cellForRowAtIndexPath:indexPath];
+    
+    UIStoryboard *storyboard = self.storyboard;
+    EventDescriptionViewController *newVC = [storyboard instantiateViewControllerWithIdentifier:@"EventDetailVC"];
+    newVC.navigationItem.title = cell.titleLabel.text;
+    newVC.eventDataDictionary = [parser.eventsArray objectAtIndex:indexPath.row];
+    
+    [self.navigationController pushViewController:newVC animated:true];
+    
 }
 
 -(NSArray*)getEventData {

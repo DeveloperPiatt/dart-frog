@@ -13,11 +13,14 @@
     NSString *element;
     
     NSDictionary *item;
-    NSMutableString *title;
-    NSMutableString *subTitle;
-    NSMutableString *location;
+    NSMutableString *eventTitle;
+    NSMutableString *eventSubTitle;
+    NSMutableString *eventLocation;
+    NSMutableString *eventLocationRoom;
     
-    NSMutableDictionary *hoursDict;
+    NSMutableString *eventDescription;
+    
+    NSMutableDictionary *eventHoursDict;
     
 }
 

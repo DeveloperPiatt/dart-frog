@@ -31,10 +31,12 @@
     if ([elementName isEqualToString:@"item"]) {
 //        NSLog(@"New Item Start");
         item = [[NSMutableDictionary alloc]init];
-        title = [[NSMutableString alloc]init];
-        subTitle = [[NSMutableString alloc]init];
-        location = [[NSMutableString alloc]init];
-        hoursDict = [[NSMutableDictionary alloc]init];
+        eventTitle = [[NSMutableString alloc]init];
+        eventSubTitle = [[NSMutableString alloc]init];
+        eventLocation = [[NSMutableString alloc]init];
+        eventHoursDict = [[NSMutableDictionary alloc]init];
+        eventDescription = [[NSMutableString alloc]init];
+        eventLocationRoom = [[NSMutableString alloc]init];
     }
     
     currentElementValue = nil;
@@ -56,37 +58,49 @@
     
     if ([elementName isEqualToString:@"title"]) {
         // do something
-        [title appendString:currentElementValue];
+        [eventTitle appendString:currentElementValue];
     }
     if ([elementName isEqualToString:@"edu.oregonstate.calendar:subtitle"]) {
         // do something
         if (currentElementValue != nil) {
-            [subTitle appendString:currentElementValue];
+            [eventSubTitle appendString:currentElementValue];
         }
     }
     if ([elementName isEqualToString:@"edu.oregonstate.calendar:Location"]) {
         if (currentElementValue != nil) {
-            [location appendString:currentElementValue];
+            [eventLocation appendString:currentElementValue];
+        }
+    }
+    if ([elementName isEqualToString:@"description"]) {
+        if (currentElementValue != nil) {
+            [eventDescription appendString:currentElementValue];
+        }
+    }
+    if ([elementName isEqualToString:@"edu.oregonstate.calendar:room"]) {
+        if (currentElementValue != nil) {
+            [eventLocationRoom appendString:currentElementValue];
         }
     }
     
     // Time
     if ([elementName isEqualToString:@"edu.oregonstate.calendar:dtstart"]) {
-        [hoursDict setObject:[NSString stringWithString:currentElementValue] forKey:@"start"];
+        [eventHoursDict setObject:[NSString stringWithString:currentElementValue] forKey:@"start"];
     }
     if ([elementName isEqualToString:@"edu.oregonstate.calendar:dtend"]) {
-        [hoursDict setObject:[NSString stringWithString:currentElementValue] forKey:@"end"];
+        [eventHoursDict setObject:[NSString stringWithString:currentElementValue] forKey:@"end"];
     }
     
     if ([elementName isEqualToString:@"item"]) {
-        [item setValue:title forKey:@"title"];
-        [item setValue:subTitle forKey:@"subtitle"];
-        [item setValue:location forKey:@"location"];
+        [item setValue:eventTitle forKey:@"title"];
+        [item setValue:eventSubTitle forKey:@"subtitle"];
+        [item setValue:eventLocation forKey:@"location"];
+        [item setValue:eventLocationRoom forKey:@"room"];
         
         [self addValuesToHoursDict];
-        [item setValue:hoursDict forKey:@"hours"];
+        [item setValue:eventHoursDict forKey:@"hours"];
+        
+        [item setValue:eventDescription forKey:@"description"];
 //        NSLog(@"New Item End");
-        NSLog(@"%@", hoursDict);
         [eventsArray addObject:item];
     }
 }
@@ -97,7 +111,7 @@
     
     NSDateFormatter *inputFormatter = [[NSDateFormatter alloc]init];
     
-    NSString *dateString = [NSString stringWithFormat:@"%@", [hoursDict objectForKey:@"start"]];
+    NSString *dateString = [NSString stringWithFormat:@"%@", [eventHoursDict objectForKey:@"start"]];
     
     NSRange pdtRange = [dateString rangeOfString:@"PDT"];
     
@@ -122,20 +136,29 @@
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
     [timeFormatter setDateFormat:@"hh:mm a"];
     
-    NSDate *formattedDate = [inputFormatter dateFromString:[hoursDict objectForKey:@"start"]];
+    NSDate *formattedDate = [inputFormatter dateFromString:[eventHoursDict objectForKey:@"start"]];
     
 //    NSLog(@"%@", [hoursDict objectForKey:@"start"]);
     
     // Day Number
-    [hoursDict setObject:[NSString stringWithFormat:@"%@", [dayNumFormatter stringFromDate:formattedDate]] forKey:@"dayNum"];
+    [eventHoursDict setObject:[NSString stringWithFormat:@"%@", [dayNumFormatter stringFromDate:formattedDate]] forKey:@"dayNum"];
     // Day of week
-    [hoursDict setObject:[NSString stringWithFormat:@"%@", [dayOfWeekFormatter stringFromDate:formattedDate]] forKey:@"dayOfWeek"];
+    [eventHoursDict setObject:[NSString stringWithFormat:@"%@", [dayOfWeekFormatter stringFromDate:formattedDate]] forKey:@"dayOfWeek"];
+    
+    [dayOfWeekFormatter setDateFormat:@"EEE"];
+    [eventHoursDict setObject:[NSString stringWithFormat:@"%@", [dayOfWeekFormatter stringFromDate:formattedDate]] forKey:@"dayOfWeekShort"];
+    
     // Month
-    [hoursDict setObject:[NSString stringWithFormat:@"%@", [monthFormatter stringFromDate:formattedDate]] forKey:@"month"];
+    [eventHoursDict setObject:[NSString stringWithFormat:@"%@", [monthFormatter stringFromDate:formattedDate]] forKey:@"month"];
     // Year
-    [hoursDict setObject:[NSString stringWithFormat:@"%@", [yearFormatter stringFromDate:formattedDate]] forKey:@"year"];
+    [eventHoursDict setObject:[NSString stringWithFormat:@"%@", [yearFormatter stringFromDate:formattedDate]] forKey:@"year"];
     // Time
-    [hoursDict setObject:[NSString stringWithFormat:@"%@", [timeFormatter stringFromDate:formattedDate]] forKey:@"time"];
+    [eventHoursDict setObject:[NSString stringWithFormat:@"%@", [timeFormatter stringFromDate:formattedDate]] forKey:@"timeStart"];
+    
+    
+    formattedDate = [inputFormatter dateFromString:[eventHoursDict objectForKey:@"end"]];
+    
+    [eventHoursDict setObject:[NSString stringWithFormat:@"%@", [timeFormatter stringFromDate:formattedDate]] forKey:@"timeEnd"];
     
 }
 

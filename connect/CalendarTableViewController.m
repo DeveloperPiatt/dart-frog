@@ -7,7 +7,7 @@
 //
 
 #import "CalendarTableViewController.h"
-#import "EventsTableViewController.h"
+#import "EventsViewController.h"
 
 @interface CalendarTableViewController ()
 
@@ -15,6 +15,7 @@
 
 @implementation CalendarTableViewController {
     NSArray *tableDataArray;
+    
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -78,12 +79,28 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     UIStoryboard *storyboard = self.storyboard;
-    EventsTableViewController *newVC = [storyboard instantiateViewControllerWithIdentifier:@"EventListVC"];
+    
+    
+    
+    
+    EventsViewController *newVC = [storyboard instantiateViewControllerWithIdentifier:@"EventVC"];
     newVC.navigationItem.title = cell.textLabel.text;
     newVC.calendarData = [tableDataArray objectAtIndex:indexPath.row];
     
-    [self.navigationController pushViewController:newVC animated:true];
+    // Putting together the data we want to use from the selected cell and passing it for the segue
+    NSDictionary *segueData = @{@"title": cell.textLabel.text, @"indexPath": indexPath};
+    [self performSegueWithIdentifier:@"customSegue" sender:segueData];
     
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Override for segue
+    EventsViewController *newVC = segue.destinationViewController;
+    
+    if([segue.identifier isEqualToString:@"customSegue"]) {
+        newVC.navigationItem.title = [sender objectForKey:@"title"];
+        newVC.calendarData = [tableDataArray objectAtIndex:[(NSIndexPath*)[sender objectForKey:@"indexPath"] row]];
+    }
 }
 
 -(NSArray*)getCalendarTableData

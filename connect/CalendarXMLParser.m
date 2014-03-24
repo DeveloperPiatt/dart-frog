@@ -107,14 +107,15 @@
 
 -(void) addValuesToHoursDict {
     // Function takes the current start/end values and adds a few extra values to the dictionary
-    // Thu, 27 Mar 2014 17:00:00 PDT
     
     NSDateFormatter *inputFormatter = [[NSDateFormatter alloc]init];
-    
     NSString *dateString = [NSString stringWithFormat:@"%@", [eventHoursDict objectForKey:@"start"]];
     
+    /*
+     Sometimes the RSS feed returns times in PST as well as PDT. Since we need to be able to set the format
+     we look at the date string and see if PDT can be found.
+     */
     NSRange pdtRange = [dateString rangeOfString:@"PDT"];
-    
     if (pdtRange.location == NSNotFound) {
         [inputFormatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss 'PST'"];
     } else {
@@ -137,8 +138,6 @@
     [timeFormatter setDateFormat:@"hh:mm a"];
     
     NSDate *formattedDate = [inputFormatter dateFromString:[eventHoursDict objectForKey:@"start"]];
-    
-//    NSLog(@"%@", [hoursDict objectForKey:@"start"]);
     
     // Day Number
     [eventHoursDict setObject:[NSString stringWithFormat:@"%@", [dayNumFormatter stringFromDate:formattedDate]] forKey:@"dayNum"];

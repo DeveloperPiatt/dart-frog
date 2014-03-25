@@ -13,4 +13,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *eventTableView;
 @property (strong, nonatomic) NSDictionary *calendarData;
 
+-(IBAction)updateCalendarRange:(UISegmentedControl*)sender;
+
 @end

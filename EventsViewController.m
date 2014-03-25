@@ -110,13 +110,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     EventStandardCell *cell = (EventStandardCell*)[tableView cellForRowAtIndexPath:indexPath];
-//
-//    UIStoryboard *storyboard = self.storyboard;
-//    EventDescriptionViewController *newVC = [storyboard instantiateViewControllerWithIdentifier:@"EventDetailVC"];
-//    newVC.navigationItem.title = cell.titleLabel.text;
-//    newVC.eventDataDictionary = [parser.eventsArray objectAtIndex:indexPath.row];
-//    
-//    [self.navigationController pushViewController:newVC animated:true];
     
     // Putting together the data we want to use from the selected cell and passing it for the segue
     NSDictionary *segueData = @{@"title": cell.titleLabel.text, @"indexPath": indexPath};
@@ -135,6 +128,7 @@
 }
 
 -(NSArray*)getEventData {
+#warning this function is deprecated and needs to be fully replaced by getEventDataForRange:
     /*
      today
      week
@@ -161,6 +155,55 @@
     
     return parser.eventsArray;
 }
+
+-(NSArray*)getEventDataForRange:(NSString*)range {
+    
+    NSURL *url = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"http://calendar.oregonstate.edu/today/%@/osu-conferences/rss20.xml", range]];
+    
+    NSData *data = [[NSData alloc]initWithContentsOfURL:url];
+    NSXMLParser *xmlParser = [[NSXMLParser alloc]initWithData:data];
+    
+    parser = [[CalendarXMLParser alloc]initParser];
+    [xmlParser setDelegate:parser];
+    
+    BOOL parseWorked = [xmlParser parse];
+    
+    if (parseWorked) {
+        NSLog(@"Parse Worked!");
+        //        NSLog(@"%@", parser.eventsArray);
+    } else {
+        NSLog(@"Parse Failed");
+    }
+    
+    return parser.eventsArray;
+}
+
+-(IBAction)updateCalendarRange:(UISegmentedControl *)sender {
+    /*
+     The calendar range is what the user changes when they want to see the events
+     for just today, this week or all of this month.
+     */
+    switch (sender.selectedSegmentIndex) {
+        case 0:
+            // today selected
+            eventDataArray = [self getEventDataForRange:@"day"];
+            break;
+        case 1:
+            // week selected
+            eventDataArray = [self getEventDataForRange:@"week"];
+            break;
+        case 2:
+            // month selected
+            eventDataArray = [self getEventDataForRange:@"month"];
+            break;
+        default:
+            break;
+    }
+    
+    [eventTableView reloadData];
+}
+
+
 
 /*
 #pragma mark - Navigation

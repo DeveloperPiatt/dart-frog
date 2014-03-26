@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CalendarXMLParser : NSObject <NSXMLParserDelegate> {
+@interface CalendarXMLParser : NSObject <NSXMLParserDelegate, NSFetchedResultsControllerDelegate> {
     NSMutableString *currentElementValue;
     NSString *element;
     

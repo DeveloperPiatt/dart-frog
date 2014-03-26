@@ -7,6 +7,18 @@
 //
 
 #import "CalendarXMLParser.h"
+#import "AppDelegate.h"
+#import "Event.h"
+
+#warning TODO
+// TODO: Set locations for events in core data
+// TODO: Add location to the list of things we check to see if event is a duplicate or not
+
+@interface CalendarXMLParser () {
+    NSManagedObjectContext *managedObjectContext;
+}
+
+@end
 
 @implementation CalendarXMLParser
 
@@ -15,6 +27,9 @@
 -(id)initParser {
     if (self == [super init]) {
         eventsArray = [[NSMutableArray alloc]init];
+        
+        AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
+        managedObjectContext = [appdelegate managedObjectContext];
     }
     return self;
 }
@@ -100,8 +115,98 @@
         [item setValue:eventHoursDict forKey:@"hours"];
         
         [item setValue:eventDescription forKey:@"description"];
-//        NSLog(@"New Item End");
+        
+        
+        [self createManagedObjectsWithData:item];
+        
+        
         [eventsArray addObject:item];
+    }
+}
+
+-(void)createManagedObjectsWithData:(NSDictionary*)itemData {
+    
+    NSDictionary *hoursDict = [itemData objectForKey:@"hours"];
+    
+    NSString *eventDate = [hoursDict objectForKey:@"start"];
+    NSString *eventName = [itemData objectForKey:@"title"];
+    
+    NSDateFormatter *inputFormatter = [[NSDateFormatter alloc]init];
+    
+    NSRange pdtRange = [eventDate rangeOfString:@"PDT"];
+    if (pdtRange.location == NSNotFound) {
+        [inputFormatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss 'PST'"];
+    } else {
+        [inputFormatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss 'PDT'"];
+    }
+    
+    NSDate *formattedDate = [inputFormatter dateFromString:eventDate];
+    
+    if (![self eventExistsWithName:eventName AndDate:formattedDate]) {
+        NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:managedObjectContext];
+        
+        Event *newEvent = [[Event alloc]initWithEntity:entityDesc insertIntoManagedObjectContext:managedObjectContext];
+        
+        newEvent.eventName = [itemData objectForKey:@"title"];
+        newEvent.eventRoom = [itemData objectForKey:@"subtitle"];
+        newEvent.eventDetails = [itemData objectForKey:@"description"];
+        
+        
+        
+        newEvent.eventDate = formattedDate;
+        newEvent.eventTime = [NSString stringWithFormat:@"%@-%@", [hoursDict objectForKey:@"timeStart"], [hoursDict objectForKey:@"timeEnd"]];
+        
+        [self saveManagedObjectContext];
+    } else {
+        NSLog(@"events already exist");
+    }
+    
+    
+    
+}
+
+-(BOOL)eventExistsWithName:(NSString*)eventName AndDate:(NSDate*)eventDate
+{
+    //Create object that describes entity, name must match core data entity name, pass managedObjectContext
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    [fetchRequest setEntity:entityDesc];
+    
+    //Perform fetch request on entity that fits the description
+    //Predicates used to select entities based on certain criteria
+    NSSortDescriptor *sortDescriptorIndex = [[NSSortDescriptor alloc]initWithKey:@"eventName" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc]initWithObjects: sortDescriptorIndex, nil];
+    
+    fetchRequest.sortDescriptors = sortDescriptors;
+    
+    NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"eventName = %@", eventName];
+    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"eventDate = %@", eventDate];
+    
+    NSPredicate *predicates = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate1, predicate2]];
+    [fetchRequest setPredicate:predicates];
+    
+    NSError *error;
+    NSArray *matchingData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    // Returns true if event with same name and date already exists in core data
+    // As far as I know, this should be enough data to make this check accurately
+    if ([matchingData count] > 0) {
+        return true;
+    }
+    
+    return false;
+}
+
+
+
+-(void)saveManagedObjectContext
+{
+    NSError *error;
+    if(![managedObjectContext save:&error]) {
+        NSLog(@"SaveFailed: %@", [error localizedDescription]);
+    }
+    else {
+        NSLog(@"SaveSucceeded");
     }
 }
 

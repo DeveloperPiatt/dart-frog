@@ -9,7 +9,7 @@ The OSU Connect Mobile app is designed to facilitate new student involvement in 
 Events - Gives the dates and locations of upcoming programs and symposiums<br/>
 Food - A list of restaurants and dining halls and their hours of operation<br/>
 FAQ - Answers to frequently asked questions regarding the CONNECT experience<br/>
-Map - Allows users to view the campus using Google Maps and search for buildings<br/>
+Map - Allows users to search for building locations and view the campus using Google Maps<br/>
 Social - Links to the New Student Twitter feed and Facebook page<br/>
 News - A collection of articles related to the CONNECT experience<br/>
 Contact - The OSU campus directory<br/>

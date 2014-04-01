@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 Oregon State University. All rights reserved.
 //
 
+#warning TODO tasks
+// TODO: If no internet connection we need to gray out the segmented controller and just show events for this month from core data
+
 #import "EventsViewController.h"
 #include "CalendarXMLParser.h"
 #include "EventStandardCell.h"

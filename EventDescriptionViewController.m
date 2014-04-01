@@ -6,6 +6,12 @@
 //  Copyright (c) 2014 Oregon State University. All rights reserved.
 //
 
+#warning TODO tasks
+// TODO: Make the favorite circle clickable
+// TODO: When user clicks favorite button it needs to highlight the button
+// TODO: When user clicks favorite button we need to add it to DB as a favorited event
+// TODO: When a location room is not provided, the detail webview comes up too high and clips off some of the location pin and favorite circle
+
 #import "EventDescriptionViewController.h"
 
 @interface EventDescriptionViewController ()

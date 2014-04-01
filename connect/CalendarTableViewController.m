@@ -76,16 +76,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    NSLog(@"Row selected");
+    
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
-    UIStoryboard *storyboard = self.storyboard;
-    
-    
-    
-    
-    EventsViewController *newVC = [storyboard instantiateViewControllerWithIdentifier:@"EventVC"];
-    newVC.navigationItem.title = cell.textLabel.text;
-    newVC.calendarData = [tableDataArray objectAtIndex:indexPath.row];
     
     // Putting together the data we want to use from the selected cell and passing it for the segue
     NSDictionary *segueData = @{@"title": cell.textLabel.text, @"indexPath": indexPath};
@@ -94,6 +87,9 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    NSLog(@"Preparing!");
+    
     // Override for segue
     EventsViewController *newVC = segue.destinationViewController;
     

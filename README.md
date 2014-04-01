@@ -14,7 +14,7 @@ Social - Links to the New Student Twitter feed and Facebook page<br/>
 News - A collection of articles related to the CONNECT experience<br/>
 Contact - The OSU campus directory<br/>
 Photos - OSU Flickr photos and wallpapers<br/>
-Feedback - Allows users to ieve feedback about the app<br/>
+Feedback - Allows users to provide feedback about the app<br/>
 
 
 System Requirements and Installation Instructions

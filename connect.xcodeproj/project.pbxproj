@@ -24,7 +24,6 @@
 		6A0CAC691891DAE300E7E718 /* favorite_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0CAC671891DAE300E7E718 /* favorite_selected.png */; };
 		6A160D4B18BBA2F100CA6205 /* Hour.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A160D4A18BBA2F100CA6205 /* Hour.m */; };
 		6A160D5118BFE7AE00CA6205 /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A160D5018BFE7AE00CA6205 /* Restaurant.m */; };
-		6A5FAE1318E0C5D200C8848B /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A5FAE1218E0C5D200C8848B /* EventsViewController.m */; };
 		6A693E9018B53D1400D9289C /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A693E8F18B53D1400D9289C /* CoreDataHelper.m */; };
 		6A6D0E5F188F3FDF00CAD90B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6D0E5E188F3FDF00CAD90B /* Foundation.framework */; };
 		6A6D0E61188F3FDF00CAD90B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6D0E60188F3FDF00CAD90B /* CoreGraphics.framework */; };
@@ -49,6 +48,7 @@
 		E00FB50A18986D04003A8327 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = E00FB50918986D04003A8327 /* twitter.png */; };
 		E00FB50C18986D36003A8327 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = E00FB50B18986D36003A8327 /* facebook.png */; };
 		E00FB50E18986E8F003A8327 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E00FB50D18986E8F003A8327 /* MapKit.framework */; };
+		E03517A518EB70C6009EB80C /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A5FAE1218E0C5D200C8848B /* EventsViewController.m */; };
 		E03C4EDA18B2E7DE00B93C1C /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4ED918B2E7DE00B93C1C /* Tweet.m */; };
 		E03C4EDD18B2E7DF00B93C1C /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EDC18B2E7DF00B93C1C /* Contact.m */; };
 		E03C4EE018B2E7DF00B93C1C /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EDF18B2E7DF00B93C1C /* News.m */; };
@@ -97,7 +97,6 @@
 		6A160D4A18BBA2F100CA6205 /* Hour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hour.m; sourceTree = "<group>"; };
 		6A160D4F18BFE7AE00CA6205 /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
 		6A160D5018BFE7AE00CA6205 /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
-		6A160D5218C0036500CA6205 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		6A5FAE1118E0C5D200C8848B /* EventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventsViewController.h; path = ../EventsViewController.h; sourceTree = "<group>"; };
 		6A5FAE1218E0C5D200C8848B /* EventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventsViewController.m; path = ../EventsViewController.m; sourceTree = "<group>"; };
 		6A693E8E18B53D1400D9289C /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
@@ -540,6 +539,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E03517A518EB70C6009EB80C /* EventsViewController.m in Sources */,
 				E03C4EDD18B2E7DF00B93C1C /* Contact.m in Sources */,
 				E03C4EEC18B2E85100B93C1C /* FoodTableViewController.m in Sources */,
 				6A05306218A0732D00B3CD04 /* FAQ.m in Sources */,

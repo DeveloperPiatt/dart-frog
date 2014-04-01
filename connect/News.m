@@ -15,5 +15,7 @@
 @dynamic newsIndex;
 @dynamic newsSummary;
 @dynamic newsTitle;
+@dynamic newsLink;
+@dynamic newsContent;
 
 @end

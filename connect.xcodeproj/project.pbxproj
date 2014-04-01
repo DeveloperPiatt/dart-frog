@@ -52,6 +52,9 @@
 		E03C4EF118B7CCA800B93C1C /* FoodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EF018B7CCA800B93C1C /* FoodCell.m */; };
 		E03C4EFD18BC008C00B93C1C /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EFC18BC008C00B93C1C /* ContactsViewController.m */; };
 		E03C4F0418BC0AF700B93C1C /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4F0318BC0AF700B93C1C /* ContactCell.m */; };
+		E03C4F0918BFE47200B93C1C /* NewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4F0818BFE47200B93C1C /* NewsTableViewController.m */; };
+		E03C4F0F18C10D7D00B93C1C /* NewsXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4F0E18C10D7D00B93C1C /* NewsXMLParser.m */; };
+		E03C4F1218C549A100B93C1C /* NewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4F1118C549A100B93C1C /* NewsCell.m */; };
 		E06CA0F0188F4632003BE618 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E06CA0EF188F4632003BE618 /* Storyboard.storyboard */; };
 		E0C821DD18A0675A00598450 /* FaqViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C821DC18A0675A00598450 /* FaqViewController.m */; };
 		E0C821E018A9A39100598450 /* FAQCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C821DF18A9A39100598450 /* FAQCell.m */; };
@@ -130,6 +133,13 @@
 		E03C4EFC18BC008C00B93C1C /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsViewController.m; path = ../ContactsViewController.m; sourceTree = "<group>"; };
 		E03C4F0218BC0AF700B93C1C /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
 		E03C4F0318BC0AF700B93C1C /* ContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCell.m; sourceTree = "<group>"; };
+		E03C4F0718BFE47200B93C1C /* NewsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsTableViewController.h; sourceTree = "<group>"; };
+		E03C4F0818BFE47200B93C1C /* NewsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsTableViewController.m; sourceTree = "<group>"; };
+		E03C4F0A18C0012F00B93C1C /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		E03C4F0D18C10D7D00B93C1C /* NewsXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsXMLParser.h; sourceTree = "<group>"; };
+		E03C4F0E18C10D7D00B93C1C /* NewsXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsXMLParser.m; sourceTree = "<group>"; };
+		E03C4F1018C549A100B93C1C /* NewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCell.h; sourceTree = "<group>"; };
+		E03C4F1118C549A100B93C1C /* NewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCell.m; sourceTree = "<group>"; };
 		E06CA0EF188F4632003BE618 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		E0C821DB18A0675A00598450 /* FaqViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FaqViewController.h; path = ../FaqViewController.h; sourceTree = "<group>"; };
 		E0C821DC18A0675A00598450 /* FaqViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FaqViewController.m; path = ../FaqViewController.m; sourceTree = "<group>"; };
@@ -256,6 +266,7 @@
 		6A6D0E66188F3FDF00CAD90B /* connect */ = {
 			isa = PBXGroup;
 			children = (
+				E03C4F0618BFE3EF00B93C1C /* News */,
 				6A693E9118B5590C00D9289C /* Helper Classes */,
 				6A693E8D18B5392300D9289C /* Core Data */,
 				6A6D0E6F188F3FDF00CAD90B /* AppDelegate.h */,
@@ -340,6 +351,27 @@
 				E03C4F0318BC0AF700B93C1C /* ContactCell.m */,
 			);
 			name = PhoneNumbers;
+			sourceTree = "<group>";
+		};
+		E03C4F0618BFE3EF00B93C1C /* News */ = {
+			isa = PBXGroup;
+			children = (
+				E03C4F0718BFE47200B93C1C /* NewsTableViewController.h */,
+				E03C4F0818BFE47200B93C1C /* NewsTableViewController.m */,
+				E03C4F1018C549A100B93C1C /* NewsCell.h */,
+				E03C4F1118C549A100B93C1C /* NewsCell.m */,
+				E03C4F0C18C10D5900B93C1C /* Parser Class */,
+			);
+			name = News;
+			sourceTree = "<group>";
+		};
+		E03C4F0C18C10D5900B93C1C /* Parser Class */ = {
+			isa = PBXGroup;
+			children = (
+				E03C4F0D18C10D7D00B93C1C /* NewsXMLParser.h */,
+				E03C4F0E18C10D7D00B93C1C /* NewsXMLParser.m */,
+			);
+			name = "Parser Class";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -457,6 +489,7 @@
 				E03C4EDD18B2E7DF00B93C1C /* Contact.m in Sources */,
 				E03C4EEC18B2E85100B93C1C /* FoodTableViewController.m in Sources */,
 				6A05306218A0732D00B3CD04 /* FAQ.m in Sources */,
+				E03C4F0F18C10D7D00B93C1C /* NewsXMLParser.m in Sources */,
 				E03C4EE318B2E7DF00B93C1C /* Event.m in Sources */,
 				6A160D5118BFE7AE00CA6205 /* Restaurant.m in Sources */,
 				E03C4EE018B2E7DF00B93C1C /* News.m in Sources */,
@@ -464,11 +497,13 @@
 				E03C4EE618B2E7DF00B93C1C /* Location.m in Sources */,
 				6A6D0E71188F3FDF00CAD90B /* AppDelegate.m in Sources */,
 				E0C821E018A9A39100598450 /* FAQCell.m in Sources */,
+				E03C4F0918BFE47200B93C1C /* NewsTableViewController.m in Sources */,
 				E03C4EDA18B2E7DE00B93C1C /* Tweet.m in Sources */,
 				E0C821DD18A0675A00598450 /* FaqViewController.m in Sources */,
 				E03C4F0418BC0AF700B93C1C /* ContactCell.m in Sources */,
 				6A6D0E74188F3FDF00CAD90B /* connect.xcdatamodeld in Sources */,
 				E03C4EFD18BC008C00B93C1C /* ContactsViewController.m in Sources */,
+				E03C4F1218C549A100B93C1C /* NewsCell.m in Sources */,
 				E03C4EF118B7CCA800B93C1C /* FoodCell.m in Sources */,
 				6A6D0E6D188F3FDF00CAD90B /* main.m in Sources */,
 				6A160D4B18BBA2F100CA6205 /* Hour.m in Sources */,
@@ -588,6 +623,7 @@
 		6A6D0E8E188F3FDF00CAD90B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -605,6 +641,7 @@
 		6A6D0E8F188F3FDF00CAD90B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

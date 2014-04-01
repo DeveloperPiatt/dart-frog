@@ -13,8 +13,10 @@
 @interface News : NSManagedObject
 
 @property (nonatomic, retain) NSString * newsDate;
-@property (nonatomic, retain) NSNumber * newsIndex;
+@property NSInteger * newsIndex;
 @property (nonatomic, retain) NSString * newsSummary;
 @property (nonatomic, retain) NSString * newsTitle;
+@property (nonatomic, retain) NSString * newsLink;
+@property (nonatomic, retain) NSString * newsContent;
 
 @end

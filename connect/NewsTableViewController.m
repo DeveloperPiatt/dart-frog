@@ -56,9 +56,7 @@
     
     BOOL worked = [xmlParser parse];
     
-    if (worked) {
-        NSLog(@"Items found: %i", [theParser.xmlArray count]);
-    } else {
+    if (!worked) {
         NSLog(@"Parser failed");
     }
     

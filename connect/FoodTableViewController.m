@@ -39,7 +39,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     cData = [[CoreDataHelper alloc]init];
     //Creates and returns managed object of AppDelegate class
     AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];

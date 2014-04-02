@@ -12,11 +12,14 @@
 #import "EventsViewController.h"
 #include "CalendarXMLParser.h"
 #include "EventStandardCell.h"
+#include "EventSymposiumCell.h"
 #include "EventDescriptionViewController.h"
 
 @interface EventsViewController () {
     NSArray *eventDataArray;
     CalendarXMLParser *parser;
+    
+    NSString *_tableRowType;
 }
 
 @end
@@ -42,6 +45,7 @@
     NSLog(@"Displaying Data For -- %@", [calendarData objectForKey:@"Title"]);
     NSLog(@"Table Row Style -- %@", [[calendarData objectForKey:@"Data"] objectForKey:@"Type"]);
     
+    _tableRowType = [[calendarData objectForKey:@"Data"] objectForKey:@"Type"];
     [self setTableViewRowHeight];
     
     eventDataArray = [self getEventData];
@@ -52,18 +56,13 @@
     /*
      If the calendar data type is standard, row height needs to be 152
      If the calendar data type is symposium, row height needs to be 110
-     */
-    
-    NSString *dataType = [[calendarData objectForKey:@"Data"] objectForKey:@"Type"];
-    
-    /*
+     
      In the future it would be nice if we could pull this from the actual cell and not
      hard code it
      */
-    
-    if ([dataType isEqualToString:@"standard"]) {
+    if ([_tableRowType isEqualToString:@"standard"]) {
         eventTableView.rowHeight = 152;
-    } else if ([dataType isEqualToString:@"symposium"]) {
+    } else if ([_tableRowType isEqualToString:@"symposium"]) {
         eventTableView.rowHeight = 110;
     }
 }
@@ -90,22 +89,33 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    EventStandardCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
     NSDictionary *cellData = [parser.eventsArray objectAtIndex:indexPath.row];
     NSDictionary *hoursData = [cellData objectForKey:@"hours"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_tableRowType forIndexPath:indexPath];
     
-    [cell.titleLabel setText:[cellData objectForKey:@"title"]];
-    [cell.subtitleLabel setText:[cellData objectForKey:@"subtitle"]];
-    [cell.locationLabel setText:[cellData objectForKey:@"location"]];
     
-    [cell.monthLabel setText:[hoursData objectForKey:@"month"]];
-    [cell.dayNumLabel setText:[hoursData objectForKey:@"dayNum"]];
-    [cell.dayOfWeekLabel setText:[hoursData objectForKey:@"dayOfWeek"]];
-    [cell.timeLabel setText:[hoursData objectForKey:@"timeStart"]];
+    // Checks to see if standard or symposium, casts the cell as correct class and modifies properties
+    if ([_tableRowType isEqualToString:@"standard"]) {
+        EventStandardCell *aCell = (EventStandardCell*)cell;
+        
+        [aCell.titleLabel setText:[cellData objectForKey:@"title"]];
+        [aCell.subtitleLabel setText:[cellData objectForKey:@"subtitle"]];
+        [aCell.locationLabel setText:[cellData objectForKey:@"location"]];
+        
+        [aCell.monthLabel setText:[hoursData objectForKey:@"month"]];
+        [aCell.dayNumLabel setText:[hoursData objectForKey:@"dayNum"]];
+        [aCell.dayOfWeekLabel setText:[hoursData objectForKey:@"dayOfWeek"]];
+        [aCell.timeLabel setText:[hoursData objectForKey:@"timeStart"]];
+    }
+    
+    if ([_tableRowType isEqualToString:@"symposium"]) {
+        EventSymposiumCell *aCell = (EventSymposiumCell*)cell;
+        
+        [aCell.titleLabel setText:[cellData objectForKey:@"title"]];
+        [aCell.timeLabel setText:[hoursData objectForKey:@"timeEnd"]];
+        [aCell.locationLabel setText:[cellData objectForKey:@"location"]];
+        [aCell.roomLabel setText:[cellData objectForKey:@"room"]];
+    }
     
     return cell;
 }

@@ -22,6 +22,7 @@
 		6A0CAC6518919F9100E7E718 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0CAC5918919F9100E7E718 /* star.png */; };
 		6A0CAC681891DAE300E7E718 /* favorite_not_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0CAC661891DAE300E7E718 /* favorite_not_selected.png */; };
 		6A0CAC691891DAE300E7E718 /* favorite_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A0CAC671891DAE300E7E718 /* favorite_selected.png */; };
+		6A15C48918EC8034003041FA /* EventSymposiumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A15C48818EC8034003041FA /* EventSymposiumCell.m */; };
 		6A160D4B18BBA2F100CA6205 /* Hour.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A160D4A18BBA2F100CA6205 /* Hour.m */; };
 		6A160D5118BFE7AE00CA6205 /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A160D5018BFE7AE00CA6205 /* Restaurant.m */; };
 		6A5FAE1318E0C5D200C8848B /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A5FAE1218E0C5D200C8848B /* EventsViewController.m */; };
@@ -90,6 +91,8 @@
 		6A0CAC5918919F9100E7E718 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		6A0CAC661891DAE300E7E718 /* favorite_not_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite_not_selected.png; sourceTree = "<group>"; };
 		6A0CAC671891DAE300E7E718 /* favorite_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite_selected.png; sourceTree = "<group>"; };
+		6A15C48718EC8034003041FA /* EventSymposiumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventSymposiumCell.h; sourceTree = "<group>"; };
+		6A15C48818EC8034003041FA /* EventSymposiumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventSymposiumCell.m; sourceTree = "<group>"; };
 		6A160D4918BBA2F100CA6205 /* Hour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hour.h; sourceTree = "<group>"; };
 		6A160D4A18BBA2F100CA6205 /* Hour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hour.m; sourceTree = "<group>"; };
 		6A160D4F18BFE7AE00CA6205 /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
@@ -341,6 +344,8 @@
 			children = (
 				6A8AE47A18C7480100A055A7 /* EventStandardCell.h */,
 				6A8AE47B18C7480100A055A7 /* EventStandardCell.m */,
+				6A15C48718EC8034003041FA /* EventSymposiumCell.h */,
+				6A15C48818EC8034003041FA /* EventSymposiumCell.m */,
 			);
 			name = "Table Cell";
 			sourceTree = "<group>";
@@ -526,6 +531,7 @@
 				E0C821DD18A0675A00598450 /* FaqViewController.m in Sources */,
 				E03C4F0418BC0AF700B93C1C /* ContactCell.m in Sources */,
 				6A6D0E74188F3FDF00CAD90B /* connect.xcdatamodeld in Sources */,
+				6A15C48918EC8034003041FA /* EventSymposiumCell.m in Sources */,
 				E03C4EFD18BC008C00B93C1C /* ContactsViewController.m in Sources */,
 				E03C4EF118B7CCA800B93C1C /* FoodCell.m in Sources */,
 				6A6D0E6D188F3FDF00CAD90B /* main.m in Sources */,

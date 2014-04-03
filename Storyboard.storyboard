@@ -396,14 +396,14 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5LA-oo-H2W">
-                                        <rect key="frame" x="20" y="87" width="280" height="300"/>
+                                        <rect key="frame" x="20" y="96" width="280" height="300"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type your comments and suggestions here" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dna-Or-NZa">
-                                        <rect key="frame" x="25" y="217" width="310" height="19"/>
+                                        <rect key="frame" x="20" y="227" width="312" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" none="YES" staticText="YES" summaryElement="YES" notEnabled="YES"/>
@@ -868,20 +868,23 @@
             </objects>
             <point key="canvasLocation" x="1195" y="-704"/>
         </scene>
-        <!--View Controller - Story-->
+        <!--Story View Controller - Story-->
         <scene sceneID="syr-Ka-5Hu">
             <objects>
-                <viewController title="Story" id="5sD-O2-4PX" sceneMemberID="viewController">
-                    <webView key="view" contentMode="scaleToFill" id="pZ5-Ow-jmP">
+                <viewController title="Story" id="5sD-O2-4PX" customClass="StoryViewController" sceneMemberID="viewController">
+                    <webView key="view" contentMode="scaleToFill" id="Ndj-5X-h7Z">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </webView>
                     <navigationItem key="navigationItem" id="1z2-hb-jDx"/>
+                    <connections>
+                        <outlet property="storyWebview" destination="Ndj-5X-h7Z" id="l6d-OQ-yZu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fbf-1Y-HEL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1222" y="-1466"/>
+            <point key="canvasLocation" x="1250" y="-1490"/>
         </scene>
         <!--News Table View Controller - News-->
         <scene sceneID="mQ0-zq-b68">
@@ -928,12 +931,14 @@
                                     <outlet property="storyDate" destination="Vey-XA-Xd5" id="QtD-Yg-Bib"/>
                                     <outlet property="storyDescript" destination="nua-Ol-VAP" id="ZFN-CZ-Kyg"/>
                                     <outlet property="storyTitle" destination="XgQ-b3-6sD" id="VKh-kY-rsf"/>
-                                    <segue destination="5sD-O2-4PX" kind="push" id="2DK-hs-eKA"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="News" id="bZa-VR-tHr"/>
+                    <connections>
+                        <segue destination="5sD-O2-4PX" kind="push" identifier="customSegue" id="Aqc-kW-5bE"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fjh-bV-99u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

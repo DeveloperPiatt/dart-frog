@@ -49,6 +49,8 @@
 		E00FB50C18986D36003A8327 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = E00FB50B18986D36003A8327 /* facebook.png */; };
 		E00FB50E18986E8F003A8327 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E00FB50D18986E8F003A8327 /* MapKit.framework */; };
 		E03517A518EB70C6009EB80C /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A5FAE1218E0C5D200C8848B /* EventsViewController.m */; };
+		E03517AB18ECC010009EB80C /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E03517AA18ECC010009EB80C /* FeedbackViewController.m */; };
+		E03517AE18ECC3C1009EB80C /* StoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E03517AD18ECC3C1009EB80C /* StoryViewController.m */; };
 		E03C4EDA18B2E7DE00B93C1C /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4ED918B2E7DE00B93C1C /* Tweet.m */; };
 		E03C4EDD18B2E7DF00B93C1C /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EDC18B2E7DF00B93C1C /* Contact.m */; };
 		E03C4EE018B2E7DF00B93C1C /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = E03C4EDF18B2E7DF00B93C1C /* News.m */; };
@@ -132,6 +134,10 @@
 		E00FB50918986D04003A8327 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		E00FB50B18986D36003A8327 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 		E00FB50D18986E8F003A8327 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		E03517A918ECC010009EB80C /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		E03517AA18ECC010009EB80C /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		E03517AC18ECC3C1009EB80C /* StoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryViewController.h; sourceTree = "<group>"; };
+		E03517AD18ECC3C1009EB80C /* StoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryViewController.m; sourceTree = "<group>"; };
 		E03C4ED818B2E7DE00B93C1C /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tweet.h; path = connect/Tweet.h; sourceTree = "<group>"; };
 		E03C4ED918B2E7DE00B93C1C /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tweet.m; path = connect/Tweet.m; sourceTree = "<group>"; };
 		E03C4EDB18B2E7DF00B93C1C /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Contact.h; path = connect/Contact.h; sourceTree = "<group>"; };
@@ -280,6 +286,7 @@
 		6A6D0E66188F3FDF00CAD90B /* connect */ = {
 			isa = PBXGroup;
 			children = (
+				E03517A818ECBFF3009EB80C /* Feedback */,
 				E03C4F0618BFE3EF00B93C1C /* News */,
 				6A693E9118B5590C00D9289C /* Helper Classes */,
 				6A693E8D18B5392300D9289C /* Core Data */,
@@ -373,6 +380,15 @@
 			name = Social;
 			sourceTree = "<group>";
 		};
+		E03517A818ECBFF3009EB80C /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				E03517A918ECC010009EB80C /* FeedbackViewController.h */,
+				E03517AA18ECC010009EB80C /* FeedbackViewController.m */,
+			);
+			name = Feedback;
+			sourceTree = "<group>";
+		};
 		E03C4EED18B2E88C00B93C1C /* FAQ */ = {
 			isa = PBXGroup;
 			children = (
@@ -414,6 +430,8 @@
 				E03C4F1018C549A100B93C1C /* NewsCell.h */,
 				E03C4F1118C549A100B93C1C /* NewsCell.m */,
 				E03C4F0C18C10D5900B93C1C /* Parser Class */,
+				E03517AC18ECC3C1009EB80C /* StoryViewController.h */,
+				E03517AD18ECC3C1009EB80C /* StoryViewController.m */,
 			);
 			name = News;
 			sourceTree = "<group>";
@@ -542,6 +560,7 @@
 				E03517A518EB70C6009EB80C /* EventsViewController.m in Sources */,
 				E03C4EDD18B2E7DF00B93C1C /* Contact.m in Sources */,
 				E03C4EEC18B2E85100B93C1C /* FoodTableViewController.m in Sources */,
+				E03517AB18ECC010009EB80C /* FeedbackViewController.m in Sources */,
 				6A05306218A0732D00B3CD04 /* FAQ.m in Sources */,
 				E03C4F0F18C10D7D00B93C1C /* NewsXMLParser.m in Sources */,
 				E03C4EE318B2E7DF00B93C1C /* Event.m in Sources */,
@@ -566,6 +585,7 @@
 				6A8A3E6218C743D8004796A1 /* EventsTableViewController.m in Sources */,
 				6A8AE48018C7834B00A055A7 /* CalendarXMLParser.m in Sources */,
 				6A160D4B18BBA2F100CA6205 /* Hour.m in Sources */,
+				E03517AE18ECC3C1009EB80C /* StoryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

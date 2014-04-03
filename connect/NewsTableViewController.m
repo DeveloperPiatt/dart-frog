@@ -10,10 +10,10 @@
 #import "CoreDataHelper.h"
 #import "NewsXMLParser.h"
 #import "NewsCell.h"
+#import "StoryViewController.h"
 
 
 @interface NewsTableViewController () {
-    
     NSManagedObjectContext *managedObjectContext;
     NewsXMLParser *theParser;
 }
@@ -96,6 +96,41 @@
 
     return cell;
 }
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NewsCell *cell = (NewsCell*)[tableView cellForRowAtIndexPath:indexPath];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc]init];
+    
+    NSEntityDescription *descript = [NSEntityDescription entityForName:@"News" inManagedObjectContext:managedObjectContext];
+    [request setEntity:descript];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"newsTitle == %@", cell.storyTitle.text];
+    [request setPredicate:predicate];
+    
+    NSError *error;
+    
+    News *entity = [[managedObjectContext executeFetchRequest:request error:&error] objectAtIndex:0];
+    
+    NSDictionary *segueData = @{@"title": entity.newsTitle, @"article":entity.newsContent};
+    [self performSegueWithIdentifier:@"customSegue" sender:segueData];
+    
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    NSLog(@"Preparing!");
+    
+    // Override for segue
+    StoryViewController *storyVC = segue.destinationViewController;
+    
+    if([segue.identifier isEqualToString:@"customSegue"]) {
+        storyVC.navigationItem.title = [sender objectForKey:@"title"];
+        storyVC.articleContent = [sender objectForKey:@"article"];
+    }
+}
+
 # pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
